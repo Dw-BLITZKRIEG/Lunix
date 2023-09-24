@@ -4689,15 +4689,17 @@
           {
             unknown: ["Unknown", null],
             local: ["Local", null],
+            london: ["Europe", 2],
             worldwide: ["Worldwide", null],
-            virginia: ["US East", -7],
+          
+            virginia: ["US East", 2],
             montreal: ["US East", -7],
                                     oregon: ["US West", -4],
             frankfurt: ["Europe", 2],
             sv: ["US West", -7],
             la: ["US West", -7],
             germany: ["Europe", 2],
-            london: ["Europe", 1],
+
             singapore: ["Asia", 8]
           },
           [
@@ -4730,24 +4732,27 @@
             at: p.railway("arras"),
              featured: 1, // For Featured Status.
           },
+                                          {
+                    visible: 0,
+            id: "Fly-Event",
+            type: "dev",
+            code: "flyio-london-x",
+            at: p.flyio("arras"),
+            
+            prefer: 1,
+             featured: 1, // For Featured Status.
+
+          },
           {
             visible: 0,
             id: "Glitch-Developer",
             type: "dev",
             code: "glitch-virginia-f",
             at: p.glitch("arrasio5"),
-            prefer: !0,
+
             featured: 0 // For Featured Status.
                                  },
-                                {
-                    visible: 0,
-            id: "Flyio-Event",
-            type: "main",
-            code: "flyio-worldwide-x",
-            at: p.flyio("arras"),
-             featured: 1, // For Featured Status.
 
-          },
           {
             visible: 1,
             id: "Render-Developer",
