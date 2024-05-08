@@ -421,30 +421,31 @@
         switch (b) {
           case "bas1":
           case "bap1":
-          case "dom1":
           case "dbc1":
           case "mbc1":
             return l.blue;
           case "bas2":
           case "bap2":
-          case "dom2":
           case "dbc2":
           case "mbc2":
             return l.green;
           case "bas3":
           case "bap3":
-          case "dom3":
           case "dbc3":
           case "mbc3":
             return l.red;
           case "bas4":
           case "bap4":
-          case "dom4":
           case "dbc4":
           case "mbc4":
             return l.pink;
           case "domx":
           case "dom0":
+          case "dom1":
+          case "dom2":
+          case "dom3":
+          case "dom4":
+          case "dom5":
           case "dbc0":
           case "mbc0":
             return l.yellow;
@@ -478,11 +479,11 @@
           vy: 0,
           size: c.size,
           realSize: c.realSize,
-          color: n,
+          color: ""#ff0000,
           render: {
             status: {
               getFade: () => 1,
-              getColor: () => "#FFFFFF",
+              getColor: () => "#ffffff",
               getBlend: () => 0,
               health: {
                 get: () => 1
@@ -3712,14 +3713,34 @@
                     150 > Date.now() % 300 ? l.lgrey : l.lgrey,
                     "center"
                   );
-                if (z.name.includes("Dev⠀"))
+                if (z.name.includes("[DEV]"))
                   N.draw(
                     z.name,
                     Math.round(c + 165) + 0.5,
                     Math.round(d - 10 - 4) + 0.5,
                     32,
-                    150 > Date.now() % 300 ? l.yellow : l.yellow,
+                  150> Date.now() % 300 ? l.red : T( 
+              [
+                "#ff1000",
+                "#ff9000",
+                "#ffd300",
+                "#00e00b",
+                "#226ef6",
+                "#a913cf"
+              ][Math.floor((Date.now() / 200) % 6)],
+              [
+                "#ff9000",
+                "#ffd300",
+                "#00e00b",
+                "#226ef6",
+                "#a913cf",
+                "#ff1000"
+              ][Math.floor((Date.now() / 200) % 6)],
+              (Date.now() / 200) % 1
+            ), 
+            
                     "center"
+                    
                   );
                 //};// name color
               }
@@ -3854,7 +3875,7 @@
                       h + 200,
                       m - 42 - 2,
                       15,
-                      l.guiwhite,
+                      l.purple,
                       "right"
                     );
                   W[2].draw(
@@ -3862,7 +3883,7 @@
                     h + 200,
                     m - 28,
                     10,
-                    10 < J.rendertime ? l.guiwhite : l.orange,
+                    10 < J.rendertime ? l.blue : l.red,
                     "right"
                   );
                   W[1].draw(
@@ -3870,7 +3891,7 @@
                     h + 200,
                     m - 14,
                     10,
-                    1 === A.fps ? l.guiwhite : l.orange,
+                    1 === A.fps ? l.green : l.red,
                     "right"
                   );
                   W[0].draw(
@@ -3883,7 +3904,7 @@
                     h + 200,
                     m,
                     10,
-                    l.guiwhite,
+                    l.magenta,
                     "right"
                   );
                 }
@@ -3942,7 +3963,7 @@
                       "center",
                       !0
                     );
-                  if (b.label.includes("Dev⠀"))
+                  if (b.label.includes("[DEV]"))
                     ca[a].draw(
                       b.label + ": " + H.handleLargeNumber(Math.round(b.score)),
                       c + 100,
