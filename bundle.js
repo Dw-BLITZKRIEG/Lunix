@@ -3803,7 +3803,7 @@
                   (m -= 40));
                 if (B.graphical.screenshotMode)
                   W[6].draw(
-                    "Arras.io",
+                    "Tankswar-delta",
                     h + 200,
                     m - 2,
                     15,
@@ -3813,7 +3813,7 @@
                 else {
                   if (b.showDebug) {
                     W[6].draw(
-                      "Arras.io",
+                      "Tankswar-delta",
                       h + 200,
                       m - 84 - 2,
                       15,
@@ -3829,7 +3829,7 @@
                       h + 200,
                       m - 70,
                       10,
-                      l.guiwhite,
+                      l.blue,
                       "right"
                     );
                     W[4].draw(
@@ -3837,7 +3837,7 @@
                       h + 200,
                       m - 56,
                       10,
-                      l.guiwhite,
+                      l.purple,
                       "right"
                     );
                     W[3].draw(
@@ -3845,12 +3845,12 @@
                       h + 200,
                       m - 42,
                       10,
-                      l.guiwhite,
+                      l.green,
                       "right"
                     );
                   } else
                     W[6].draw(
-                      "Arras.io",
+                      "Tankswar-delta",
                       h + 200,
                       m - 42 - 2,
                       15,
