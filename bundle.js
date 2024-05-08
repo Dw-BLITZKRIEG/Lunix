@@ -372,9 +372,9 @@
           case 39:
             return "#A177FC";
           case 40:
-            return "#56E012";
+            return "#000000";
             case 41:
-            return "#15CD2D";
+            return "#ffffff";
             case 42:
             return "#A277FB";
             case 43:
@@ -4728,8 +4728,8 @@
                     visible: 0,
             id: "Fly-Event",
             type: "main",
-            code: "flyio-london-x",
-            at: p.flyio("arras"),
+            code: "glitch-worldwide-p",
+            at: p.glitch("wd-test"),
             
             prefer: 0,
              featured: 1, // For Featured Status.
