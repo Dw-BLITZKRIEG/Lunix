@@ -479,7 +479,7 @@
           vy: 0,
           size: c.size,
           realSize: c.realSize,
-          color: ""#ff0000,
+          color: "n",
           render: {
             status: {
               getFade: () => 1,
@@ -2065,7 +2065,7 @@
                         "dying" === b || "killed" === b
                           ? 1 - Math.min(1, (Date.now() - a) / 300)
                           : 1,
-                      getColor: () => "#FFFFFF",
+                      getColor: () => "#ff0000", // make yo ass red if u injured lmfao
                       getBlend: () => {
                         let c =
                           "normal" === b || "dying" === b
