@@ -25,8 +25,9 @@ html, body {
 body {
   font-family: Ubuntu;
   font-size: 14px;
-  background-image: url("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/bg.png");
+  background-image: url("https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/faf6a821-84cf-4d0d-8394-ec6dff0b2e8a.image.png?v=1715201523190"); /*  the background image lol*/
   background-color: #484848;
+  background-size: 120%;
 }
 
 hr {

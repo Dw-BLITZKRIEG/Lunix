@@ -4724,79 +4724,30 @@
         ],
         timezone: new Date().getTimezoneOffset() / -60,
         servers: [
-          {
-                    visible: 1,
-            id: "Railway-Event",
-            type: "main",
-            code: "railway-oregon-x",
-            at: p.railway("arras"),
-             featured: 1, // For Featured Status.
-          },
-                                          {
+          {                     
                     visible: 0,
             id: "Fly-Event",
-            type: "dev",
+            type: "main",
             code: "flyio-london-x",
             at: p.flyio("arras"),
             
-            prefer: 1,
+            prefer: 0,
              featured: 1, // For Featured Status.
 
           },
-          {
-            visible: 0,
-            id: "Glitch-Developer",
-            type: "dev",
-            code: "glitch-virginia-f",
-            at: p.glitch("arrasio5"),
-
-            featured: 0 // For Featured Status.
-                                 },
-
-          {
-            visible: 1,
-            id: "Render-Developer",
-            type: "ffan",
-            code: "render-frankfurt-4",
-            at: p.render("arras-mayhem2"),
-            prefer: !0,
-            featured: 0 // For Featured Status.
-             
-          },
-          {
-            visible: 1,
-            id: "Glitch-Domination",
-            type: "dominaton",
-            code: "glitch-virginia-d",
-            at: p.glitch("jagged-petal-parenthesis")
-            // featured: 1, // For Featured Status.
-          },
-          {
-                   visible: 0,
-            id: "Glitch-Staging",
-            type: "ffa",
-            code: "glitch-virginia-x",
-            at: p.glitch("dandy-woolly-text"),
-            featured: 0 // For Featured Status.
-          },
-          {
-            visible: 1,
-            id: "Heroku-Event",
+{                   
+                    visible: 0,
+            id: "Fly-Event",
             type: "main",
-            code: "heroku-virginia-x",
-            at: p.heroku("arras-mayhem"),
+            code: "flyio-london-x",
+            at: p.flyio("arras"),
+            
+            prefer: 0,
              featured: 1, // For Featured Status.
 
           },
-          {
 
-            visible: 1,
-            id: "Repl.it-Legacy",
-            type: "legacy",
-            code: "replit-virginia-2",
-            at: p.replit("arras-mayhem-legacy.seaguli")
-            // featured: 1, // For Featured Status.
-          }
+          
         ]
           .map((a, e) => ({ data: a, i: e }))
           .sort((a, e) =>
