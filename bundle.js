@@ -4819,8 +4819,8 @@
             code: "glitch-worldwide-M",
             at: p.glitch("wd-serverl"),
             
-            prefer: 0,
-             featured: 1, // For Featured Status.
+            prefer: 1,
+             featured: 0, // For Featured Status.
 
           },
 {                   
@@ -4831,7 +4831,7 @@
             at: p.glitch("wd-serverj"),
             
             prefer: 0,
-             featured: 1, // For Featured Status.
+             featured: 0, // For Featured Status.
 
           },
 {                   
@@ -4842,7 +4842,7 @@
             at: p.glitch("wd-servert"),
             
             prefer: 0,
-             featured: 1, // For Featured Status.
+             featured: 0, // For Featured Status.
 
           },
 
