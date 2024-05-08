@@ -2065,7 +2065,7 @@
                         "dying" === b || "killed" === b
                           ? 1 - Math.min(1, (Date.now() - a) / 300)
                           : 1,
-                      getColor: () => "#ff0000", // make yo ass red if u injured lmfao
+                      getColor: () =>   150 > Date.now() % 300 ? l.red : l.white, // make yo ass red if u injured lmfao
                       getBlend: () => {
                         let c =
                           "normal" === b || "dying" === b

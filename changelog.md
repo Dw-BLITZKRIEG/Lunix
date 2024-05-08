@@ -1,3 +1,6 @@
+# 9/5/2024
+- fixed the bug where you 
+
 # 5/5/2024
 - literally Nothing
 - when upgrading to overlooker press c for a new secret
