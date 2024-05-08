@@ -1,0 +1,6 @@
+# make youtube link do youtube stuff
+# actully make doms work properlly
+# added more tanks
+# fix bot ai
+# add a discord bot
+# add literally nothing ()

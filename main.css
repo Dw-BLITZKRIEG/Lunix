@@ -261,6 +261,11 @@ a.menuTab.discord {
       animation:pfpDefault 800ms linear both;
   background: #7289DA url("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/svg0.svg") 4px 3px/21px no-repeat;
 }
+a.menuTab.youtube {
+   padding: 6px 10px 7px 28px;
+      animation:pfpDefault 800ms linear both;
+  background: #bf2e2e url("https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/logoyt-removebg-preview.png?v=1715207063888") 4px 3px/21px no-repeat;
+}
   a.menuTab.catto {
       background: #f00 url("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/coder.png") 8px 6px no-repeat;
   padding: 6px 10px 7px 28px;
