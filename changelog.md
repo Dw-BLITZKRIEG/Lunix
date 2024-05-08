@@ -1,5 +1,13 @@
 # 9/5/2024
-- fixed the bug where you 
+- fixed the bug where you got a mockup error whenever trying to play the game
+- updated client
+- from now on, if a entity gets injured instead of flashing white it will flash red and white, similar to diep's
+- added youtube button (link not working yet)
+- added cheat keybinds in options -> advanced controlls *-- cheats --*
+- Note: Cheats can only be used by staff
+- Removed Last-defence-line 
+- changed Client a bit
+
 
 # 5/5/2024
 - literally Nothing
