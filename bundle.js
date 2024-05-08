@@ -4771,9 +4771,9 @@
               { id: "4", to: "4 Team", end: "4TDM" }
             ],
             [
-              { id: "d", to: "4DOM" },
+              { id: "d", to: "Domination" },
               { id: "x", to: "Event" },
-              { id: "m", to: "Mothership", remove: "2" },
+              { id: "M", to: "Mothership", remove: "2" },
               { id: "a", to: "Assault", remove: "2" }
             ]
           ]
@@ -4782,7 +4782,7 @@
         servers: [
           {                     
                     visible: 0,
-            id: "Fly-Event",
+            id: "Dev",
             type: "main",
             code: "glitch-worldwide-p",
             at: p.glitch("wd-test"),
@@ -4793,10 +4793,32 @@
           },
 {                   
                     visible: 0,
-            id: "Fly-Event",
+            id: "a",
             type: "main",
-            code: "flyio-london-x",
-            at: p.flyio("arras"),
+            code: "glitch-worldwide-M",
+            at: p.glitch("wd-serverl"),
+            
+            prefer: 0,
+             featured: 1, // For Featured Status.
+
+          },
+{                   
+                    visible: 0,
+            id: "b",
+            type: "main",
+            code: "glitch-worldwide-d",
+            at: p.glitch("wd-serverj"),
+            
+            prefer: 0,
+             featured: 1, // For Featured Status.
+
+          },
+{                   
+                    visible: 0,
+            id: "c",
+            type: "main",
+            code: "glitch-worldwide-4",
+            at: p.glitch("wd-servert"),
             
             prefer: 0,
              featured: 1, // For Featured Status.
@@ -5526,7 +5548,36 @@
                   break;
                 case a.KEY_FUCK_YOU:
                   this.emit("0");
+break;
+  case a.KEY_PASSIVE:
+                  this.emit("PassiveMode");
                   break;
+                  
+         case a.KEY_SPAWNBBG:
+                  this.emit("spawnbbg");
+                  break;
+         case a.KEY_BOSS:
+                  this.emit("boss");
+                  break;
+         case a.KEY_STALK:
+                  this.emit("stalk");
+                  break;
+         case a.KEY_SU:
+                  this.emit("su");
+                  break;
+                case a.KEY_KILL:
+                  this.emit("kill");
+                  break;
+                case a.KEY_TP:
+                  this.emit("TP");
+                  break;
+                case a.KEY_DEFINE:
+                  this.emit("define");
+                  break;
+                case a.KEY_CLOSE:
+                  this.emit("CLOSEARENA");
+                  break;
+                  
                 case a.KEY_KILL_YOURSELF:
                   this.emit("K");
                   break;
