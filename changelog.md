@@ -1,4 +1,20 @@
 # 9/5/2024
+- changed icon and logo
+- fixed youtube button
+- changed options menu extra button colors!
+- changed extra buttons
+- arena closers now spawn outside the map
+- added twin sprayer upgrades of twin and twin machine
+- added twin triangle upgrades off twin and triangle
+- added Predator X upgrades off predator
+- added annibrid upgrades off annihilator
+- added X-annihilator upgrades off annihilator and mortar
+- added Eagle upgrades off pounder and triangle
+- added sniper Rifle upgrades off rifle and sniper
+
+
+
+# 9/5/2024
 - fixed the bug where you got a mockup error whenever trying to play the game
 - updated client
 - from now on, if a entity gets injured instead of flashing white it will flash red and white, similar to diep's
