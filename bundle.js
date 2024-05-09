@@ -489,7 +489,7 @@
                 get: () => 1
               },
               shield: {
-                get: () => 1
+                get: () => 1,
               }
             }
           },
@@ -512,6 +512,7 @@
             d.offset = b.offset;
             d.direction = b.direction;
             d.facing = b.direction + b.angle;
+    
             return d;
           })
         };
