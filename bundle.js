@@ -2271,6 +2271,7 @@
                   "z" !== b.server.id && (location.hash = "#" + b.server.id));
               },
               broadcast: () => {
+
                 var c = a.all();
                 let d = Ba.update(c);
                 d = Ca.update(c, d);
@@ -2488,6 +2489,7 @@
               case "b":
                 e.begin(c);
                 e.broadcast();
+
                 break;
               case "p":
                 setTimeout(() => b.socket.ping(Date.now() - P - Q), 50);
@@ -6658,3 +6660,4 @@ break;
     }
   ]);
 }.call(this);
+
