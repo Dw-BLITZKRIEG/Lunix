@@ -4609,6 +4609,7 @@
           `n-${a}-${e}.7e14.starter-us-west-2.openshiftapps.com`,
         flyio: a => `${a}.fly.dev`,
         glitch: a => `${a}.glitch.me`,
+        netlify: a => `${a}.netlify.app`,
         replit: a => `${a}.repl.co`,
         render: a => `${a}.onrender.com`,
         heroku: a => `${a}.herokuapp.com`,
@@ -4764,7 +4765,7 @@
             buyvm: "BuyVM",
             extravm: "ExtraVM",
             hetzner: "Hetzner",
-            ovh: "OVH"
+            ovh: "OVH",
           },
           {
             unknown: ["Unknown", null],
@@ -4847,6 +4848,17 @@
             prefer: 0,
              featured: 0, // For Featured Status.
 
+          },
+{                   
+    /***                visible: 0,
+            id: "test123",
+            type: "main",
+            code: "glitch-worldwide-4",
+            at: p.netlify("master--relaxed-bavarois-50cc6a"),
+            
+            prefer: 0,
+             featured: 0, // For Featured Status.
+***/
           },
 
           
