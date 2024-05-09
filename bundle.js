@@ -333,7 +333,7 @@
           case 34:
             return "#00e00b";
           case 35:
-            return "#ffd300";
+            return "#fffb00";
           case 36: //rainbow baby yeah
             return T(
               [
