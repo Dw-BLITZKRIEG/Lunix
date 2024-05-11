@@ -1,3 +1,7 @@
+# 12/5/2024
+- added experimental function which spawns Rogue Bosses in preparation for Siege
+- doms now get to their size immideatly
+- did more misc stuff in preparation for Siege
 
 
 
