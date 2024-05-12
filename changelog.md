@@ -1,4 +1,10 @@
 # 12/5/2024
+- moved the dev-server to repl.it
+- added the offical discord bot with ingame commands, join the discord to see it in action
+
+
+
+# 12/5/2024
 - added experimental function which spawns Rogue Bosses in preparation for Siege
 - doms now get to their size immideatly
 - did more misc stuff in preparation for Siege
