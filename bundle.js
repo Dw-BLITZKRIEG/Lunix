@@ -4610,7 +4610,7 @@
         flyio: a => `${a}.fly.dev`,
         glitch: a => `${a}.glitch.me`,
         netlify: a => `${a}.netlify.app`,
-        replit: a => `${a}.repl.co`,
+        replit: a => `${a}.replit.dev`,
         render: a => `${a}.onrender.com`,
         heroku: a => `${a}.herokuapp.com`,
         railway: a => `${a}.up.railway.app`,
@@ -4810,7 +4810,7 @@
             id: "Dev",
             type: "main",
             code: "glitch-worldwide-p",
-            at: p.glitch("wd-test"),
+            at: p.replit("760f6126-68ec-48db-9468-e8c6957cfe8d-00-3powkt0vc3e8l.kirk"),
             
             prefer: 0,
              featured: 1, // For Featured Status.
