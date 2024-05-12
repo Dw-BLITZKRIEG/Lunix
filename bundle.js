@@ -4807,9 +4807,9 @@
         servers: [
           {                     
                     visible: 0,
-            id: "Dev",
+            id: "X",
             type: "main",
-            code: "glitch-worldwide-p",
+            code: "replit-worldwide-p",
             at: p.replit("760f6126-68ec-48db-9468-e8c6957cfe8d-00-3powkt0vc3e8l.kirk"),
             
             prefer: 0,
