@@ -1,10 +1,5 @@
-# make youtube link do youtube stuff
-# actully make doms work properlly
-# added more tanks(1/5 predator X)
+
+
 # fix bot ai
-# add a discord bot
 # add literally nothing (done)
-# add more bosses(2/3)
-# const = new logo
 # SomeThingLOLsoIdontLookLazy (done)
-# make arena closer spawn outside (in progress)
