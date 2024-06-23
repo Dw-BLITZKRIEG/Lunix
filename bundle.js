@@ -4806,13 +4806,13 @@
         timezone: new Date().getTimezoneOffset() / -60,
         servers: [
           {                     
-                    visible: 0,
+                    visible: 1,
             id: "X",
             type: "dev",
             code: "replit-worldwide-p",
             at: p.replit("760f6126-68ec-48db-9468-e8c6957cfe8d-00-3powkt0vc3e8l.kirk"),
             
-            prefer: 0,
+            prefer: 1,
              featured: 1, // For Featured Status.
 
           },
