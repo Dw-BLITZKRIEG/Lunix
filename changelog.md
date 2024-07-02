@@ -1,3 +1,15 @@
+# 2/7/2024
+- minor bug fixes
+- optimized the game a tiny bit
+- fixed dominators shell
+- added new boss septelu
+- the triangle branch and spread/pentashot now all fire delayed
+- dominators now spin when ideling
+- added T-50 and Su-27 to misc
+- redesigned Testbed a bit
+- removed mothership
+- siege is estimated to be 30% finished 
+
 # 12/5/2024
 - moved the dev-server to repl.it
 - added the offical discord bot with ingame commands, join the discord to see it in action
