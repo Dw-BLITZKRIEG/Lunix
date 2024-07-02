@@ -4829,6 +4829,17 @@
           },
 {                   
                     visible: 0,
+            id: "s",
+            type: "main",
+            code: "glitch-worldwide-s",
+            at: p.glitch("wd-serverss"),
+            
+            prefer: 0,
+             featured: 0, // For Featured Status.
+
+          },
+{                   
+                    visible: 0,
             id: "c",
             type: "main",
             code: "glitch-worldwide-4",
