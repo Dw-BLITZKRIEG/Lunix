@@ -4799,7 +4799,8 @@
               { id: "d", to: "Domination" },
               { id: "x", to: "Event" },
               { id: "M", to: "Mothership", remove: "2" },
-              { id: "a", to: "Assault", remove: "2" }
+              { id: "a", to: "Assault", remove: "2" },
+              { id: "s", to: "Siege", remove: "2" }
             ]
           ]
         ],
@@ -4828,7 +4829,7 @@
 
           },
 {                   
-                    visible: 0,
+                    visible: 1,
             id: "s",
             type: "main",
             code: "glitch-worldwide-s",
