@@ -4806,7 +4806,7 @@
         timezone: new Date().getTimezoneOffset() / -60,
         servers: [
           {                     
-                    visible: 1,
+                    visible: 0,
             id: "X",
             type: "dev",
             code: "replit-worldwide-p",
@@ -4849,17 +4849,7 @@
              featured: 0, // For Featured Status.
 
           },
-{                   
-    /***                visible: 0,
-            id: "test123",
-            type: "main",
-            code: "glitch-worldwide-4",
-            at: p.netlify("master--relaxed-bavarois-50cc6a"),
-            
-            prefer: 0,
-             featured: 0, // For Featured Status.
-***/
-          },
+
 
           
         ]
