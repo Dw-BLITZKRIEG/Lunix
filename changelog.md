@@ -1,3 +1,15 @@
+# 18/7/2024
+- Fixed Client issues
+- The Game should no longer crash if it happens, please join our wellcoming discord Server and ping staffmembers and inform them over the bug(with screenshots if possible)
+- Increased The Spawning Timer of the bosses in 4tdm
+- Offender now spawns in 4tdm
+- Squareking(SK)-4 now spawns in 4tdm
+- Squareking(SK)-5 now spawns in 4tdm
+- Squareking(SK)-6 now spawns in 4tdm
+- less Shapes may spawn to inhance game Performance
+- Servers will automatically shut down after ~3h of use
+
+
 # 2/7/2024
 - minor bug fixes
 - optimized the game a tiny bit
