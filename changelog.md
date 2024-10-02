@@ -1,3 +1,9 @@
+# 2/10/2024 [>ANNOUNCEMENT<]
+- i will take a break from tankswar-delta, if u have any suggestions or bugs you'd like to report, please join the discord server and ping @dev
+- as a result, everyone now has acsess to the developer upgrade
+- thanks for playing (if there still is anyone)
+
+
 # 18/7/2024
 - Fixed Client issues
 - The Game should no longer crash if it happens, please join our wellcoming discord Server and ping staffmembers and inform them over the bug(with screenshots if possible)
