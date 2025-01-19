@@ -1,4 +1,5 @@
-
+# 19/1/2025
+- removed Developer upgrade from basic due to complaints by community
 
 # 2/10/2024 [>ANNOUNCEMENT<]
 - i will take a break from tankswar-delta, if u have any suggestions or bugs you'd like to report, please join the discord server and ping @dev
