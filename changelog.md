@@ -1,3 +1,19 @@
+# 26.01.2025
+- added siege (**NOTE SIEGE IS STILL W.I.P. , EXPECT BUGS AND MORE CONTENT GETTING ADDED IN FUTURE UPDATES**)
+- added experimental rogue boss spawning feature to siege
+- fixed Skimboss
+- small bug fixes
+- changed the layout of siege
+- added Twin Protector
+- added Troup Spawner to siege
+- offender will now spawn in siege as a rogue boss, helping you defend the base from the incoming waves
+- when the base gets killed, the game is over (siege)
+- buffed Skimboss
+
+
+
+
+
 # 19/1/2025
 - removed Developer upgrade from basic due to complaints by community
 - fixed domination
