@@ -4829,7 +4829,7 @@
 
           },
 {                   
-                    visible: 1,
+                    visible: 0,
             id: "s",
             type: "main",
             code: "glitch-worldwide-s",
