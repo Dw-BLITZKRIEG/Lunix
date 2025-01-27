@@ -1,3 +1,12 @@
+# 27.01.2025 
+- fixed elite destroyer ai
+- OVK-x now spawns in siege
+- changed defender dominator in siege
+- major bug fixes 
+- buffed offender
+- nerfed troups health by 90%
+
+
 # 26.01.2025
 - added siege (**NOTE SIEGE IS STILL W.I.P. , EXPECT BUGS AND MORE CONTENT GETTING ADDED IN FUTURE UPDATES**)
 - added experimental rogue boss spawning feature to siege
