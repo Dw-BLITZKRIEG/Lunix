@@ -1,3 +1,6 @@
+# 08.02.2025 
+- fixed a bug with the Developer Name not shining on the leaderboard in the correct colors
+
 # 27.01.2025 
 - fixed elite destroyer ai
 - OVK-x now spawns in siege

@@ -3971,8 +3971,8 @@
                   if (b.label.includes("[DEV]"))
                     ca[a].draw(
                       b.label + ": " + H.handleLargeNumber(Math.round(b.score)),
-                      c + 10,
-                      d + ,
+                      c + 100,
+                      d + 8,
                       9,
             
                  
