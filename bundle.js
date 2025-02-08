@@ -407,6 +407,8 @@
             return "#B35ED8";
           case 52:
             return "#0531CB";
+          case 69:
+            return "#ff0000";
           default:
             return "#ff0000";
         }
