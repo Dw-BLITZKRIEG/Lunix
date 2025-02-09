@@ -1,3 +1,12 @@
+# 09.02.2025 
+- changed the final celestial in siege from Telarus to Enternal Kronos
+- fixed a bug where the arena closers wouldn't spawn in siege
+- small bug fixes in siege
+- replaced ovk-x with emkd-1 and 2
+- nerfed Kronos' health by 10%
+- siege as of now is limited to only 10 waves, expect more waves added in future updates
+
+
 # 08.02.2025 
 - fixed a bug with the Developer Name not shining on the leaderboard in the correct colors
 
