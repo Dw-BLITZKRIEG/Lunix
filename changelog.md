@@ -1,3 +1,12 @@
+# 11.02.2025 
+- changed the amount of waves in siege from 10 to 15
+- Celestial Paladin now spawns in siege 
+- freja, zaphkiel and many more celestials will get added to be a boss  in siege in future updates
+- fixed a bug where after the arena closes in  Siege, unlimited waves would start
+- if u have any suggestions please join the discord server and tell me in #suggestions
+
+
+
 # 09.02.2025 
 - changed the final celestial in siege from Telarus to Enternal Kronos
 - fixed a bug where the arena closers wouldn't spawn in siege
