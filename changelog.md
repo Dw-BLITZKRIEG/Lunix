@@ -1,3 +1,16 @@
+# 15.02.2025
+
+- Zaphkiel and Freja now spawn in Siege
+- Nerfed Paladins, Frejas and Zaphkiels Health by 60%
+- small bug fixes
+- changed some waves
+- increased the amount of Waves from 15 to 20
+- recommended to play with friends or more poeple since the final waves difficulty has been increased drasticly
+- a secret Celestial will now spawn in Siege
+- small bug fixes
+
+
+
 # 11.02.2025 
 - changed the amount of waves in siege from 10 to 15
 - Celestial Paladin now spawns in siege 
