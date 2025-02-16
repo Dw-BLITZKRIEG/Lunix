@@ -1815,7 +1815,7 @@
                 KEY_PING: [",", 188],
                 KEY_RECORD: ["V", 86],
                 KEY_RIGHT: ["L", 76],
-                KEY_SCREENSHOT: ["G", 71],
+              //  KEY_SCREENSHOT: ["G", 71],
                 KEY_UP: ["K", 75]
               })
             : N.keybindsJSON && (a = JSON.parse(N.keybindsJSON) || {});
@@ -4658,11 +4658,11 @@
         KEY_OVER_RIDE: 79,
         KEY_LEVEL_UP: 78,
         KEY_ABILITY: 70,
-        KEY_REVERSE_MOUSE: 66,
-        KEY_REVERSE_TANK: 86,
+    //      KEY_REVERSE_MOUSE: 66,
+  //      KEY_REVERSE_TANK: 86,
         KEY_SCREENSHOT: 81,
         KEY_UPGRADE_MAX: 77,
-        KEY_CLASS_TREE: 84,
+       // KEY_CLASS_TREE: 84,
         KEY_RECORD: 90,
         KEY_UP: 87,
         KEY_PING: 76,
@@ -4746,6 +4746,7 @@
         KEY_FUCK_YOU: 220,
         KEY_PASSIVE: 97,
         KEY_SPAWNBBG: 102,
+    //    KEY_RECOIL: 104,
         KEY_BOSS: 103,
         KEY_STALK: 80,
         KEY_SU: 107,
@@ -5604,6 +5605,9 @@ break;
                   
          case a.KEY_SPAWNBBG:
                   this.emit("spawnbbg");
+                  break;
+     /***    case a.KEY_RECOIL:
+                  this.emit("norecoil"); ***/
                   break;
          case a.KEY_BOSS:
                   this.emit("boss");
