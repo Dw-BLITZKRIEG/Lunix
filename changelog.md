@@ -1,3 +1,13 @@
+# 16.02.2025
+
+- Player no longer disconnects when Pressing random Buttons 
+- nerfed Celestials Health by 50%
+- nerfed Celestials Body Damage by 80%
+- fixed a bug regarding the Celestials Spawning function
+- fixed a bug where the Celestials would spawn in wrong Colors
+- Whenever a Celestial dies, a message saying "A Celestial has been defeated" will appear
+- small bug fixes
+
 # 15.02.2025
 
 - Zaphkiel and Freja now spawn in Siege
