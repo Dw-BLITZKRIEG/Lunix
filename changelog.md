@@ -1,7 +1,12 @@
 # 18.02.2025
 - added a new boss branch: abstracts
 - abstracts will only spawn in siege wave 3 and 5 for now (note: They are only experimental and nothing is final)
-
+- fixed Rkrake and Kronos not attacking the base
+- nerfed Rkrakes's health by 50% 
+- nerfed Kronos's health by 20%
+- nerfed the health of Troupps from Troupspawner by 50%
+- buffed offenders health by 10%
+- fixed a bug regarding the final waves
 
 # 16.02.2025
 
