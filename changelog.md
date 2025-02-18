@@ -1,3 +1,8 @@
+# 18.02.2025
+- added a new boss branch: abstracts
+- abstracts will only spawn in siege wave 3 and 5 for now (note: They are only experimental and nothing is final)
+
+
 # 16.02.2025
 
 - Player no longer disconnects when Pressing random Buttons 
