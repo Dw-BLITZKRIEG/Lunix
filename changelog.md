@@ -7,7 +7,8 @@
 - nerfed the health of Troupps from Troupspawner by 50%
 - buffed offenders health by 10%
 - fixed a bug regarding the final waves
-
+- [NOTE] ****ABSTRACTS NOW SPAWN IN OTHER WAVES ASWELL****
+ 
 # 16.02.2025
 
 - Player no longer disconnects when Pressing random Buttons 
