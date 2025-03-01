@@ -1,3 +1,12 @@
+# 01.03.2025
+- changed the boss spawning function in Domination
+- tweaked the Arena Closing System in Dominator for Optimization
+- buffed Dominators Fov
+- changed elite Killers label
+- offender now spawns in Domination
+- increased the interval between Bosses spawning in Domination
+- did some Client side stuff
+
 # 18.02.2025
 - added a new boss branch: abstracts
 - abstracts will only spawn in siege wave 3 and 5 for now (note: They are only experimental and nothing is final)
