@@ -1,3 +1,9 @@
+# 07.03.2025
+- added Breacher
+- Breacher now spawns in siege
+- Some bosses have been removed from domination and 4tdm for optimization
+- some client stuff
+
 # 01.03.2025
 - changed the boss spawning function in Domination
 - tweaked the Arena Closing System in Dominator for Optimization
