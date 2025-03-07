@@ -1,3 +1,8 @@
+# 07.03.2025 V2
+- added Autopound, upgrades off pounder
+- added slingshot, upgrades off airscrew
+
+
 # 07.03.2025
 - added Breacher
 - Breacher now spawns in siege
