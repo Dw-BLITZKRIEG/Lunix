@@ -1,3 +1,6 @@
+# 08.03.2025
+- fixed a bug where the arena wouldnt close when the base got destroyed in siege
+
 # 07.03.2025 V2
 - added Autopound, upgrades off pounder
 - added slingshot, upgrades off airscrew
