@@ -32,7 +32,7 @@ button {
   color: #FFFFFF;
   text-align: center;
   font-size: 28px;
-  padding: 20px;
+  padding: 10px;
   width: 1900px;
   transition: all 0.5s;
   cursor: pointer;
@@ -65,7 +65,7 @@ button:hover span:after {
 }
 
 .icon-bar {
-  width: 80px; /* Set a specific width */
+  width: 50px; /* Set a specific width */
   background-color: #555; /* Dark-grey background */
 }
 

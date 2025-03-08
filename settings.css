@@ -56,11 +56,10 @@ display: inline-block;/* Make the links appear below each other instead of side-
 }
 
 
-a.menuTab:link:hover, a.menuTab:visited:hover {--
-      animation:pfpHoverOn 800ms linear both;
+.icon-bar a:hover {
+  background-color: #000000; /* Add a hover color */
 }
 
 .active {
   background-color: #fa0505; /* Add an active/current color */
-      animation:pfpDefault 800ms linear both;
 }
