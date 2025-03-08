@@ -1,13 +1,15 @@
-g1 {
+h1 {
   margin-top: 0px;
   margin-bottom: 10px;
   font-family: sans-serif;
-  font-size: 6rem;
+  font-size: 4rem;
+  text-align: center;
     background: linear-gradient(to top, #ffffff, #000000 );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-h1 {
+
+h2 {
   background: linear-gradient(to top, #ffffff, #000000 );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -59,17 +61,17 @@ button:hover span:after {
 }
 
 .icon-bar {
-  width: 90px; /* Set a specific width */
+  width: 80px; /* Set a specific width */
   background-color: #555; /* Dark-grey background */
 }
 
 .icon-bar a {
-/* Make the links appear below each other instead of side-by-side */
-  text-align: center; /* Center-align text */
-  padding: 16px; /* Add some padding */
+display: inline-block;/* Make the links appear below each other instead of side-by-side */
+  text-align: right; /* Center-align text */
+  padding: 20px; /* Add some padding */
   transition: all 0.3s ease; /* Add transition for hover effects */
   color: white; /* White text color */
-  font-size: 36px; /* Increased font-size */
+  font-size: 18px; /* Increased font-size */
 }
 
 .icon-bar a:hover {
