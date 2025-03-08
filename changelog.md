@@ -1,3 +1,7 @@
+# 08.03.2025 V2
+- The Token button will now send you to a website with a list of all developer and beta tester tokens
+- added a settings option (experimental and unfunctional for now)
+
 # 08.03.2025
 - fixed a bug where the arena wouldnt close when the base got destroyed in siege
 - fixed a bug in which mockups wouldnt load in 4tdm
