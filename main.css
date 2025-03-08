@@ -1008,6 +1008,9 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+
+
+
 button {
   border-radius: 4px;
   background-color: 	#7289da;
@@ -1047,24 +1050,24 @@ button:hover span:after {
   right: 0;
 }
 
-.icon-bar {
-  width: 120px; /* Set a specific width */
+a.icon-bar {
+  width: 100px; /* Set a specific width */
   background-color: #555; /* Dark-grey background */
 }
 
-.icon-bar a {
-  display: block; /* Make the links appear below each other instead of side-by-side */
-  text-align: center; /* Center-align text */
-  padding: 32px; /* Add some padding */
+a.icon-bar a {
+display: inline-block;/* Make the links appear below each other instead of side-by-side */
+  text-align: right; /* Center-align text */
+  padding: 50px; /* Add some padding */
   transition: all 0.3s ease; /* Add transition for hover effects */
   color: white; /* White text color */
   font-size: 18px; /* Increased font-size */
 }
 
-.icon-bar a:hover {
-  background-color: #000; /* Add a hover color */
+a.icon-bar a:hover {
+  background-color: #000000; /* Add a hover color */
 }
 
-.active {
-  background-color: #04AA6D; /* Add an active/current color */
+a.active {
+  background-color: #fa0505; /* Add an active/current color */
 }
