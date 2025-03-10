@@ -110,9 +110,41 @@ function PlaySound() {
     <canvas id="gameCanvas" tabindex="1"></canvas>
     <div id="respawn-banner" class="respawn-banner"><div id="arras-io_728x90"></div></div>
   </div>
- <div class="icon-bar">
-  <a class="active" href="https://tankswar-delta.glitch.me"><img src="https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/7065ac5c-8165-426e-90b9-ba9b57a529eb.image.png?v=1741450485496" alt="settings" width="40" height="40"></a> 
 
+<div class="popup" onclick="myFunction()"> <img src="https://media.discordapp.net/attachments/883529416397975565/1347965610427940956/Untitled6_20250308171354.png?ex=67d0614d&is=67cf0fcd&hm=05b7d320a3e72dd61f6869988dc4b9e0b1d62e9651489f63bad8242eb104bd94&=&format=webp&quality=lossless&width=592&height=592"; height="70px"; width="80px";>
+  <span class="popuptext" id="myPopup">   <table>
+                <tr><div>
+                 <p>NOTE: reload page to save changes</p>
+                  </div>
+                  <td><div>
+                    <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optNoPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic Traps</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optFancy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Graphics</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optShield" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Separate Shield Bar</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optAutoLevel" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Auto-Level Up</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optPrediction" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Use New Interpolation</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Sharp Edges</label>
+             </div></td>
+                  <td><div>
+                    <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
+                  </div></td> <!-- Toggleable audio via checkbox -->
+                </tr>
+              </table>
 
   
 
@@ -122,8 +154,10 @@ function PlaySound() {
 
 
 
+  </span>
+ </div>
 
-</div>
+
   <div id="mainWrapper">
     <div id="startMenuWrapper">
       <div class="menuTabs">
@@ -310,6 +344,15 @@ function PlaySound() {
     </div>
   </div>
   <!-- JS -->
+<script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+
+</script>
+
 
   <script>
   window.onerror = function(message, source, lineno, colno, error) {

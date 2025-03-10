@@ -63,3 +63,74 @@ display: inline-block;/* Make the links appear below each other instead of side-
 .active {
   background-color: #fa0505; /* Add an active/current color */
 }
+
+
+/* Popup container */
+.popup {
+  position: relative;
+ top: 0px; 
+  right: -0px;
+  display: inline-block;
+  cursor: pointer;
+
+
+background-color: #ff0004; 
+}
+ .popup :hover {
+  text-align: top; /* Center-align text */
+  background-color: #000000; /* Add a hover color */
+  border-radius: 0px;
+ transition: all 0.3 ease;
+} 
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 380px;
+  background-color: #555;
+  color: #fff;
+  text-align: top;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+
+  /*right: 1000px;*/
+  z-index: 1;
+  bottom: -195%;
+  left: 110%;
+  margin-left: -80px;
+/* background-color: #fa0505; Add an active/current color */
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: fixed;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+
+
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
