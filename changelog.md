@@ -4,7 +4,7 @@
 - added a new beta boss: elite builder
 - small bug fixes in siege
 - you now need a token to use the /Rainbow chat command
-
+- fixed a bug where you could access beta and senior tester cheats without a token
 
 # 10.03.2025
 - The settings option now works
