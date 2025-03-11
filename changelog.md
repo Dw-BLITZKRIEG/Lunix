@@ -3,6 +3,7 @@
 - made the Settings Option a bit smoother --> when hovering over the Settings button, instead of immideatly turning black it will smoothly Transition
 - added a new beta boss: elite builder
 - small bug fixes in siege
+- you now need a token to use the /Rainbow chat command
 
 
 # 10.03.2025
