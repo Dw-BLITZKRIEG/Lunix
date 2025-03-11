@@ -80,7 +80,8 @@ background-color: #ff0004;
   text-align: top; /* Center-align text */
   background-color: #000000; /* Add a hover color */
   border-radius: 0px;
- transition: all 0.3 ease;
+
+  transition: 0.5s;
 } 
 /* The actual popup (appears on top) */
 .popup .popuptext {
