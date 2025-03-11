@@ -1,3 +1,10 @@
+
+# 11.03.2025
+- made the Settings Option a bit smoother --> when hovering over the Settings button, instead of immideatly turning black it will smoothly Transition
+- added a new beta boss: elite builder
+- small bug fixes in siege
+
+
 # 10.03.2025
 - The settings option now works
 - NOTE: if you are in a game and want to change your settings u will have to reload the page inorder for your new settings to save

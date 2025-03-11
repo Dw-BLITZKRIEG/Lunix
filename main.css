@@ -1010,7 +1010,7 @@ i.flag.down::before {
 h1 {
   margin-top: 0px;
   margin-bottom: 10px;
-  font-family: Montserrat;   /*sans-serif;*/
+  font-family: sans-serif;   /*sans-serif;*/
   font-size: 35px;
   text-align: center;
     background: linear-gradient(to bottom, 	#99aab5, #000000 );
