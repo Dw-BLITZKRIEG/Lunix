@@ -1,3 +1,6 @@
+# 14.03.2025
+
+
 
 # 11.03.2025
 - made the Settings Option a bit smoother --> when hovering over the Settings button, instead of immideatly turning black it will smoothly Transition
