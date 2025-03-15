@@ -4465,7 +4465,16 @@
               "center"
             );
        a.draw(
-              "The server is either closed or down. Refresh the page to continue playing!",
+              "The server is either closed or down.",
+              b.screenWidth / 2,
+              b.screenHeight / 1.7,
+              30,
+              l.yellow,
+              "center"
+            );
+
+       a.draw(
+              "Refresh the page to continue playing!",
               b.screenWidth / 2,
               b.screenHeight / 1.5,
               30,
