@@ -1,3 +1,7 @@
+# 15.03.2025
+- changed the disconnect screen a bit
+
+
 # 14.03.2025
 - whenever the arena closes from now on, if you are killed you cant no longer respawn and will disconnect, and if you try to join a closing server you will get disconnected aswell
 - added 5 beta bosses (still in testing)

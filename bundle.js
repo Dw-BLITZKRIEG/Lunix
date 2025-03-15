@@ -4464,6 +4464,14 @@
               l.guiwhite,
               "center"
             );
+       a.draw(
+              "The server is either closed or down. Refresh the page to continue playing!",
+              b.screenWidth / 2,
+              b.screenHeight / 1.5,
+              30,
+              l.yellow,
+              "center"
+            );
             e.draw(
               b.message,
               b.screenWidth / 2,
