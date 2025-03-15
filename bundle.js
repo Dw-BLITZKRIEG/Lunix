@@ -4840,7 +4840,8 @@
               { id: "x", to: "Event" },
               { id: "M", to: "Mothership", remove: "2" },
               { id: "a", to: "Assault", remove: "2" },
-              { id: "s", to: "Siege", remove: "2" }
+              { id: "s", to: "Siege", remove: "2" },
+              { id: "t", to: "Testing", remove: "2" }
             ]
           ]
         ],
@@ -4870,17 +4871,6 @@
           },
 {                   
                     visible: 0,
-            id: "b",
-            type: "main",
-            code: "glitch-worldwide-a",
-            at: p.glitch("wd-servera"),
-            
-            prefer: 0,
-             featured: 0, // For Featured Status.
-
-          },
-{                   
-                    visible: 0,
             id: "s",
             type: "main",
             code: "glitch-worldwide-s",
@@ -4896,6 +4886,17 @@
             type: "main",
             code: "glitch-worldwide-4",
             at: p.glitch("wd-servert"),
+            
+            prefer: 0,
+             featured: 0, // For Featured Status.
+
+          },
+{                   
+                    visible: 0,
+            id: "z",
+            type: "main",
+            code: "glitch-worldwide-t",
+            at: p.glitch("wd-servera"),
             
             prefer: 0,
              featured: 0, // For Featured Status.
