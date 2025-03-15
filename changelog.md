@@ -1,3 +1,11 @@
+# 15.03.2025 v2
+- added more Waves to siege
+- balanced some Waves
+- nerfed all celestials
+- heavlly nerfed the base in siege
+- nerfed all bosses in siege
+- wip stuff
+
 # 15.03.2025
 - changed the disconnect screen a bit
 
