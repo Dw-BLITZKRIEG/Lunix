@@ -2464,7 +2464,7 @@
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || color.yellow
+                            color: m[1] || color.black
                         });
                     }
               case "u":
@@ -2674,7 +2674,7 @@
           return () => {
             let a = document.createElement("canvas").getContext("2d");
             a.imageSmoothingEnabled = !1;
-            let c = [b(""), b(0), b(0), b(1), b("#FF0000"), b("left")];
+            let c = [b(""), b(0), b(0), b(1), b("#FF0000"), b("left")]; //FF0000
             c.map(b => b.publish());
             let d = 0,
               e = 0;
@@ -2707,12 +2707,14 @@
                   a.font = "bold " + k + "px Ubuntu";
                   a.textAlign = u;
                   a.textBaseline = "middle";
-                  a.strokeStyle = l.black;
+                  a.strokeStyle = l.black; // l.black (basically all the text itself)
                   a.fillStyle = n;
                   a.lineCap = "round";
                   a.lineJoin = "round";
-                  a.strokeText(b, d, e);
-                  a.fillText(b, d, e);
+                  a.strokeText(b, d, e); // 
+              //    a.strokeText(b, d, e);
+            //      a.fillText(b, d, e); 
+                  a.fillText(b, d, e,);
                 }
                 g.drawImage(
                   a.canvas,
