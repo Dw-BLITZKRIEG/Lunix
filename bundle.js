@@ -2459,11 +2459,12 @@
   break;
                     case "m": {
                        Y.push({
-                             text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
+                            
+                            text: c[0],
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || color.black
+                            color: m[1] || color.yellow
                         });
                     }
               case "u":
