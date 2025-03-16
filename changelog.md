@@ -1,3 +1,6 @@
+# 16.03.2025
+- fixed auto-5 
+
 # 15.03.2025 v2
 - added more Waves to siege
 - balanced some Waves
