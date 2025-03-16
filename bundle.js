@@ -2291,7 +2291,7 @@
                     type: f[0],
                     x: (f[1] * b.gameWidth) / 255,
                     y: (f[2] * b.gameHeight) / 255,
-                    color: f[3],
+                  color: f[3],
                     size: f[4]
                   });
                 for (let { id: a, data: f } of Ca.entries())
