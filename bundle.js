@@ -2,6 +2,7 @@
 
 
 
+  let color = []
 
       var clicksound = new Audio();
       clicksound.src =
@@ -2447,8 +2448,9 @@
                 }
                 break;
               case "m":
+
                 Y.push({
-                  text: c[0].replace(/\x01<([^>]+)>/g, (a, c) => b.help[c]),
+                  text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
                   status: 2,
                   alpha: 0,
                   time: Date.now()
