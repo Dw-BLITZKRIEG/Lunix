@@ -490,7 +490,7 @@
           render: {
             status: {
               getFade: () => 1,
-              getColor: () => "#ffffff",
+              getColor: () => "#ffffff",  //ffffff
               getBlend: () => 0,
               health: {
                 get: () => 1
@@ -2900,7 +2900,7 @@
                             F.status.getColor(),
                             F.status.getBlend()
                           )
-                        : T(l.grey, F.status.getColor(), F.status.getBlend());
+                        : T(l.grey, F.status.getColor(), F.status.getBlend()); //l.grey //THE BARREL COLOR THING
                     k(h, lol);
                     d.beginPath();
                     d.moveTo(v + X * Math.cos(D + G), r + X * Math.sin(D + G));
@@ -3583,11 +3583,11 @@
                       12 + B.graphical.barChunk,
                       l.black
                     );
-                    K(f + 7.5, f + 7.5 + (c - 35) * v(q), e + 7.5, 12, l.grey);
+                    K(f + 7.5, f + 7.5 + (c - 35) * v(q), e + 7.5, 12, l.grey); // l.grey // THE THING FOR HEALTH BS
                     K(f + 7.5, f + 7.5 + (c - 35) * v(u), e + 7.5, 11.5, t);
                     if (m)
                       for (
-                        g.lineWidth = 1, g.strokeStyle = l.grey, m = q + 1;
+                        g.lineWidth = 1, g.strokeStyle = l.grey, m = q + 1; // grey
                         m < k;
                         m++
                       )
@@ -3611,7 +3611,7 @@
                       u === a
                         ? t
                         : !A.points || (q !== a && u === q)
-                        ? l.grey
+                        ? l.grey // l.grey
                         : l.guiwhite;
                     p[h - 1].draw(
                       x,
@@ -3676,7 +3676,7 @@
                 ia || b.mobile || !b.died || (d -= 110);
                 g.lineWidth = 1;
                 K(c, c + 330, d + a / 2, a - 3 + B.graphical.barChunk, l.black);
-                K(c, c + 330, d + a / 2, a - 3, l.grey);
+                K(c, c + 330, d + a / 2, a - 3, l.green);  // grey
                 K(c, c + 330 * A.__s.getProgress(), d + a / 2, a - 3.5, l.gold);
                 S.draw(
                   "Level " + A.__s.getLevel() + " " + M[A.type].name,
@@ -4585,12 +4585,12 @@
                 (a.height = window.innerHeight),
                 (g.length = 0),
                 e.clearRect(0, 0, a.width, a.height),
-                (e.fillStyle = "rgba(255, 255, 255, 0.01)"),
+                (e.fillStyle = "rgba(255, 255, 255, 0.01)"), // "rgba(255, 255, 255, 0.01)")
                 e.fillRect(0, 0, a.width, a.height),
                 (e.lineWidth = 2.5),
                 (e.lineCap = "round");
             e.globalCompositeOperation = "destination-out";
-            e.fillStyle = "rgba(0, 0, 0, 0.15)";
+            e.fillStyle = "rgba(0, 0, 0, 0.15)";  
             e.fillRect(0, 0, a.width, a.height);
             e.globalCompositeOperation = "lighter";
             for (let b of g) {
