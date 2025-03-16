@@ -2447,7 +2447,7 @@
                   b.message = "";
                 }
                 break;
-              case "m":
+           /***   case "m":
 
                 Y.push({
                   text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
@@ -2455,7 +2455,17 @@
                   alpha: 0,
                   time: Date.now()
                 });
-                break;
+                break; ***/
+  break;
+                    case "m": {
+                       Y.push({
+                             text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
+                            status: 2,
+                            alpha: 0,
+                            time: Date.now(),
+                            color: m[1] || color.black
+                        });
+                    }
               case "u":
                 {
                   d = c[0];
