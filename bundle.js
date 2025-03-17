@@ -3444,7 +3444,7 @@
                 g.fillStyle = l.guiwhite;
                 G(0, 0, b.screenWidth, b.screenHeight);
                 let n = k - 4;
-                g.strokeStyle = l.green; // black
+                g.strokeStyle = l.black; // black
                 g.lineWidth = 2;
                 g.beginPath();
                 for (let [a, c] of d) {
@@ -3478,7 +3478,7 @@
                   g.globalAlpha = 0.2;
                   g.fillStyle = e(f);
                   G(c, u, n, 0.6 * n);
-                  g.fillStyle = l.black;
+                  g.fillStyle = l.black; //   BLACK
                   G(c, u + 0.6 * n, n, 0.4 * n);
                   g.globalAlpha = 1;
                   let t = -Math.PI / 4,
@@ -3495,7 +3495,7 @@
                     t,
                     !0
                   );
-                  g.strokeStyle = l.black;
+                  g.strokeStyle = l.black; //black
                   g.lineWidth = 2;
                   G(c, u, n, n, !0);
                 }
@@ -3503,7 +3503,7 @@
               if (b.mobile && "joysticks" === U.control) {
                 let a = Math.min(0.6 * b.screenWidth, 0.12 * b.screenHeight);
                 g.globalAlpha = 0.3;
-                g.fillStyle = "#ffffff";
+                g.fillStyle = "#ffffff"; //fffffff
                 g.beginPath();
                 g.arc(
                   (1 * b.screenWidth) / 6,
@@ -3537,7 +3537,7 @@
                   null == a.textobj && (a.textobj = m());
                   null == a.len && (a.len = ta(f, 14));
                   g.globalAlpha = 0.5 * a.alpha;
-                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, l.black);
+                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, "#ffff00");     // black  IMPORTANT FOR COLORED BROADCAST
                   g.globalAlpha = Math.min(1, a.alpha);
                   a.textobj.draw(f, c, d + 9, 14, l.guiwhite, "center", !0);
                   d += 22;
