@@ -3676,7 +3676,7 @@
                 ia || b.mobile || !b.died || (d -= 110);
                 g.lineWidth = 1;
                 K(c, c + 330, d + a / 2, a - 3 + B.graphical.barChunk, l.black);
-                K(c, c + 330, d + a / 2, a - 3, l.green);  // grey
+                K(c, c + 330, d + a / 2, a - 3, l.grey);  // grey this is for the level bar backgroud
                 K(c, c + 330 * A.__s.getProgress(), d + a / 2, a - 3.5, l.gold);
                 S.draw(
                   "Level " + A.__s.getLevel() + " " + M[A.type].name,
@@ -3696,7 +3696,7 @@
                   a - 3 + B.graphical.barChunk,
                   l.black
                 );
-                K(c + 33, c + 297, d + a / 2, a - 3, l.grey);
+                K(c + 33, c + 297, d + a / 2, a - 3, l.grey); // l.grey
                 K(
                   c + 33,
                   c +
@@ -3788,10 +3788,10 @@
                       }
                     }
                     g.globalAlpha = 0.3;
-                    g.fillStyle = T(l.grey, l.vlgrey);
+                    g.fillStyle = T(l.grey, l.vlgrey); //l.grey, l.vlgrey  // for the map
                     b.radial ? G(a + d / 2, c + f / 2, d / 2) : G(a, c, d, f);
                     for (let f of Ea.get())
-                      (g.fillStyle = T(e(f.color), l.black, 0.3)),
+                      (g.fillStyle = T(e(f.color), l.black, 0.3)), //l.black // we stopped here
                         (g.globalAlpha = f.alpha),
                         2 === f.type
                           ? G(
