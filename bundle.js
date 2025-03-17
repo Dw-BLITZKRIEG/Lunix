@@ -3537,7 +3537,8 @@
                   null == a.textobj && (a.textobj = m());
                   null == a.len && (a.len = ta(f, 14));
                   g.globalAlpha = 0.5 * a.alpha;
-                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, "#ffff00");     // black  IMPORTANT FOR COLORED BROADCAST
+                 let color = ["#ffff00"]
+                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, color);     // black  IMPORTANT FOR COLORED BROADCAST
                   g.globalAlpha = Math.min(1, a.alpha);
                   a.textobj.draw(f, c, d + 9, 14, l.guiwhite, "center", !0);
                   d += 22;
