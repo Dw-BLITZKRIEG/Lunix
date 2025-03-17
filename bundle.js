@@ -2464,7 +2464,7 @@
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || color.black
+                            color: m[1] || color.black,
                         });
                     }
               case "u":
@@ -2708,7 +2708,7 @@
                   a.textAlign = u;
                   a.textBaseline = "middle";
                   a.strokeStyle = l.black; // l.black (basically all the text itself)
-                  a.fillStyle = n;
+                  a.fillStyle = n; //n text color
                   a.lineCap = "round";
                   a.lineJoin = "round";
                   a.strokeText(b, d, e); // 
@@ -2718,6 +2718,7 @@
                 }
                 g.drawImage(
                   a.canvas,
+                  a.color = l.green,
                   Math.round(f - d),
                   Math.round(h - e * (x ? 1.05 : 1.5))
                 );
@@ -2866,7 +2867,7 @@
               E = T(e(d.color), E, w);
               d.invuln &&
                 100 > (Date.now() - d.invuln) % 200 &&
-                ((v = T(v, l.vlgrey, 0.3)), (E = T(E, l.vlgrey, 0.3)));
+                ((v = T(v, l.vlgrey, 0.3)), (E = T(E, l.vlgrey, 0.3))); // dunno l.vlgrey l.vlgrey
               if (q.guns.length === n.guns.length)
                 for (w = q.guns.getPositions(), A = 0; A < n.guns.length; A++) {
                   var D = n.guns[A],
@@ -3960,7 +3961,7 @@
                 ) {
                   let b = O.data[a];
                   K(c, c + 200, d + 7, 11 + B.graphical.barChunk, l.black);
-                  K(c, c + 200, d + 7, 11, l.grey);
+                  K(c, c + 200, d + 7, 11, l.grey); // dunno what dis do
                   K(
                     c,
                     c + 200 * Math.min(1, b.score / na),
