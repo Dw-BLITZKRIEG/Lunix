@@ -420,7 +420,7 @@
       }
 
       function E(b) {
-        let d = B.graphical.neon ? l.white : l.black;
+        let d = B.graphical.neon ? l.white : l.black; // L:WHITE L: BLACK   BORDER COLOR
         return B.graphical.darkBorders ? d : T(b, d, l.border);
       }
       //here are the map colors
@@ -846,13 +846,13 @@
               let c = a + 1.1 * h + 15;
               g.globalAlpha = u * u * d;
               B.graphical.shieldbars
-                ? (K(b - f, b + f, c, 6 + B.graphical.barChunk, l.black),
+                ? (K(b - f, b + f, c, 6 + B.graphical.barChunk, l.black), // test black
                   y
                     ? (K(b - f, b - f + 2 * f * n, c + 1.5, 3, l.lgreen),
                       (g.globalAlpha *= 0.7),
                       K(b - f, b - f + 2 * f * y, c - 1.5, 3, l.teal))
                     : K(b - f, b - f + 2 * f * n, c, 4, l.lgreen))
-                : (K(b - f, b + f, c, 3 + B.graphical.barChunk, l.black),
+                : (K(b - f, b + f, c, 3 + B.graphical.barChunk, l.black), //black
                   K(b - f, b - f + 2 * f * n, c, 3, l.lgreen),
                   y &&
                     ((g.globalAlpha *= 0.3 + 0.3 * y),
@@ -2709,7 +2709,7 @@
                   a.textBaseline = "middle";
                   a.strokeStyle = l.black; // l.black (basically all the text itself)
                   a.fillStyle = n; //n text color
-                  a.lineCap = "round";
+                 a.lineCap = "round";
                   a.lineJoin = "round";
                   a.strokeText(b, d, e); // 
               //    a.strokeText(b, d, e);
@@ -2718,7 +2718,6 @@
                 }
                 g.drawImage(
                   a.canvas,
-                  a.color = l.green,
                   Math.round(f - d),
                   Math.round(h - e * (x ? 1.05 : 1.5))
                 );
@@ -3445,7 +3444,7 @@
                 g.fillStyle = l.guiwhite;
                 G(0, 0, b.screenWidth, b.screenHeight);
                 let n = k - 4;
-                g.strokeStyle = l.black;
+                g.strokeStyle = l.green; // black
                 g.lineWidth = 2;
                 g.beginPath();
                 for (let [a, c] of d) {
