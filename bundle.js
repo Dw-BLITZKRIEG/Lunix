@@ -3,7 +3,7 @@
 let idc = ["FF0000"]
 let hex = ["#" + idc]
     //             let color = ["#ff0000"]
-  let color = [hex]
+  let color = []
 
       var clicksound = new Audio();
       clicksound.src =
@@ -2461,14 +2461,14 @@ let hex = ["#" + idc]
                     case "m": {
                        Y.push({
                             
-                            text: c[0],
+                            text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || c[1], // color. black
+                            color: c[1] || c[2], // color. black
                        
                         });
-                    }
+                    } break;
               case "u":
                 {
                   d = c[0];
