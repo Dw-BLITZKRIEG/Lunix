@@ -2465,7 +2465,7 @@ let hex = ["#" + idc]
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || color.black,
+                            color: m[1] || c[1], // color. black
                        
                         });
                     }
