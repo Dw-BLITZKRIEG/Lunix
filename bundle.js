@@ -1,8 +1,9 @@
      //just some code to make the sound work
 
-
-
-                 let color = ["#ff0000"]
+let id = ["0F0F0F"]
+let hex = ["#" + id]
+    //             let color = ["#ff0000"]
+  let color = [hex]
 
       var clicksound = new Audio();
       clicksound.src =
