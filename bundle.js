@@ -1,7 +1,7 @@
      //just some code to make the sound work
 
-let id = ["0F0F0F"]
-let hex = ["#" + id]
+let idc = ["FF0000"]
+let hex = ["#" + idc]
     //             let color = ["#ff0000"]
   let color = [hex]
 
@@ -2466,6 +2466,7 @@ let hex = ["#" + id]
                             alpha: 0,
                             time: Date.now(),
                             color: m[1] || color.black,
+                       
                         });
                     }
               case "u":
