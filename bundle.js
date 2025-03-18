@@ -3,7 +3,7 @@
 let idc = ["FF0000"]
 let hex = ["#" + idc]
     //             let color = ["#ff0000"]
-  let color = []
+
 
       var clicksound = new Audio();
       clicksound.src =
@@ -2458,15 +2458,14 @@ let hex = ["#" + idc]
                 });
                 break; ***/
   break;
-                    case "m": {
+                     case "m": {  // broadcast
                        Y.push({
                             
-                            text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
+                            text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color2) => b.help[c] ),
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[0] || c[0]|| color, // color. black
-                       
+                            color: m[0] || l.black // color. black
                         });
                     } break;
               case "u":
@@ -3539,6 +3538,7 @@ let hex = ["#" + idc]
                   null == a.textobj && (a.textobj = m());
                   null == a.len && (a.len = ta(f, 14));
                   g.globalAlpha = 0.5 * a.alpha;
+  let color = ["#FFEE00"]
                   K(c - a.len / 2, c + a.len / 2, d + 9, 18, color);     // black  IMPORTANT FOR COLORED BROADCAST
                   g.globalAlpha = Math.min(1, a.alpha);
                   a.textobj.draw(f, c, d + 9, 14, l.guiwhite, "center", !0);
