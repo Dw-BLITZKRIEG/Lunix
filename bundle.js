@@ -2456,16 +2456,37 @@ let hex = ["#" + idc]
                   alpha: 0,
                   time: Date.now()
                 });
-                break; ***/
-  break;
-                     case "m": {  // broadcast
+
+   case "m": {
+                        _messages.push({
+                            text: m[0],
+                            status: 2,
+                            alpha: 0,
+                            time: Date.now(),
+                            color: m[1] || color.black
+                        });
+                    }
+
+    case "m": {  // broadcast
                        Y.push({
                             
                             text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color2) => b.help[c] ),
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[0] || l.black // color. black
+                            color: m[1]  // color. black
+                        });
+                    
+                break; ***/
+
+                     case "m": {  // broadcast
+                       Y.push({
+                            
+                              text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color2) => b.help[c] ),
+                            status: 2,
+                            alpha: 0,
+                            time: Date.now(),
+                            color: c[1] || l.black
                         });
                     } break;
               case "u":
@@ -3539,7 +3560,7 @@ let hex = ["#" + idc]
                   null == a.len && (a.len = ta(f, 14));
                   g.globalAlpha = 0.5 * a.alpha;
   let color = ["#FFEE00"]
-                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, color);     // black  IMPORTANT FOR COLORED BROADCAST
+                  K(c - a.len / 2, c + a.len / 2, d + 9, 18, y.color);     // black  IMPORTANT FOR COLORED BROADCAST
                   g.globalAlpha = Math.min(1, a.alpha);
                   a.textobj.draw(f, c, d + 9, 14, l.guiwhite, "center", !0);
                   d += 22;
