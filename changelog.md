@@ -1,3 +1,8 @@
+# 24.03.2025
+- changed settings icon
+- removed settings from view options
+- moved developer cheats from view options to settings
+
 # 18.03.2025
 - experimenting with coloured broadcasts for some time now.
 

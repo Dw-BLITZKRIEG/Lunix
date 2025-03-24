@@ -111,11 +111,15 @@ function PlaySound() {
     <div id="respawn-banner" class="respawn-banner"><div id="arras-io_728x90"></div></div>
   </div>
 
-<div class="popup" onclick="myFunction()"> <img src="https://media.discordapp.net/attachments/883529416397975565/1347965610427940956/Untitled6_20250308171354.png?ex=67d0614d&is=67cf0fcd&hm=05b7d320a3e72dd61f6869988dc4b9e0b1d62e9651489f63bad8242eb104bd94&=&format=webp&quality=lossless&width=592&height=592"; height="50px"; width="50px";>
+  <div class="popup" onclick="myFunction()"> 	<span> <ion-icon name="settings-outline"></ion-icon> 	</span>
   <span class="popuptext" id="myPopup">   <table>
-                <tr><div>
+                <tr>
+ <div>
                  <p>NOTE: reload page to save changes</p>
                   </div>
+
+
+
                   <td><div>
                     <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode</label>
                   </div></td>
@@ -144,11 +148,34 @@ function PlaySound() {
                     <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
                   </div></td> <!-- Toggleable audio via checkbox -->
                 </tr>
+
+
+    </table>
+
+ <div>
+      <table>
+        <tbody>
+          <p>    [---------------------]          Developer Controlls   [---------------------]  </p>
+  <p>            [---------------------] &nbsp; &nbsp; &nbsp;   ( needs    token  ) &nbsp; &nbsp;   [---------------------]  </p>
+
+         <tr class="hidden">
+                    <td><div><b data-key="Key_idk" data-help="Key_idk">np1</b><span> -- </span>passivemode</div></td>
+                    <td><div><b data-key="KEY_ABILITY" data-help="KEY_ABILITY">np2</b><span> -- </span>  teleport</div></td>
+                    <td><div><b data-key="KEY_FUCK_YOU" data-help="KEY_FUCK_YOU">`</b><span> -- </span>testbed</div></td>
+                  </tr>
+                       <tr class="hidden">
+                    <td><div><b data-key="KEY_CHUNGUS" data-help="KEY_CHUNGUS">np3</b><span>  - </span>kill</div></td>
+                    <td><div><b data-key="KEY_TELEPORT" data-help="KEY_TELEPORT">np4</b><span> - </span>close</div></td>
+                    <td><div><b data-key="KEY_REVERSE_TANK" data-help="KEY_REVERSE_TANK">np5</b><span> - </span>define</div></td>
+     </tr>
+                       <tr class="hidden">
+                    <td><div><b data-key="KEY_CHUNGUS" data-help="KEY_CHUNGUS">np6</b><span> - </span>spawn emkd-3</div></td>
+                    <td><div><b data-key="KEY_TELEPORT" data-help="KEY_TELEPORT">np7</b><span> - </span>random boss</div></td>
+                    <td><div><b data-key="KEY_REVERSE_TANK" data-help="KEY_REVERSE_TANK">p</b><span> - </span>landmine</div></td>
+                  </tr>
+                </tbody>
               </table>
-
-  
-
-
+ </div>
 
 
 
@@ -227,26 +254,7 @@ function PlaySound() {
                     <td><div><b data-key="KEY_CHOOSE_5" data-help="KEY_CHOOSE_5">J</b><span> - </span>upgrade 5</div></td>
                     <td><div><b data-key="KEY_CHOOSE_6" data-help="KEY_CHOOSE_6">K</b><span> - </span>upgrade 6</div></td>
                   </tr>
-                  <tr class="hidden">
-                    <td><div><b data-key="KEY_CHOOSE_7" data-help="KEY_CHOOSE_7"></b><span> - </span>--</div></td>
-                    <td><div><b data-key="KEY_CHOOSE_8" data-help="KEY_CHOOSE_8"></b><span> - </span>-CHEATS--</div></td>
-                    <td><div><b data-key="KEY_CHOOSE_9" data-help="KEY_CHOOSE_9"></b><span> - </span>--</div></td>
-                  </tr>
-                     <tr class="hidden">
-                    <td><div><b data-key="Key_idk" data-help="Key_idk">np1</b><span> -- </span>passivemode</div></td>
-                    <td><div><b data-key="KEY_ABILITY" data-help="KEY_ABILITY">np2</b><span> -- </span>  teleport</div></td>
-                    <td><div><b data-key="KEY_FUCK_YOU" data-help="KEY_FUCK_YOU">`</b><span> -- </span>testbed</div></td>
-                  </tr>
-                       <tr class="hidden">
-                    <td><div><b data-key="KEY_CHUNGUS" data-help="KEY_CHUNGUS">np3</b><span>  - </span>kill</div></td>
-                    <td><div><b data-key="KEY_TELEPORT" data-help="KEY_TELEPORT">np4</b><span> - </span>close</div></td>
-                    <td><div><b data-key="KEY_REVERSE_TANK" data-help="KEY_REVERSE_TANK">np5</b><span> - </span>define</div></td>
-     </tr>
-                       <tr class="hidden">
-                    <td><div><b data-key="KEY_CHUNGUS" data-help="KEY_CHUNGUS">np6</b><span> - </span>spawn emkd-3</div></td>
-                    <td><div><b data-key="KEY_TELEPORT" data-help="KEY_TELEPORT">np7</b><span> - </span>random boss</div></td>
-                    <td><div><b data-key="KEY_REVERSE_TANK" data-help="KEY_REVERSE_TANK">p</b><span> - </span>landmine</div></td>
-                  </tr>
+              
                 </tbody>
               </table>
               <div class="optionsHeader">Themes and  Graphics</div>
@@ -287,37 +295,7 @@ function PlaySound() {
                 <option value="glass">Glass Mode</option>
               </select> 
               <input id="optCustom"  style="display:none" placeholder="Enter your theme code here">
-              <table>
-                <tr>
-                  <td><div>
-                    <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode</label>
-                  </div></td>
-                  <td><div>
-                    <label class="container"><input id="optNoPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic Traps</label>
-                  </div></td>
-                </tr><tr>
-                  <td><div>
-                    <label class="container"><input id="optFancy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Graphics</label>
-                  </div></td>
-                  <td><div>
-                    <label class="container"><input id="optShield" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Separate Shield Bar</label>
-                  </div></td>
-                </tr><tr>
-                  <td><div>
-                    <label class="container"><input id="optAutoLevel" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Auto-Level Up</label>
-                  </div></td>
-                  <td><div>
-                    <label class="container"><input id="optPrediction" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Use New Interpolation</label>
-                  </div></td>
-                </tr><tr>
-                  <td><div>
-                    <label class="container"><input id="optPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Sharp Edges</label>
-             </div></td>
-                  <td><div>
-                    <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
-                  </div></td> <!-- Toggleable audio via checkbox -->
-                </tr>
-              </table>
+      
               <div id="bottomHolder">
             <a style="background:#fc0303" onclick="PlaySound()" onmouseover="PlaySound1()" title="game inspired by" href="https://diep.io" target="_blank" rel="noopener noreferrer">inspiration from</a>
                  <a style="background:#e803fc" onclick="PlaySound()" onmouseover="PlaySound1()" title="A custom theme creator" href="https://codepen.io/road-to-100k/full/MPyOeQ/" target="_blank" rel="noopener noreferrer">Theme Creator</a>
@@ -344,6 +322,12 @@ function PlaySound() {
     </div>
   </div>
   <!-- JS -->
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
 <script>
 // When the user clicks on <div>, open the popup
 function myFunction() {

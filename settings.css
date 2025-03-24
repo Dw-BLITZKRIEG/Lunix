@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 button {
   border-radius: 4px;
   background-color: 	#7289da;
@@ -64,6 +69,14 @@ display: inline-block;/* Make the links appear below each other instead of side-
   background-color: #fa0505; /* Add an active/current color */
 }
 
+ion-icon {
+  font-size: 50px;
+color: white; 
+ --ionicon-stroke-width: 18px; 
+
+
+}
+
 
 /* Popup container */
 .popup {
@@ -74,6 +87,7 @@ display: inline-block;/* Make the links appear below each other instead of side-
   cursor: pointer;
    animation:pfpDefault 800ms linear both;
 
+
 background-color: #ff0004; 
 }
  .popup :hover {
@@ -81,8 +95,8 @@ background-color: #ff0004;
   background-color: #000000; /* Add a hover color */
   border-radius: 0px;
   transition: 0.5s;
-
 } 
+
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
@@ -92,13 +106,13 @@ background-color: #ff0004;
   color: #fff;
   text-align: top;
   border-radius: 6px;
-  padding: 8px 0;
+  padding: 30px 30px;
   position: absolute;
 
   /*right: 1000px;*/
   z-index: 1;
-  bottom: -265%;
-  left: 170%;
+  bottom: -605%;
+  left: 160%;
   margin-left: -80px;
 /* background-color: #fa0505; Add an active/current color */
 }
@@ -121,8 +135,8 @@ background-color: #ff0004;
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
   visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
+ /* -webkit-animation: fadeIn 1s; */
+ /*  animation: fadeIn 1s; */
 
 /*  transition: 0.5s; */
   
@@ -139,4 +153,10 @@ background-color: #ff0004;
   from {opacity: 0;}
   to {opacity:1 ;}
 }
+
+
+
+
+
+
 
