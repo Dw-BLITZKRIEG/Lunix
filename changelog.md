@@ -1,3 +1,9 @@
+# 24.03.2025 V2
+- reworked the arena closing system a bit
+- optimized the arena closing system
+- removed unused functions from the arena closing system
+- add a destroy socket function, if the amount of players in the server is below 1 when the arena is closing the server will automatically close, else if server is closing and there are still players alive after 30 seconds, the server will initiate a forced close - this helps reduce server loading duration and saves server resource usage
+
 # 24.03.2025
 - changed settings icon
 - removed settings from view options
