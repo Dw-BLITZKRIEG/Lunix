@@ -5,7 +5,7 @@ color: green;
 
 
 li2 {
-    font-family: Exo;
+    font-family: sans-serif;
   margin-top: 0px;
   margin-bottom: 10px;
 
@@ -15,10 +15,17 @@ color: black;
 li {
   margin-top: 0px;
   margin-bottom: 10px;
-  font-family: sans-serif;
+  font-family: serif;
  /* font-size: 4rem; 
   text-align: center; */
-  background: linear-gradient(to bottom, 	#99aab5, #000000 );
+  background: linear-gradient(to top, 	#99aab5, #000000, #99aab5, #000000  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+strong {
+color: black;
+background-color: black;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
