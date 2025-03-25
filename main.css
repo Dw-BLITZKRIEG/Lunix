@@ -664,7 +664,7 @@ body.mobile #startMenuWrapper { max-width: 750px; }
 .count {
   display: inline-block;
   width: 20px;
-  font: bold 12px Ubuntu;
+  font: bold 12px Exo;
 }
 .count span {
   font-size: 10px;
