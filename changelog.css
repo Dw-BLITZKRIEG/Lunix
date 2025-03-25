@@ -10,7 +10,12 @@
 }
 ::-webkit-scrollbar-button {
 background: #555;
-border-radius: 30px;
+border-radius: 50px;
+ background: linear-gradient(to bottom, 	#8592d6, #000000);
+
+
+
+	
 }
 
 ::-webkit-scrollbar-track {
@@ -22,9 +27,7 @@ border-radius: 30px;
   background: rgba(0, 0, 0, 0.3);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
+
 
 
 title {
@@ -37,7 +40,9 @@ li2 {
     font-family: sans-serif;
   margin-top: 0px;
   margin-bottom: 10px;
-
+  background: linear-gradient(to left, 	#8592d6, #000000, #8592d6, #000000  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 color: black;
 }
 
