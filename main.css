@@ -1070,3 +1070,24 @@ button:hover span:after {
   right: 0;
 }
 
+
+a.changelogbttn{
+  animation-name: rgpb;
+  animation-duration: 5s;
+ animation-transition: 5px;
+  animation-iteration-count: infinite;
+}
+@keyframes rgpb {
+  0% {background-color: #d92a2a}
+  10% {background-color: #60e10a}
+  20% {background-color: #b23298}
+  30% {background-color: #00aaff}
+  40% {background-color: #00f7ff}
+  50% {background-color: #f6ff00}
+  60% {background-color: #ff00cc}
+  70% {background-color: #d000ff}
+  80% {background-color: #00ffbb}
+  90% {background-color: #ff6a00}
+  100% {background-color: #0026ff}
+}
+
