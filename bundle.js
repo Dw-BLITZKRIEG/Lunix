@@ -2412,9 +2412,9 @@ let hex = ["#" + idc]
                   }
                 break;
               case "c":
-                z.cx = c[1];
-                z.cy = c[2];
-                z.view = c[3];
+                z.cx = c[0];
+                z.cy = c[1];
+                z.view = c[2];
                 z.renderx = z.cx;
                 z.rendery = z.cy;
                 z.renderv = z.view;
