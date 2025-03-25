@@ -1073,9 +1073,10 @@ button:hover span:after {
 
 a.changelogbttn{
   animation-name: rgpb;
-  animation-duration: 5s;
- animation-transition: 5px;
+  animation-duration: 4s;
+ animation-transition: all 0.3s ease;
   animation-iteration-count: infinite;
+animation-direction: alternate;
 }
 @keyframes rgpb {
   0% {background-color: #d92a2a}
