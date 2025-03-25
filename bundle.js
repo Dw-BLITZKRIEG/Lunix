@@ -1726,7 +1726,7 @@ let hex = ["#" + idc]
             sa.appendChild(d);
           }
         };
-      fetch("changelog.md", {
+     fetch((""), {
         cache: "no-cache"
       })
         .then(b => b.text())
