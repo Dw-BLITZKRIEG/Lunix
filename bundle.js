@@ -487,7 +487,7 @@ let hex = ["#" + idc]
           vy: 0,
           size: c.size,
           realSize: c.realSize,
-          color: "n",
+          color: "n", //n
           render: {
             status: {
               getFade: () => 1,
