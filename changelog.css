@@ -1,0 +1,24 @@
+title {
+color: green;
+
+}
+
+
+li2 {
+    font-family: Exo;
+  margin-top: 0px;
+  margin-bottom: 10px;
+
+color: black;
+}
+
+li {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+ /* font-size: 4rem; 
+  text-align: center; */
+  background: linear-gradient(to bottom, 	#99aab5, #000000 );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
