@@ -2448,45 +2448,19 @@ let hex = ["#" + idc]
                   b.message = "";
                 }
                 break;
-           /***   case "m":
+                case "m": {  // broadcast
 
-                Y.push({
-                  text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color) => b.help[c] ),
-                  status: 2,
-                  alpha: 0,
-                  time: Date.now()
-                });
-
-   case "m": {
-                        _messages.push({
-                            text: m[0],
+                       b.messages.push({
+ 
+                            color:  c[1] ?? "black",
+                            text: c[0],
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-                            color: m[1] || color.black
-                        });
-                    }
 
-    case "m": {  // broadcast
-                       Y.push({
+                      
                             
-                            text: c[0].replace(/\x01<([^>]+)>/g, (a, c, color2) => b.help[c] ),
-                            status: 2,
-                            alpha: 0,
-                            time: Date.now(),
-                            color: m[1]  // color. black
-                        });
-                    
-                break; ***/
-let colorb = []
-                     case "m": {  // broadcast
-                       Y.push({
-                            
-                              text: c[0],
-                            status: 2,
-                            alpha: 0,
-                            time: Date.now(),
-                            color: c[1] || l.black || colorb
+                         //   color: l.black || c[1] || c[2] 
                         });
                     } break;
               case "u":
@@ -3560,11 +3534,28 @@ let colorb = []
                   null == a.len && (a.len = ta(f, 14));
                   g.globalAlpha = 0.5 * a.alpha;
 //  let color = ["#FF0000"]
-let color = [a]
+
+let colorbd = [m]
+let color = ["#ff0000"]
+
+/*function colorFlip(hex) {
+    let col = hex.split("");
+    console.log([hex, col])
+    let [r, g, b] = [Number(col[1] + col[2]), Number(col[3] + col[4]), Number(col[5] + col[6])];
+    console.log("#" + r + g + b);
+    [r, g, b] = [255 - parseInt(r, 10), 255 - parseInt(g, 10), 255 - parseInt(b, 10)];
+    console.log("#" + r + g + b);
+    [r, g, b] = [r.toString(16), g.toString(16), b.toString(16)];
+    console.log("#" + r + g + b);
+    return "#" + r + g + b;
+}*/
+                  
                 //  K(c - a.len / 2, c + a.len / 2, d + 9, 18, null );  
-                      K(c - a.len / 2, c + a.len / 2, d + 9, 18, l.blue, l.green);    // black  IMPORTANT FOR COLORED BROADCAST
+                      K(c - a.len / 2, c + a.len / 2, d + 9, 18, (a.color in a ? l[a.color] : a.color));    // black  IMPORTANT FOR COLORED BROADCAST
+                  //g.strokeStyle = color;
                   g.globalAlpha = Math.min(1, a.alpha);
-                  a.textobj.draw(f, c, d + 9, 14, l.guiwhite, "center", !0);
+       //           a.textobj.draw(f, c, d + 9, 14, (a.color in a ? l[a.color] : a.color), "center", !0); // !0
+     a.textobj.draw(f, c, d + 9, 14, (l.guiwhite in a ? l.guiwhite: l.guiwhite), "center", !0); // !0
                   d += 22;
                   1 < a.status && (d -= 22 * (1 - Math.sqrt(a.alpha)));
                   1 < a.status
