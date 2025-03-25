@@ -1,3 +1,9 @@
+# 25.03.2025
+- finally added working colored broadcast (with a little bit of help from @reverie._._ thank you <3)
+- updated def.js in all servers
+- optimized domination system
+- i will now start working a bit more on client side features (buttons, objects, etc), but mainly focus on server functions aswell as their optimization
+
 # 24.03.2025 V2
 - reworked the arena closing system a bit
 - optimized the arena closing system
