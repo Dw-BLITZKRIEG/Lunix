@@ -30,18 +30,15 @@
   <ul>
                         <li>changed the background image</li>
                     <li> the background image now scrolls smoothly across the screen</li>
-  </ul>
-  <li>"Centered" the Play button text</li>
+         </ul>
+   <li>"Centered" the Play button text</li>
   <ul>
                      
                     <li>Increased the size of the Play button </li>
              <li>fixed a bug where the "hovering" and "activation" modes of the play button were in the wrong size</li>
-
-</ul>
-</ul>
-
+              </ul>
+              </ul>
               </li2>
-   
 </ul>
         </div>
 
