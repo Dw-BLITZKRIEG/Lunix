@@ -2463,6 +2463,24 @@ let hex = ["#" + idc]
                          //   color: l.black || c[1] || c[2] 
                         });
                     } break;
+   case "js": {  // audio
+    const audio = new Audio('https://cdn.glitch.global/48fee0ae-1ba4-4947-b2be-fa0b4801b54a/scary-ghost-voice-_i-see-you_-made-with-Voicemod.mp3?v=1744993108994'); // Pfad zur Audiodatei
+
+
+    const jumpscare = document.getElementById("jumpscare");
+   
+
+    jumpscare.style.display = "flex";
+    audio.play();
+
+    // Optional: Nach ein paar Sekunden wieder ausblenden oder zur Startseite zurück
+    setTimeout(() => {
+      jumpscare.style.display = "none";
+   
+    }, 5000);
+
+   //   audio.play()
+   } break;
               case "u":
                 {
                   d = c[0];
