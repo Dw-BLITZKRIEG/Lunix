@@ -2464,7 +2464,7 @@ let hex = ["#" + idc]
                         });
                     } break;
    case "js": {  // audio
-    const audio = new Audio('https://cdn.glitch.global/48fee0ae-1ba4-4947-b2be-fa0b4801b54a/scary-ghost-voice-_i-see-you_-made-with-Voicemod.mp3?v=1744993108994'); // Pfad zur Audiodatei
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); // Pfad zur Audiodatei
 
 
     const jumpscare = document.getElementById("jumpscare");
