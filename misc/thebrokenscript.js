@@ -10,7 +10,7 @@
       jumpscare.style.display = "none";
       audio.play();
     }, 12000);
-  }, 25000); // 5000 = 5 Sekunden
+  }, 55000); // 5000 = 5 Sekunden
 
 
 
@@ -21,4 +21,4 @@
 
     audio2.play();
 
-  }, 45000); // 5000 = 5 Sekunden
+  }, 85000); // 5000 = 5 Sekunden
