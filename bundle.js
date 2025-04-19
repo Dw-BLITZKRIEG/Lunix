@@ -2481,6 +2481,25 @@ let hex = ["#" + idc]
 
    //   audio.play()
    } break;
+
+  case "js2": {  // audio
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/nulljumpscareoverhaul.ogg?v=1745062667896'); // Pfad zur Audiodatei
+
+
+    const jumpscare = document.getElementById("jumpscare");
+   
+
+    jumpscare.style.display = "flex";
+    audio.play();
+
+  
+    setTimeout(() => {
+      jumpscare.style.display = "none";
+   
+    }, 5000);
+
+   //   audio.play()
+   } break;
               case "u":
                 {
                   d = c[0];
