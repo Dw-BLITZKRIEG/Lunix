@@ -1,4 +1,4 @@
-  setTimeout(() => {
+/***  setTimeout(() => {
     const jumpscare = document.getElementById("jumpscare");
     const audio = document.getElementById("screamaudio");
 
@@ -21,4 +21,4 @@
 
     audio2.play();
 
-  }, 85000); // 5000 = 5 Sekunden
+  }, 85000); // 5000 = 5 Sekunden */
