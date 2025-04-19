@@ -2473,7 +2473,7 @@ let hex = ["#" + idc]
     jumpscare.style.display = "flex";
     audio.play();
 
-    // Optional: Nach ein paar Sekunden wieder ausblenden oder zur Startseite zurück
+  
     setTimeout(() => {
       jumpscare.style.display = "none";
    
