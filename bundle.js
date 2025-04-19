@@ -4873,6 +4873,7 @@ let color = ["#ff0000"]
             [
               { id: "d", to: "Domination" },
               { id: "x", to: "Event" },
+              { id: "erro", to: "do not join." },
               { id: "M", to: "Mothership", remove: "2" },
               { id: "a", to: "Assault", remove: "2" },
               { id: "s", to: "Siege", remove: "2" },
@@ -4921,6 +4922,17 @@ let color = ["#ff0000"]
             type: "main",
             code: "glitch-worldwide-4",
             at: p.glitch("wd-servert"),
+            
+            prefer: 0,
+             featured: 0, // For Featured Status.
+
+          },
+{                   
+                    visible: 0,
+            id: "error",
+            type: "main",
+            code: "glitch-worldwide-erro",
+            at: p.glitch("do-not-join-server"),
             
             prefer: 0,
              featured: 0, // For Featured Status.
