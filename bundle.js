@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
      //just some code to make the sound work
 
 let idc = ["FF0000"]
