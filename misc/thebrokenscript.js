@@ -46,3 +46,21 @@ const initialDelay = getRandomDelay();
 console.log(`error 345.run`);
 
 setTimeout(jumpscaresfx1, initialDelay);
+
+
+// error msg (lmao)
+
+function jumpscaresfx2() {
+ const audio = document.getElementById("screamaudio");
+audio.play()
+
+  // After running, schedule the next run with a new random delay
+  const nextDelay = getRandomDelay();
+  console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
+
+  setTimeout(jumpscaresfx2, nextDelay);
+}
+
+console.log(`error 345/error.run`);
+
+setTimeout(jumpscaresfx2, initialDelay);
