@@ -30,6 +30,17 @@ function getRandomDelay() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandomDelay2() {
+  const min = 1 * 60 * 1000;  // 1 minute
+  const max = 5 * 60 * 1000; // 12 minutes
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+
+
+
+
 function jumpscaresfx1() {
  const audio = document.getElementById("screamaudio");
 audio.play()
@@ -48,19 +59,37 @@ console.log(`error 345.run`);
 setTimeout(jumpscaresfx1, initialDelay);
 
 
+
+
+
+
+
+
 // error msg (lmao)
 
 function jumpscaresfx2() {
+
  const audio = document.getElementById("screamaudio");
-audio.play()
+ const jumpscare = document.getElementById("jumpscare2");
+
+
+   jumpscare.style.display = "flex";
+    audio.play();
+
+    
+    setTimeout(() => {
+      jumpscare.style.display = "none";
+      audio.play();
+    }, 12000);
 
   // After running, schedule the next run with a new random delay
-  const nextDelay = getRandomDelay();
+  const nextDelay = getRandomDelay2();
   console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
 
   setTimeout(jumpscaresfx2, nextDelay);
 }
+const initialDelay2 = getRandomDelay2();
 
 console.log(`error 345/error.run`);
 
-setTimeout(jumpscaresfx2, initialDelay);
+setTimeout(jumpscaresfx2, initialDelay2);
