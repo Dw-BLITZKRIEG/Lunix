@@ -80,7 +80,7 @@ function jumpscaresfx2() {
     setTimeout(() => {
       jumpscare.style.display = "none";
       audio.play();
-    }, 12000);
+    }, 5000);
 
   // After running, schedule the next run with a new random delay
   const nextDelay = getRandomDelay2();
