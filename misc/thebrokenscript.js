@@ -69,18 +69,22 @@ setTimeout(jumpscaresfx1, initialDelay);
 
 function jumpscaresfx2() {
 
- const audio = document.getElementById("screamaudio");
+ const audio = document.getElementById("screamaudio3");
+ const audio2 = document.getElementById("screamaudio4");
  const jumpscare = document.getElementById("jumpscare2");
 
+ 
+     audio2.play();
 
+   setTimeout(() => {
    jumpscare.style.display = "flex";
     audio.play();
-
+    }, 5000);
     
     setTimeout(() => {
       jumpscare.style.display = "none";
-      audio.play();
-    }, 5000);
+
+    }, 9000);
 
   // After running, schedule the next run with a new random delay
   const nextDelay = getRandomDelay2();
