@@ -31,8 +31,8 @@ function getRandomDelay() {
 }
 
 function getRandomDelay2() {
-  const min = 1 * 60 * 1000;  // 1 minute
-  const max = 5 * 60 * 1000; // 12 minutes
+  const min = 1 * 30 * 1000;  // 1 minute
+  const max = 2 * 30 * 1000; // 12 minutes
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
