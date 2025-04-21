@@ -31,8 +31,8 @@ function getRandomDelay() {
 }
 
 function getRandomDelay2() {
-  const min = 1 * 30 * 1000;  // 1 minute
-  const max = 2 * 30 * 1000; // 12 minutes
+  const min = 3 * 30 * 1000;  // 3 minute
+  const max = 15 * 30 * 1000; // 15 minutes
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -65,7 +65,7 @@ setTimeout(jumpscaresfx1, initialDelay);
 
 
 
-// error msg (lmao)
+// you will become one of us (lore still wip)
 
 function jumpscaresfx2() {
 
