@@ -2475,6 +2475,11 @@ let hex = ["#" + idc]
 case "flicker": {  // The scary flicker thing
     // Trigger the flicker effect on screen
     triggerFlickerEffect();
+const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); 
+
+
+    audio.play();
+
 } break;
 
 // Function to apply the flickering effect on the screen
