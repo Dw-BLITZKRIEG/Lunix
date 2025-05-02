@@ -91,8 +91,8 @@ function PlayMusic() {
   let Hmloop;
 
   function getRandomDelay() {
-    const min = 1 * 60 * 1000;  // 1 minute
-    const max = 12 * 60 * 1000; // 12 minutes
+    const min = 1 * 30 * 1000;  // 1 minute
+    const max = 2 * 30 * 1000; // 12 minutes
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -142,21 +142,25 @@ function PlayMusic() {
     }
   }
 
-  function swtHm() {
-    const checkbox = document.getElementById("optjs");
+function swtHm() {
+  const checkbox = document.getElementById("optjs");
 
-    // If checkbox is checked, start jumpscare with a random delay
-    if (checkbox.checked) {
-      console.log(`error 345/error.run`);
+  // If checkbox is checked, start jumpscare with a random delay
+  if (checkbox.checked) {
+    console.log(`error 345/error.run`);
 
-      const initialDelay = getRandomDelay2();
-      Hmloop = setTimeout(jumpscaresfx2, initialDelay);
-    } else {
-      // If unchecked, clear the timeout and stop further jumpscares
-      clearTimeout(Hmloop);
-      console.log("Hm disabled!");
-    }
+    const initialDelay = getRandomDelay2();
+
+    Hmloop = setTimeout(function() {
+      jumpscaresfx2();  // Second jumpscare function
+      jumpscaresfx1();  // First jumpscare function
+    }, initialDelay);
+  } else {
+    // If unchecked, clear the timeout and stop further jumpscares
+    clearTimeout(Hmloop);
+    console.log("Hm disabled!");
   }
+}
 </script>
        <script>
 var gears = new Audio();
