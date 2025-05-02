@@ -88,12 +88,89 @@ function PlayMusic() {
   </script>
 
    <script>   
+let Hmloop;
    function swtHm() {
-      if (document.getElementById("optSound").checked === true) {
-  
-  
-     } else if (document.getElementById("optSound").checked === false) {
-          music2.pause()
+      if (document.getElementById("optjs").checked === true) {
+
+
+function getRandomDelay() {
+  const min = 1 * 60 * 1000;  // 1 minute
+  const max = 12 * 60 * 1000; // 12 minutes
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomDelay2() {
+  const min = 3 * 30 * 1000;  // 3 minute
+  const max = 15 * 30 * 1000; // 15 minutes
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+
+
+
+
+function jumpscaresfx1() {
+ const audio = document.getElementById("screamaudio");
+audio.play()
+
+  // After running, schedule the next run with a new random delay
+  const nextDelay = getRandomDelay();
+  console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
+
+  setTimeout(jumpscaresfx1, nextDelay);
+}
+
+
+const initialDelay = getRandomDelay();
+console.log(`error 345.run`);
+
+setTimeout(jumpscaresfx1, initialDelay);
+
+
+
+
+
+
+
+
+// you will become one of us (lore still wip)
+
+function jumpscaresfx2() {
+
+ const audio = document.getElementById("screamaudio3");
+ const audio2 = document.getElementById("screamaudio4");
+ const jumpscare = document.getElementById("jumpscare2");
+
+ 
+     audio2.play();
+
+   setTimeout(() => {
+   jumpscare.style.display = "flex";
+    audio.play();
+    }, 5000);
+    
+    setTimeout(() => {
+      jumpscare.style.display = "none";
+
+    }, 9000);
+
+  // After running, schedule the next run with a new random delay
+  const nextDelay = getRandomDelay2();
+  console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
+
+  setTimeout(jumpscaresfx2, nextDelay);
+}
+const initialDelay2 = getRandomDelay2();
+
+console.log(`error 345/error.run`);
+
+const Hmloop = setTimeout(jumpscaresfx2, initialDelay2);
+
+
+     } else if (document.getElementById("optjs").checked === false) {
+        clearTimeout(Hmloop);
+        console.log("Hm disabled!")
             }
          return; } 
   </script>
@@ -161,7 +238,7 @@ function PlaySound() {
 
 <td><div>
                     <label class="container"><input id="optjs" tabindex="-1" class="checkbox" type="checkbox" onclick="swtHm()"><span class="checkmark"></span>Horror Mode</label>
-                  </div></td> <!-- Toggleable audio via checkbox -->
+                  </div></td> <!-- Toggleable horrormode via checkbox -->
                 </tr>
 
 

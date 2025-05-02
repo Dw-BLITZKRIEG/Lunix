@@ -24,6 +24,11 @@
   }, 85000); // 5000 = 5 Sekunden */
 
 
+module.exports = {
+  process
+};
+
+
 function getRandomDelay() {
   const min = 1 * 60 * 1000;  // 1 minute
   const max = 12 * 60 * 1000; // 12 minutes
