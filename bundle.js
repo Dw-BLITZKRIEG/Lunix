@@ -2491,6 +2491,20 @@ function triggerFlickerEffect() {
 }
 
 
+ case "amb": {  // ambience
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); // Pfad zur Audiodatei
+
+
+
+   
+
+
+    audio.play();
+   audio.loop;
+
+
+   //   audio.play()
+   } break;
 
 
    case "js": {  // audio
@@ -4914,6 +4928,7 @@ let color = ["#ff0000"]
             local: ["Local", null],
             london: ["Europe", 2],
             worldwide: ["Worldwide", null],
+            err: ["corrupted", null],
           
             virginia: ["US East", 2],
             montreal: ["US East", -7],
@@ -4940,11 +4955,12 @@ let color = ["#ff0000"]
             [
               { id: "d", to: "Domination" },
               { id: "x", to: "Event" },
-              { id: "erro", to: "do not join." },
+              { id: "e", to: "hello" },
               { id: "M", to: "Mothership", remove: "2" },
               { id: "a", to: "Assault", remove: "2" },
               { id: "s", to: "Siege", remove: "2" },
-              { id: "t", to: "Testing", remove: "2" }
+              { id: "t", to: "Testing", remove: "2" },
+              { id: "q", to: "dont join.", remove: "2" }
             ]
           ]
         ],
@@ -4998,9 +5014,9 @@ let color = ["#ff0000"]
                     visible: 0,
             id: "error",
             type: "main",
-            code: "glitch-worldwide-erro",
+            code: "glitch-err-q",
             at: p.glitch("do-not-join-server"),
-            
+           
             prefer: 0,
              featured: 0, // For Featured Status.
 
@@ -6866,4 +6882,7 @@ pvp: {"teal":"#ff0000",
     }
   ]);
 }.call(this);
+
+
+  alert('If you are playing the horror mode please note: IT CONTAINS LOUD JUMPSCARES AND FLASHING LIGHTS; FOR A BETTER EXPIRIENCE ENABLE HORROR MODE IN THE OPTIONS MENU!');
 
