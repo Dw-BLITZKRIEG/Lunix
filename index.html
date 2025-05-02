@@ -86,6 +86,17 @@ function PlayMusic() {
             }
          return; } 
   </script>
+
+   <script>   
+   function swtHm() {
+      if (document.getElementById("optSound").checked === true) {
+  
+  
+     } else if (document.getElementById("optSound").checked === false) {
+          music2.pause()
+            }
+         return; } 
+  </script>
        <script>
 var gears = new Audio();
 gears.src = ("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/gear.wav");
@@ -146,6 +157,10 @@ function PlaySound() {
              </div></td>
                   <td><div>
                     <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
+                  </div></td> <!-- Toggleable audio via checkbox -->
+
+<td><div>
+                    <label class="container"><input id="optjs" tabindex="-1" class="checkbox" type="checkbox" onclick="swtHm()"><span class="checkmark"></span>Horror Mode</label>
                   </div></td> <!-- Toggleable audio via checkbox -->
                 </tr>
 
@@ -378,6 +393,6 @@ function myFunction() {
   }
   </script>
   <script src="./bundle.js"></script>
-  <script src="./misc/thebrokenscript.js"></script>
+      <!--     <script src="./misc/thebrokenscript.js"></script>  IGNORE -->
 </body>
 </html>
