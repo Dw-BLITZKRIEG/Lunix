@@ -2471,6 +2471,10 @@ let hex = ["#" + idc]
                          //   color: l.black || c[1] || c[2] 
                         });
                     } break;
+
+
+
+
    case "js": {  // audio
     const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); // Pfad zur Audiodatei
 
