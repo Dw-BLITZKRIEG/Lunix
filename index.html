@@ -91,8 +91,8 @@ function PlayMusic() {
   let Hmloop1, Hmloop2;
 
   function getRandomDelay() {
-    const min = 1 * 30 * 1000;  // 30 seconds
-    const max = 15 * 30 * 1000;  // 1 minute
+    const min = 1 * 60 * 1000;  // 1 minute
+    const max = 12 * 60 * 1000;  // 12 minute
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
