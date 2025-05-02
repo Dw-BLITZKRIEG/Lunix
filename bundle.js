@@ -2472,29 +2472,23 @@ let hex = ["#" + idc]
                         });
                     } break;
 
-  case "flicker": {  // the scary flicker thing
-
-
-    // Trigger flicker effect on screen
+case "flicker": {  // The scary flicker thing
+    // Trigger the flicker effect on screen
     triggerFlickerEffect();
-
-
+} break;
 
 // Function to apply the flickering effect on the screen
 function triggerFlickerEffect() {
-    // Add flicker class to the body or game container
+    // Add flicker class to the body or a specific container
     document.body.classList.add('flicker');
 
-    // Optionally, you can add some other visual elements like screen shake
+    // Optionally, you can add some other visual effects like screen shake here
 
     // Remove the flicker effect after a certain time (e.g., 3 seconds)
     setTimeout(() => {
         document.body.classList.remove('flicker');
     }, 3000);  // 3000ms = 3 seconds
 }
-
-
-                    } break;
 
 
 
