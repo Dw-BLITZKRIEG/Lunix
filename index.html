@@ -97,8 +97,8 @@ function PlayMusic() {
   }
 
   function getRandomDelay2() {
-    const min = 3 * 30 * 1000;  // 3 minutes
-    const max = 15 * 30 * 1000; // 15 minutes
+    const min = 3 * 60 * 1000;  // 3 minutes
+    const max = 15 * 60 * 1000; // 15 minutes
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
