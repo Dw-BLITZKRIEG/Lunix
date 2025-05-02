@@ -88,11 +88,11 @@ function PlayMusic() {
   </script>
 
 <script>
-  let Hmloop;
+  let Hmloop1, Hmloop2;
 
   function getRandomDelay() {
-    const min = 1 * 30 * 1000;  // 1 minute
-    const max = 2 * 30 * 1000; // 12 minutes
+    const min = 1 * 30 * 1000;  // 30 seconds
+    const max = 15 * 30 * 1000;  // 1 minute
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -106,13 +106,11 @@ function PlayMusic() {
     const audio = document.getElementById("screamaudio");
     audio.play();
 
-    // After running, schedule the next run with a new random delay
     const nextDelay = getRandomDelay();
-    console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
+    console.log(`[jumpscare1] Next in ${Math.floor(nextDelay / 60000)} minute(s)...`);
 
-    // Check if checkbox is checked before setting the next timeout
     if (document.getElementById("optjs").checked) {
-      Hmloop = setTimeout(jumpscaresfx1, nextDelay);
+      Hmloop1 = setTimeout(jumpscaresfx1, nextDelay);
     }
   }
 
@@ -132,35 +130,33 @@ function PlayMusic() {
       jumpscare.style.display = "none";
     }, 9000);
 
-    // After running, schedule the next run with a new random delay
     const nextDelay = getRandomDelay2();
-    console.log(`${Math.floor(nextDelay / 60000)} minute(s) until next run...\n`);
+    console.log(`[jumpscare2] Next in ${Math.floor(nextDelay / 60000)} minute(s)...`);
 
-    // Check if checkbox is checked before setting the next timeout
     if (document.getElementById("optjs").checked) {
-      Hmloop = setTimeout(jumpscaresfx2, nextDelay);
+      Hmloop2 = setTimeout(jumpscaresfx2, nextDelay);
     }
   }
 
-function swtHm() {
-  const checkbox = document.getElementById("optjs");
+  function swtHm() {
+    const checkbox = document.getElementById("optjs");
 
-  // If checkbox is checked, start jumpscare with a random delay
-  if (checkbox.checked) {
-    console.log(`error 345/error.run`);
+    if (checkbox.checked) {
+      console.log("Jumpscares enabled.");
 
-    const initialDelay = getRandomDelay2();
+      // Start both loops with their own random delays
+      const delay1 = getRandomDelay();
+      const delay2 = getRandomDelay2();
 
-    Hmloop = setTimeout(function() {
-      jumpscaresfx2();  // Second jumpscare function
-      jumpscaresfx1();  // First jumpscare function
-    }, initialDelay);
-  } else {
-    // If unchecked, clear the timeout and stop further jumpscares
-    clearTimeout(Hmloop);
-    console.log("Hm disabled!");
+      Hmloop1 = setTimeout(jumpscaresfx1, delay1);
+      Hmloop2 = setTimeout(jumpscaresfx2, delay2);
+    } else {
+      // Stop both loops
+      clearTimeout(Hmloop1);
+      clearTimeout(Hmloop2);
+      console.log("Jumpscares disabled.");
+    }
   }
-}
 </script>
        <script>
 var gears = new Audio();
