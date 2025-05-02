@@ -2492,7 +2492,7 @@ function triggerFlickerEffect() {
 
 
  case "amb": {  // ambience
-    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); // Pfad zur Audiodatei
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/The%20Broken%20Script%20_Song.ogg%20%2B%20Reversed_%20(Low%20pitch%20%2B%20reverb)%2010%20minutes.mp3?v=1746202271605'); // Pfad zur Audiodatei
 
 
 
@@ -2500,7 +2500,7 @@ function triggerFlickerEffect() {
 
 
     audio.play();
-   audio.loop;
+     audio.loop = true;  // Set the sound to loop
 
 
    //   audio.play()
