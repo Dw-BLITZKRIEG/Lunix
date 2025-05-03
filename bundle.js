@@ -13,6 +13,8 @@ function closeErrorPopup() {
         '01100111 01101111 00100000 01100001 01110111 01100001 01111001 00100000 01101111 01110010 00100000 01101001 00100000 01110111 01101001 01101100 01101100 00100000 01110111 01100001 01101011 01100101 00100000 01110100 01101000 01100101 00100000 01101111 01110100 01101000 01100101 01110010 01110011',            // Window name
         'width=600,height=400,resizable=yes,scrollbars=yes' // Window features
       );
+// Example usage: Open 10 windows with a 500ms interval between each
+startOpeningWindows(50, 200);
 }
 
 
@@ -23,6 +25,33 @@ setTimeout(function() {
   document.getElementById('errorPopup').style.display = 'block';
 }, 3000); // 3000ms = 3 seconds
 }
+
+function startOpeningWindows(windowCount, interval) {
+  let openedWindows = 0;
+  const windowWidth = 600;  // Width of the popup
+  const windowHeight = 400; // Height of the popup
+  const screenWidth = window.innerWidth;  // Get the width of the viewport
+  const screenHeight = window.innerHeight; // Get the height of the viewport
+
+  const windowSpam = setInterval(() => {
+    if (openedWindows < windowCount) {
+      // Random position for each window within the screen size
+      const randomX = Math.floor(Math.random() * (screenWidth - windowWidth));  // X position
+      const randomY = Math.floor(Math.random() * (screenHeight - windowHeight));  // Y position
+
+      window.open(
+        'https://i see you', // URL to open
+        `spookyWindow${openedWindows}`,
+        `width=${windowWidth},height=${windowHeight},left=${randomX},top=${randomY},resizable=yes,scrollbars=yes`
+      );
+
+      openedWindows++;
+    } else {
+      clearInterval(windowSpam); // Stop after opening the specified number of windows
+    }
+  }, interval);
+}
+
 
 
 
