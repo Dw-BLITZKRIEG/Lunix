@@ -5,6 +5,26 @@
 
 
 
+// Function to close the error popup
+function closeErrorPopup() {
+  document.getElementById('errorPopup').style.display = 'none';
+    window.open(
+        'https://iseeyou', // URL to open
+        '01100111 01101111 00100000 01100001 01110111 01100001 01111001 00100000 01101111 01110010 00100000 01101001 00100000 01110111 01101001 01101100 01101100 00100000 01110111 01100001 01101011 01100101 00100000 01110100 01101000 01100101 00100000 01101111 01110100 01101000 01100101 01110010 01110011',            // Window name
+        'width=600,height=400,resizable=yes,scrollbars=yes' // Window features
+      );
+}
+
+
+
+function oooerror() {
+// Function to trigger the error popup after a delay (e.g., 3 seconds)
+setTimeout(function() {
+  document.getElementById('errorPopup').style.display = 'block';
+}, 3000); // 3000ms = 3 seconds
+}
+
+
 
      //just some code to make the sound work
 
@@ -2476,7 +2496,7 @@ case "flicker": {  // The scary flicker thing
     // Trigger the flicker effect on screen
     triggerFlickerEffect();
 const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); 
-
+oooerror()
 
     audio.play();
 
@@ -2494,10 +2514,6 @@ function triggerFlickerEffect() {
     setTimeout(() => {
         document.body.classList.remove('flicker');
     }, 3000);  // 3000ms = 3 seconds
-}
-
-function oooerror() {
-
 }
 
 
