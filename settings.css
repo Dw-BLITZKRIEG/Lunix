@@ -156,7 +156,47 @@ background-color: #ff0004;
 
 
 
+/* Fake error box styling */
+.error-popup {
+  width: 350px;
+  background-color: white;
+  border: 2px solid red;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+  display: none; /* Initially hidden */
+  z-index: 9999; /* Ensure it's on top of other elements */
+}
 
+.error-popup h2 {
+  color: red;
+  margin-bottom: 15px;
+}
 
+.error-popup p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+}
 
+/* Fix button width and styling */
+.btn-close {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  max-width: 100%; /* Ensure it doesn't stretch */
+  width: fit-content; /* Button width adjusts to content */
+  display: inline-block; /* Prevent it from stretching */
+  text-align: center;
+}
 
+.btn-close:hover {
+  background-color: darkred;
+}

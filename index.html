@@ -183,10 +183,21 @@ function PlaySound() {
     <div id="respawn-banner" class="respawn-banner"><div id="arras-io_728x90"></div></div>
   </div>
 
-  <div class="popup" onclick="myFunction()"> 	<span> <ion-icon name="settings-outline"></ion-icon> 	</span>
+ 
+  <!-- Fake error popup -->
+  <div class="error-popup" id="errorPopup">
+    <h2>msg;from_user:&lt;admin&gt;:err.id:345</h2>
+    <p>check your files</p>
+    <button class="btn-close" onclick="closeErrorPopup()">OK</button>
+  </div>
+
+
+
+
+ <div class="popup" onclick="myFunction()"> 	<span> <ion-icon name="settings-outline"></ion-icon> 	</span>
   <span class="popuptext" id="myPopup">   <table>
                 <tr>
- <div>
+<div>
                  <p>NOTE: reload page to save changes</p>
                   </div>
 
@@ -458,6 +469,6 @@ function myFunction() {
   }
   </script>
   <script src="./bundle.js"></script>
-      <!--     <script src="./misc/thebrokenscript.js"></script>  IGNORE -->
+           <script src="./misc/thebrokenscript.js"></script> 
 </body>
 </html>

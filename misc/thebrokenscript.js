@@ -21,7 +21,7 @@
 
     audio2.play();
 
-  }, 85000); // 5000 = 5 Sekunden */
+  }, 85000); // 5000 = 5 Sekunden 
 
 
 module.exports = {
@@ -41,7 +41,18 @@ function getRandomDelay2() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+*/
 
+// Function to trigger the error popup after a delay (e.g., 3 seconds)
+setTimeout(function() {
+  document.getElementById('errorPopup').style.display = 'block';
+}, 3000); // 3000ms = 3 seconds
+
+// Function to close the error popup
+function closeErrorPopup() {
+  document.getElementById('errorPopup').style.display = 'none';
+ 
+}
 
 
 
