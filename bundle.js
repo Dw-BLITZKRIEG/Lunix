@@ -2480,6 +2480,7 @@ const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5ea
 
     audio.play();
 
+
 } break;
 
 // Function to apply the flickering effect on the screen
@@ -2494,6 +2495,11 @@ function triggerFlickerEffect() {
         document.body.classList.remove('flicker');
     }, 3000);  // 3000ms = 3 seconds
 }
+
+function oooerror() {
+
+}
+
 
 
  case "amb": {  // ambience

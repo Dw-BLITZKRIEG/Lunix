@@ -43,21 +43,11 @@ function getRandomDelay2() {
 
 */
 
-// Function to trigger the error popup after a delay (e.g., 3 seconds)
-setTimeout(function() {
-  document.getElementById('errorPopup').style.display = 'block';
-}, 3000); // 3000ms = 3 seconds
-
-// Function to close the error popup
-function closeErrorPopup() {
-  document.getElementById('errorPopup').style.display = 'none';
- 
-}
 
 
 
 
-function jumpscaresfx1() {
+/**function jumpscaresfx1() {
  const audio = document.getElementById("screamaudio");
 audio.play()
 
@@ -113,3 +103,4 @@ const initialDelay2 = getRandomDelay2();
 console.log(`error 345/error.run`);
 
 setTimeout(jumpscaresfx2, initialDelay2);
+*/
