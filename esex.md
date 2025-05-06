@@ -67,4 +67,31 @@ Max' "kapitel" in 3.Person geschrieben sind
 
 Nun erzähle ich euch den Inhalt:
 
-/====@INHALT
+/====@INHALT======/
+Das Buch handelt von den 3 Bestenfreunden, Max, Leo und Elsa welche sich momentan
+in einem Riesenrad befinden um Leos geburtstag zu feiern. Jedoch stolpert Leo über
+eine Frau und endschuldigt sich. Herr Grünberg, Leos vater ladet die Frau und Ihren Mann
+zu einer weiteren fahrt und anschließend zum Geburtstag 
+
+
+
+
+Jetzt werde ich euch eine Leseprobe vorlesen
+
+
+
+Zuguter letzt spreche ich über meine Persönliche Meinung
+
+Positive Meinung: Das Buch ist ziemlich spannend und auch Interessant,
+weil es wirklich zeigt wie schlecht es den juden zur ns zeit ging. Dazu
+ist das Buch auch sehr emotional, an vielen stellen weinen die Protagonisten
+oder verlieren Dinge die für sie sehr wichtig sind
+
+
+Negative Meinung: Das Buch war zuerst sehr kompliziert zu lesen, da die 
+Perspektive ständig gewechselt wurde
+
+Ich persönlich würde das Buch empfehlen, wenn man sich für den Zweiten
+Weltkrieg interessiert oder bzw wenn man sich interessiert, wie es den juden
+früher ging. Jedoch sollte man es nicht lesen, wenn man sensibel ist
+da auch viele Grausame Szenen vorhanden sind
