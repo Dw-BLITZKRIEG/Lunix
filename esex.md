@@ -102,7 +102,16 @@ Währenddessen zieht Max nach München, da sein Vater von hitler befördert wurd
 Leo und Mutter steigen schließlich in einen Zug und verlassen Österreich.
 
 Elsa findet eine neue beste freundin, names Greta welche auch Jüdin ist. Jedoch müssen Elsa und ihre Familie ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
-Vertrag unterschreiben musste. Schließlich wurde sie mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen 
+Vertrag unterschreiben musste. Schließlich wurde sie mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen Familien das Haus teilten, darunter auch greta.
+
+Jedoch hielt dies nicht lange an, da sie und die anderen Jüdischen Familien erneut hinaus geschmießen werden und zu einem anderen Ort namens Theresienstadt gebracht, wo ihnen versprochen wird,
+dass sie dort gut behandelt werden, was eine Lüge ist. Sie bekommen kaum essen und kaum trinkwasser. Jedoch wird der Welt vorgespielt das es den Juden gut ginge.
+
+Nach und nach werden Juden von theresian abtransportiert. Ein paar wochen bevor Elsa und ihre Familie abtransportiert wurden, wurde bereits greta und ihre familie abtransportiert.
+Sie wurden alle Mit Zügen nach Ausschwitz transportiert.
+
+Mittlerweile musste Max und seine Eltern erneut umziehen, da sein Vater nun zu einen SS Kommandaten befördert wurde und in Auschwitz arbeitet. Max wird 14 und trettet der Hitlerjugend bei.
+An seinem 15 geburtstag, w
 
 
 
