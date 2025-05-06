@@ -92,8 +92,17 @@ auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
 Max' Vater befehlt ihm, von nun an nicht mehr mit Leo sich zu treffen und warnt ihn. Auch in der Schule wurde es ihm verboten mit Max zu reden
 
 Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
-und erklärt Leo, das er sich um seine Mutter kü
+und erklärt Leo, das er sich um seine Mutter kümmern sollte und an den Plänen seines Vaters weiter zu arbeiten, aus Wien zu entkommen. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
+Botschaften, nur um abgesagt zu werden bis sie fast ihre Hoffnung verlierten. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter schreibt ihnen einen Brief in der hoffnung dass sie ihnen
+helfen würden. Glücklicherweise helfen die Stewarts Leo und seiner Mutter und sie schaffen es, ihre Unterlagen unterschrieben zu bekommen um Österreich zu verlassen zu können. 
 
+Währenddessen zieht Max nach München, da sein Vater von hitler befördert wurde. Schließlich trettet er den jungvolk bei.
+
+
+Leo und Mutter steigen schließlich in einen Zug und verlassen Österreich.
+
+Elsa findet eine neue beste freundin, names Greta welche auch Jüdin ist. Jedoch müssen Elsa und ihre Familie ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
+Vertrag unterschreiben musste. Schließlich wurde sie mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen 
 
 
 
