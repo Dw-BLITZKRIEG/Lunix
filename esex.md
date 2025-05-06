@@ -80,7 +80,19 @@ nur das es in Wien gefährlich sei aber nicht warum. Elsa wird deswegen sehr tra
 noch ein letztes mal mit Leo uns Max sich treffen. Nachdem sie ihnen dies erzählte, 
 sind beide, Max und Leo, verwiert und glauben ihr zuerst nicht.
 
-N
+Nun war Elsa in Prag und Österreich würde von Deutschland angeschlossen. In der 
+Schule, in der Max und Leo zusammen gehen, wurden alle Schüler zur Aula gerufen. Der Direktor, welcher
+eigentlich ganz lieb und nett war, verhielt sich komisch. Er rief ein paar Schüler, darunter
+auch Leo auf,beschimpfte diese als Hunde und befahl ihen, ganz hinten sich hinzuseten.
+
+Schließlich wurde Leo verboten zur Schule zu gehen und spazierte durch Wien, als er plötlich eine Menschenmenge sah, die fröhlich feierte und er beschloss
+dort hin zu gehen. Als er sich durch die Menschenmenge quetscht, bemerkt er wie sein Vater den Boden putzt und seine ehemaligen freunden, darunter auch herr huber also max' Vater ihn
+auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
+
+Max' Vater befehlt ihm, von nun an nicht mehr mit Leo sich zu treffen und warnt ihn. Auch in der Schule wurde es ihm verboten mit Max zu reden
+
+Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
+und erklärt Leo, das er sich um seine Mutter kü
 
 
 
