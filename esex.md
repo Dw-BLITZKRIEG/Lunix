@@ -71,7 +71,16 @@ Nun erzähle ich euch den Inhalt:
 Das Buch handelt von den 3 Bestenfreunden, Max, Leo und Elsa welche sich momentan
 in einem Riesenrad befinden um Leos geburtstag zu feiern. Jedoch stolpert Leo über
 eine Frau und endschuldigt sich. Herr Grünberg, Leos vater ladet die Frau und Ihren Mann
-zu einer weiteren fahrt und anschließend zum Geburtstag 
+zu einer weiteren fahrt und anschließend zur Geburtstagsfeier ein. Das Paar stellt sich vor
+und sie heißen Mr und Mrs Stewart, und sie sind engländer welche Wien besuchten. Daraufhin bietet Leos Vater
+an, das Paar mehr von Wien zu zeigen und sie stimmen zu.
+
+Nach ein paar Tagen, verkündet Elsas Vater ihr, dass sie umziehen werden, erklärt ihr aber
+nur das es in Wien gefährlich sei aber nicht warum. Elsa wird deswegen sehr traurig, und möchte 
+noch ein letztes mal mit Leo uns Max sich treffen. Nachdem sie ihnen dies erzählte, 
+sind beide, Max und Leo, verwiert und glauben ihr zuerst nicht.
+
+N
 
 
 
