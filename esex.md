@@ -111,7 +111,8 @@ Nach und nach werden Juden von theresian abtransportiert. Ein paar wochen bevor 
 Sie wurden alle Mit Zügen nach Ausschwitz transportiert.
 
 Mittlerweile musste Max und seine Eltern erneut umziehen, da sein Vater nun zu einen SS Kommandaten befördert wurde und in Auschwitz arbeitet. Max wird 14 und trettet der Hitlerjugend bei.
-An seinem 15 geburtstag, w
+An seinem 15 geburtstag, bietet sein Vater ihn an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
+wo er eine Jüdin, und zwar Elsa, erschießen sollte. Jedoch zögerte Max, da er sie erkannte. Plötzlich erschoss einer der SS soldaten unabsichtlich max, da er in die Schusslinie geriet.
 
 
 
