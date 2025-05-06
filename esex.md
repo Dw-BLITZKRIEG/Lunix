@@ -51,3 +51,20 @@ Kalt, Streng und  er ist überzeugt von dem National Sozialistmus
 Frau Huber: Sie ist die Mutter von Max und ihre Persönlichkeit ist beruhigend
 und geduldig
 
+Herr Grünberg: Er ist der Vater von Leo, arbeitet als Fotograph und seine 
+Persönlichkeit ist Nett, fröhlich und hilfsbereit und er ist jude
+
+Frau Grünberg: Sie ist die Mutter von Leo, ihre Persönlichkeit ist lieb sie ist auch
+zuversichtlich und verfügt über ein großes Durchsetzungsvermögen
+
+Elsas Eltern: Sie sind sehr Fürsorglich und Vorsichtig aufgrund der NS
+
+Nun spreche ich über die Erzählform
+
+Leos & Elsas "kapitel" sind in der 1. Person geschrieben, Während 
+Max' "kapitel" in 3.Person geschrieben sind
+
+
+Nun erzähle ich euch den Inhalt:
+
+/====@INHALT
