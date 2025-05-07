@@ -94,16 +94,16 @@ auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
 Max' Vater verbot ihm, sich nicht mehr mit Leo zu treffen. Auch in der Schule wurde es ihm verboten mit Max zu reden
 
 Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
-und erklärt seinem sohn, das er sich um seine Mutter kümmern sollte und an den Plan seines  aus Wien zu entkommen, weiter zu arbeiten. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
-Botschaften, nur um abgesagt zu werden bis sie fast ihre Hoffnung verlierten. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter schreibt ihnen einen Brief in der hoffnung dass sie ihnen
-helfen würden. Glücklicherweise helfen die Stewarts Leo und seiner Mutter und sie schaffen es, ihre Unterlagen unterschrieben zu bekommen um Österreich zu verlassen zu können. 
+und erklärt seinem sohn, das er sich um seine Mutter kümmern sollte und an den Plan  aus Wien zu entkommen, . Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
+Botschaften, nur um absagen zu bekommen bis sie fast ihre Hoffnung verloren. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter und schreibt ihnen einen Brief in der hoffnung dass sieihnen
+helfen würden. Glücklicherweise halfen sie und schaffen es, sie aus demland zu bringen 
 
-Währenddessen zieht Max nach München, da sein Vater von hitler befördert wurde. Schließlich trettet er den jungvolk bei. Und er wird wie besessen von der NS Ideologie
+Währenddessen zog Max nach München, da sein Vater von hitler befördert wurde. von seinem vater angetan beschloss er dem jugndvolk hitlers sich anzuschliesse . 
 
 
-Leo und Mutter steigen schließlich in einen Zug und verlassen Österreich.
 
-Elsa findet eine neue beste freundin, names Greta welche auch Jüdin ist. Jedoch müssen Elsa und ihre Familie ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
+
+Elsa fand eine neue beste freundin, names Greta welche auch Jüdin war. Jedoch Elsa und ihre Familie ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
 Vertrag unterschreiben musste. Schließlich wurde sie mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen Familien das Haus teilten, darunter auch greta.
 
 Jedoch hielt dies nicht lange an, da sie und die anderen Jüdischen Familien erneut hinaus geschmießen werden und zu einem anderen Ort namens Theresienstadt gebracht, wo ihnen versprochen wird,
