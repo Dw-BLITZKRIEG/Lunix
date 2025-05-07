@@ -112,14 +112,14 @@ Nach und nach wurden juden von theresienstadt nach ausschwitz mit zügen transpo
 im zug war es schrecklich man konnte kaum atmen .
 
 Mittlerweile mussten Max und seine Eltern erneut umziehen, sein Vater wurde zu einem SS Kommandaten befördert und arbeitete in Auschwitz . 
-An seinem 15 geburtstag, bat sein Vater ihm an,  zur seiner Arbeit mitzukommen arbeit wo er auch eine wächterschicht übernehmen durfte. Seine Kollegen boten Max ein geburtstagsgeschenk an
+An seinem 15 geburtstag, bat sein Vater ihm an,  zur seiner Arbeit mitzukommen um uz arbeiten wo er auch eine wächterschicht übernehmen durfte. Seine Kollegen boten Max ein geburtstagsgeschenk an
 er durfte eine jüdin erschiessen.  Max zögerte da er sie kannte es war elsa. in dem durcheinander geriet max in die schusslinie und wurde von einem ss soldaten unabsichlich erschossen
 
-Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich mit einem jungen names daniel an, welcher mit ihm in die selbe klasse geht und auch jude ist
-Rory, welcher der freund von Mary, die Schwester von Daniel, hatte Leo eingeladen ins Kino zu gehen. In der Schlange bemerkte er wie zwei Mädchen auf ihn aufmerksam waren. Schließlich
-kommt er mit einem von dem Mädchen namens Annie zusammmen.
+Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich mit einem jungen names daniel an, welcher mit ihm in die selbe klasse ging  und auch jude war.
+Rory, der freund von Mary, die die  Schwester von Daniel war hatte Leo ins kino eingeladen. In der Schlange bemerkte er wie zwei Mädchen auf ihn aufmerksam wurden.. Schließlich
+kam er mit einem von dem Mädchen namens Annie zusammmen.
 
-Nach einiger Zeit, kommt Leos Vater zurück nachhause, Leo ladet seine freundin zu sich und sie alle feiern
+Nach jahren, kam Leos Vater  nachhause, Leo war überglüclich wieder seinen vater zu sehen und beschloss eine party zu geben wo auch natürlich seine annie einlud.
 
 
 
