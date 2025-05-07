@@ -41,26 +41,28 @@ Elsa:
 Sie ist jüdin, die dritte Person der drei Protagonisten, alle 3 sind miteineander befreundet
 
 
-Herr Huber: ist derVater von Max, seine Persönlichkeit ist
+Herr Huber: ist der Vater von Max, seine Persönlichkeit ist
 Kalt, Streng und  er ist überzeugt von dem National Sozialistmus
 
-Frau Huber: ist die Mutter von Max und ihre Persönlichkeit ist beruhigend
+Frau Huber: ist die Mutter von Max und ihr wesen ist beruhigend
 und geduldig
 
-Herr Grünberg: ist der Vater von Leo, arbeitet als Fotograph und seine 
-Persönlichkeit ist Nett, fröhlich und hilfsbereit und er ist jude
+Herr Grünberg: ist der Vater von Leo, arbeitet als Fotograph und sein
+Character ist Nett, fröhlich und hilfsbereit und er ist jude
 
-Frau Grünberg: Sie ist die Mutter von Leo, ihre Persönlichkeit ist lieb sie ist auch
+Frau Grünberg: ist die Mutter von Leo, ist lieb  auch
 zuversichtlich und verfügt über ein großes Durchsetzungsvermögen
 
-Elsas Eltern: Sie sind sehr Fürsorglich und Vorsichtig aufgrund der NS
+Elsas Eltern: Sie sind sehr Fürsorglich und Vorsichtig aufgrund der NS (sind in dem Buch namenlos)
+
+Mrs. und Mr. Stewart: Sind ein Britisches Ehepaar, welches Leo und seine Mutter retten, dazu komme ich noch aber beim Inhalt 
 
 Nun spreche ich über die Erzählform
 
 Leos & Elsas "kapitel" sind in der 1. Person geschrieben, Während 
 Max' "kapitel" in 3.Person geschrieben sind
 
-Mrs. und Mr. Stewart: Sind ein Britisches Ehepaar, welches Leo und seine Mutter retten, dazu komme ich noch aber beim Inhalt
+
 
 
 
@@ -75,9 +77,9 @@ und sie heißen Mr und Mrs Stewart, sie sind engländer welche Wien besuchten. D
 an, das Paar mehr von Wien zu zeigen und sie stimmen zu.
 
 Nach ein paar Tagen, verkündet Elsas Vater ihr, dass sie umziehen werden, erklärt ihr aber
-nur das es in Wien gefährlich sei aber nicht warum. Elsa wird deswegen sehr traurig, und möchte 
-noch ein letztes mal mit Leo uns Max sich treffen. Nachdem sie ihnen dies erzählte, 
-sind beide, Max und Leo, verwiert und glauben ihr zuerst nicht.
+ das es in Wien gefährlich sei aber nicht warum. Elsa  wurde deswegen sehr traurig, und wollte sich 
+noch ein letztes mal mit Leo uns Max treffen. Nachdem sie ihnen dies erzählte, 
+sind beide, , verwiert und glauben ihr zuerst nicht.
 
 Nun war Elsa in Prag und Österreich würde von Deutschland angeschlossen. In der 
 Schule, in der Max und Leo zusammen gehen, wurden alle Schüler zur Aula gerufen. Der Direktor, welcher
