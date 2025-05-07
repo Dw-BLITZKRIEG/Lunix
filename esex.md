@@ -119,9 +119,9 @@ Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich m
 Rory, der freund von Mary, die die  Schwester von Daniel war hatte Leo ins kino eingeladen. In der Schlange bemerkte er wie zwei Mädchen auf ihn aufmerksam wurden.. Schließlich
 kam er mit einem von dem Mädchen namens Annie zusammmen.
 
-Nach jahren, kam Leos Vater  nachhause, Leo war überglüclich wieder seinen vater zu sehen und beschloss eine party zu geben wo auch natürlich seine annie einlud.
+Nach jahren, kam Leos Vater  nachhause, Leo war überglüclich wieder seinen vater in den armen zu nehmen und beschloss eine party zu geben bei der seine annie nicht fehlen durfte.
 
-
+alle feierten und waren endlich glücklich.
 
 
 Jetzt werde ich euch eine Leseprobe vorlesen
