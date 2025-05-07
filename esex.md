@@ -64,6 +64,9 @@ Nun spreche ich über die Erzählform
 Leos & Elsas "kapitel" sind in der 1. Person geschrieben, Während 
 Max' "kapitel" in 3.Person geschrieben sind
 
+Mrs. und Mr. Stewart: Sind ein Britisches Ehepaar, welches Leo und seine Mutter retten, dazu komme ich noch aber beim Inhalt
+
+
 
 Nun erzähle ich euch den Inhalt:
 
@@ -124,7 +127,7 @@ Nach einiger Zeit, kommt Leos Vater zurück nachhause, Leo ladet seine freundin 
 
 
 Jetzt werde ich euch eine Leseprobe vorlesen
-
+bs 105-106
 
 
 Zuguter letzt spreche ich über meine Persönliche Meinung
