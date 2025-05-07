@@ -24,34 +24,30 @@ nun spreche ich über die eckdaten zum buch
 - Und der Originaltitel heißt "When the World was ours"
 - Die Autorin des Buches ist Liz Kessler
 - Verlag ist von Fischer Säulender (deutsche Ausgabe)
-- Außerdem wurde Das buch wurde von Eva Riekert übersetzt
--Es erschien am 23. Mai 2022 in deutscher variante
--Das buch basiert auch  auf einer wahren Geschichte bzw der 
+- Das buch wurde von Eva Riekert in deutscher sprache übersetzt und erschien am 23. Mai 2022
+- Es basiert auch  auf einer wahren Geschichte bzw der 
 Geschichte des Vaters der Autorin
-- Das Buch umfasst ca 300 seiten
+- Das Band umfasst ca 300 seiten
 
 Jetzt werde ich euch die Wichtigsten Figuren vorstellen
 
-Leon:
-er ist jude, einer von den drei Protagonisten und ist befreundet mit Max 
-und Elsa
+Leo:
+er ist jude, einer von den drei Protagonisten 
 
 Max: 
-er ist deutscher, auch teil von den Protagonisten und auch ein freund von 
-Leo und Elsa
+er ist deutscher, auch teil von den Hauptcharakätren
 
 Elsa:
-Sie ist jüdin, die dritte Person der drei Protagonisten und die freundin
-von Max und Leo
+Sie ist jüdin, die dritte Person der drei Protagonisten, alle 3 sind miteineander befreundet
 
 
-Herr Huber: Er ist derVater von Max, seine Persönlichkeit ist
+Herr Huber: ist derVater von Max, seine Persönlichkeit ist
 Kalt, Streng und  er ist überzeugt von dem National Sozialistmus
 
-Frau Huber: Sie ist die Mutter von Max und ihre Persönlichkeit ist beruhigend
+Frau Huber: ist die Mutter von Max und ihre Persönlichkeit ist beruhigend
 und geduldig
 
-Herr Grünberg: Er ist der Vater von Leo, arbeitet als Fotograph und seine 
+Herr Grünberg: ist der Vater von Leo, arbeitet als Fotograph und seine 
 Persönlichkeit ist Nett, fröhlich und hilfsbereit und er ist jude
 
 Frau Grünberg: Sie ist die Mutter von Leo, ihre Persönlichkeit ist lieb sie ist auch
