@@ -103,10 +103,10 @@ Währenddessen zog Max nach München, da sein Vater von hitler befördert wurde.
 
 
 
-Elsa fand eine neue beste freundin, names Greta welche auch Jüdin war. Jedoch Elsa und ihre Familie ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
-Vertrag unterschreiben musste. Schließlich wurde sie mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen Familien das Haus teilten, darunter auch greta.
+Elsa fand eine neue beste freundin, names Greta welche auch Jüdin war.  Elsa und ihre Familie mussten  ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
+Vertrag unterschreiben musste. das mädchen wurde  mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen Familien das Haus wohnten darunter auch greta.
 
-Jedoch hielt dies nicht lange an, da sie und die anderen Jüdischen Familien erneut hinaus geschmießen werden und zu einem anderen Ort namens Theresienstadt gebracht, wo ihnen versprochen wird,
+l leider war der aufenthalt sehr kurz denn sie wurden alle abgeholtund namens Theresienstadt gebracht, wo ihnen versprochen wird,
 dass sie dort gut behandelt werden, was eine Lüge ist. Sie bekommen kaum essen und kaum trinkwasser. Jedoch wird der Welt vorgespielt das es den Juden gut ginge.
 
 Nach und nach werden Juden von theresian abtransportiert. Ein paar wochen bevor Elsa und ihre Familie abtransportiert wurden, wurde bereits greta und ihre familie abtransportiert.
