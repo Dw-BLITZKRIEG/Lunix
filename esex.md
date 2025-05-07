@@ -111,9 +111,9 @@ dass sie dort gut behandelt werden, was eine Lüge war. Sie bekammen  kaum essen
 Nach und nach wurden juden von theresienstadt nach ausschwitz mit zügen transportiert.einige wochen nach gretas und iher familie waren jetz auch elsa und ihre angehörigen an der reihe.
 im zug war es schrecklich man konnte kaum atmen .
 
-Mittlerweile musste Max und seine Eltern erneut umziehen, sein Vater wurde zu einen SS Kommandaten befördert und arbeitete in Auschwitz . 
-An seinem 15 geburtstag, bat sein Vater ihm an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
-wo er eine Jüdin, und zwar Elsa, erschießen sollte. Jedoch zögerte Max, da er sie erkannte. Plötzlich erschoss einer der SS soldaten unabsichtlich max, da er in die Schusslinie geriet.
+Mittlerweile mussten Max und seine Eltern erneut umziehen, sein Vater wurde zu einem SS Kommandaten befördert und arbeitete in Auschwitz . 
+An seinem 15 geburtstag, bat sein Vater ihm an,  zur seiner Arbeit mitzukommen arbeit wo er auch eine wächterschicht übernehmen durfte. Seine Kollegen boten Max ein geburtstagsgeschenk an
+er durfte eine jüdin erschiessen.  Max zögerte da er sie kannte es war elsa. in dem durcheinander geriet max in die schusslinie und wurde von einem ss soldaten unabsichlich erschossen
 
 Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich mit einem jungen names daniel an, welcher mit ihm in die selbe klasse geht und auch jude ist
 Rory, welcher der freund von Mary, die Schwester von Daniel, hatte Leo eingeladen ins Kino zu gehen. In der Schlange bemerkte er wie zwei Mädchen auf ihn aufmerksam waren. Schließlich
