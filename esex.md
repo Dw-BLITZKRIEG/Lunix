@@ -105,12 +105,11 @@ Währenddessen zog Max nach München, da sein Vater von hitler befördert wurde.
 
 Elsa fand eine neue beste freundin, names Greta welche auch Jüdin war.  Elsa und ihre Familie mussten  ihr haus verlassen, da Deutschland mit Chechien im Krieg war und Chechien schließlich einen
 Vertrag unterschreiben musste. das mädchen wurde  mit Ihrer Familie zu einen Mietshaus gebracht, wo sie nun mit anderen Jüdischen Familien das Haus wohnten darunter auch greta.
+ leider war der aufenthalt sehr kurz denn sie wurden alle abgeholt und nach Theresienstadt gebracht, wo ihnen versprochen wurde
+dass sie dort gut behandelt werden, was eine Lüge war. Sie bekammen  kaum essen und kaum trinkwasser. Jedoch wurde der Welt vorgespielt das es den Juden gut ginge.
 
-l leider war der aufenthalt sehr kurz denn sie wurden alle abgeholtund namens Theresienstadt gebracht, wo ihnen versprochen wird,
-dass sie dort gut behandelt werden, was eine Lüge ist. Sie bekommen kaum essen und kaum trinkwasser. Jedoch wird der Welt vorgespielt das es den Juden gut ginge.
+Nach und nach wurden juden von theresienstadt nach ausschwitz mit zügen transportiert.einige wochen nach
 
-Nach und nach werden Juden von theresian abtransportiert. Ein paar wochen bevor Elsa und ihre Familie abtransportiert wurden, wurde bereits greta und ihre familie abtransportiert.
-Sie wurden alle Mit Zügen nach Ausschwitz transportiert.
 
 Mittlerweile musste Max und seine Eltern erneut umziehen, da sein Vater nun zu einen SS Kommandaten befördert wurde und in Auschwitz arbeitet. Max wird 14 und trettet der Hitlerjugend bei.
 An seinem 15 geburtstag, bietet sein Vater ihn an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
