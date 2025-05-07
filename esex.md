@@ -91,12 +91,12 @@ leut so schrien.
 er  quetschr sich durch die Menschenmenge und  bemerkte wie sein Vater den Boden putzt und seine ehemaligen freunde, darunter auch herr huber ihn
 auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
 
-Max' Vater verbot ihm, sich nicht mehr mit Leo zu treffen. Auch in der Schule wurde es ihm verboten mit Max zu reden
+Max' Vater verbot ihn, sich nicht mehr mit Leo zu treffen. Auch in der Schule wurde es ihm verboten mit Max zu reden
 
 Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
 und erklärt seinem sohn, das er sich um seine Mutter kümmern sollte und an den Plan  aus Wien zu entkommen, . Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
-Botschaften, nur um absagen zu bekommen bis sie fast ihre Hoffnung verloren. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter und schreibt ihnen einen Brief in der hoffnung dass sieihnen
-helfen würden. Glücklicherweise halfen sie und schaffen es, sie aus demland zu bringen 
+Botschaften, nur um absagen zu bekommen bis sie fast ihre Hoffnung verloren. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter schrieb  ihnen einen Brief in der hoffnung dass sie ihnen
+helfen würden. Glücklicherweise halfen sie und schaffen es, sie aus dem land zu bringen 
 
 Währenddessen zog Max nach München, da sein Vater von hitler befördert wurde. von seinem vater angetan beschloss er dem jugndvolk hitlers sich anzuschliesse . 
 
@@ -108,11 +108,11 @@ Vertrag unterschreiben musste. das mädchen wurde  mit Ihrer Familie zu einen Mi
  leider war der aufenthalt sehr kurz denn sie wurden alle abgeholt und nach Theresienstadt gebracht, wo ihnen versprochen wurde
 dass sie dort gut behandelt werden, was eine Lüge war. Sie bekammen  kaum essen und kaum trinkwasser. Jedoch wurde der Welt vorgespielt das es den Juden gut ginge.
 
-Nach und nach wurden juden von theresienstadt nach ausschwitz mit zügen transportiert.einige wochen nach
+Nach und nach wurden juden von theresienstadt nach ausschwitz mit zügen transportiert.einige wochen nach gretas und iher familie waren jetz auch elsa und ihre angehörigen an der reihe.
+im zug war es schrecklich man konnte kaum atmen .
 
-
-Mittlerweile musste Max und seine Eltern erneut umziehen, da sein Vater nun zu einen SS Kommandaten befördert wurde und in Auschwitz arbeitet. Max wird 14 und trettet der Hitlerjugend bei.
-An seinem 15 geburtstag, bietet sein Vater ihn an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
+Mittlerweile musste Max und seine Eltern erneut umziehen, sein Vater wurde zu einen SS Kommandaten befördert und arbeitete in Auschwitz . 
+An seinem 15 geburtstag, bat sein Vater ihm an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
 wo er eine Jüdin, und zwar Elsa, erschießen sollte. Jedoch zögerte Max, da er sie erkannte. Plötzlich erschoss einer der SS soldaten unabsichtlich max, da er in die Schusslinie geriet.
 
 Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich mit einem jungen names daniel an, welcher mit ihm in die selbe klasse geht und auch jude ist
