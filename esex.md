@@ -86,14 +86,15 @@ Schule, in der Max und Leo zusammen gehen, wurden alle Schüler zur Aula gerufen
 eigentlich ganz lieb und nett war, verhielt sich komisch. Er rief ein paar Schüler, darunter
 auch Leo auf,beschimpfte diese als Hunde und befahl ihen, ganz hinten sich hinzuseten.
 
-Schließlich wurde Leo verboten zur Schule zu gehen und spazierte durch Wien, als er plötlich eine Menschenmenge sah, die fröhlich feierte und er beschloss
-dort hin zu gehen. Als er sich durch die Menschenmenge quetscht, bemerkt er wie sein Vater den Boden putzt und seine ehemaligen freunden, darunter auch herr huber also max' Vater ihn
+Schließlich wurde Leo verboten zur Schule zu gehen er spazierte durch Wien, als er plötlich eine Menschenmenge sah, die fröhlich feierte .neugierig gind er dorthin um zuschaen weshalb die 
+leut so schrien. 
+er  quetschr sich durch die Menschenmenge und  bemerkte wie sein Vater den Boden putzt und seine ehemaligen freunde, darunter auch herr huber ihn
 auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
 
-Max' Vater befehlt ihm, von nun an nicht mehr mit Leo sich zu treffen und warnt ihn. Auch in der Schule wurde es ihm verboten mit Max zu reden
+Max' Vater verbot ihm, sich nicht mehr mit Leo zu treffen. Auch in der Schule wurde es ihm verboten mit Max zu reden
 
 Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
-und erklärt Leo, das er sich um seine Mutter kümmern sollte und an den Plänen seines Vaters aus Wien zu entkommen, weiter zu arbeiten. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
+und erklärt seinem sohn, das er sich um seine Mutter kümmern sollte und an den Plan seines  aus Wien zu entkommen, weiter zu arbeiten. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
 Botschaften, nur um abgesagt zu werden bis sie fast ihre Hoffnung verlierten. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter schreibt ihnen einen Brief in der hoffnung dass sie ihnen
 helfen würden. Glücklicherweise helfen die Stewarts Leo und seiner Mutter und sie schaffen es, ihre Unterlagen unterschrieben zu bekommen um Österreich zu verlassen zu können. 
 
