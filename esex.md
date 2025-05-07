@@ -72,7 +72,7 @@ Das Buch handelt von den 3 Bestenfreunden, Max, Leo und Elsa welche sich momenta
 in einem Riesenrad befinden um Leos geburtstag zu feiern. Jedoch stolpert Leo über
 eine Frau und endschuldigt sich. Herr Grünberg, Leos vater ladet die Frau und Ihren Mann
 zu einer weiteren fahrt und anschließend zur Geburtstagsfeier ein. Das Paar stellt sich vor
-und sie heißen Mr und Mrs Stewart, und sie sind engländer welche Wien besuchten. Daraufhin bietet Leos Vater
+und sie heißen Mr und Mrs Stewart, sie sind engländer welche Wien besuchten. Daraufhin bietet Leos Vater
 an, das Paar mehr von Wien zu zeigen und sie stimmen zu.
 
 Nach ein paar Tagen, verkündet Elsas Vater ihr, dass sie umziehen werden, erklärt ihr aber
@@ -92,11 +92,11 @@ auslacht. Als Leos Vater ihn bemerkt, befiehlt er ihm sofort nachhause zu gehen.
 Max' Vater befehlt ihm, von nun an nicht mehr mit Leo sich zu treffen und warnt ihn. Auch in der Schule wurde es ihm verboten mit Max zu reden
 
 Im Verlauf der Geschichte wird deutlich, dass Leo und seine Eltern wien unbedingt verlassen müssen. Leos Vater wurde von der SS zur Polizei mit genommen 
-und erklärt Leo, das er sich um seine Mutter kümmern sollte und an den Plänen seines Vaters weiter zu arbeiten, aus Wien zu entkommen. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
+und erklärt Leo, das er sich um seine Mutter kümmern sollte und an den Plänen seines Vaters aus Wien zu entkommen, weiter zu arbeiten. Tag ein Tag aus gingen Leo und seine Mutter zu verschiedenen
 Botschaften, nur um abgesagt zu werden bis sie fast ihre Hoffnung verlierten. Plötzlich erinnerte sich Leo an die Stewarts und seine Mutter schreibt ihnen einen Brief in der hoffnung dass sie ihnen
 helfen würden. Glücklicherweise helfen die Stewarts Leo und seiner Mutter und sie schaffen es, ihre Unterlagen unterschrieben zu bekommen um Österreich zu verlassen zu können. 
 
-Währenddessen zieht Max nach München, da sein Vater von hitler befördert wurde. Schließlich trettet er den jungvolk bei.
+Währenddessen zieht Max nach München, da sein Vater von hitler befördert wurde. Schließlich trettet er den jungvolk bei. Und er wird wie besessen von der NS Ideologie
 
 
 Leo und Mutter steigen schließlich in einen Zug und verlassen Österreich.
@@ -113,6 +113,13 @@ Sie wurden alle Mit Zügen nach Ausschwitz transportiert.
 Mittlerweile musste Max und seine Eltern erneut umziehen, da sein Vater nun zu einen SS Kommandaten befördert wurde und in Auschwitz arbeitet. Max wird 14 und trettet der Hitlerjugend bei.
 An seinem 15 geburtstag, bietet sein Vater ihn an, mit zur Arbeit mitzunehem, wo er dann auch eine Schicht von einem Wächter übernimmt. Seine Kollegen geben dann Max ein geburtstagsgeschenk, 
 wo er eine Jüdin, und zwar Elsa, erschießen sollte. Jedoch zögerte Max, da er sie erkannte. Plötzlich erschoss einer der SS soldaten unabsichtlich max, da er in die Schusslinie geriet.
+
+Leo ging nun in England zur Schule, konne englisch sprechen und freundete sich mit einem jungen names daniel an, welcher mit ihm in die selbe klasse geht und auch jude ist
+Rory, welcher der freund von Mary, die Schwester von Daniel, hatte Leo eingeladen ins Kino zu gehen. In der Schlange bemerkte er wie zwei Mädchen auf ihn aufmerksam waren. Schließlich
+kommt er mit einem von dem Mädchen namens Annie zusammmen.
+
+Nach einiger Zeit, kommt Leos Vater zurück nachhause, Leo ladet seine freundin zu sich und sie alle feiern
+
 
 
 
