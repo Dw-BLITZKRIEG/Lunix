@@ -1,5 +1,19 @@
+// some audio stuff
 
+let audioEnabled = false;
 
+document.getElementById("enable-audio-checkbox").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        // Attempt to unlock audio with a dummy sound
+        const dummy = new Audio();
+        dummy.play().catch(() => {});
+        audioEnabled = true;
+        console.log("Audio enabled");
+    } else {
+        audioEnabled = false;
+        console.log("Audio disabled");
+    }
+});
 
 
 
@@ -2562,18 +2576,20 @@ function triggerFlickerEffect() {
    //   audio.play()
    } break;
 
-
 case "explone": {
-    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/large-explosion-100420.mp3?v=1747863760694');
-    audio.currentTime = 0; // Make sure it starts from the beginning
+    // Play a loud explosion sound when near the bullet
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/large-explosion-100420.mp3?v=' + Date.now());
+    audio.currentTime = 0; // Ensure it starts from the beginning
     audio.play().catch(err => console.warn("Playback failed:", err));
 } break;
 
 case "explofar": {
-    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/distant-explosion-90743.mp3?v=1747863763811');
-    audio.currentTime = 0; // Same here
+    // Play a distant explosion sound when far from the bullet
+    const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/distant-explosion-90743.mp3?v=' + Date.now());
+    audio.currentTime = 0; // Ensure it starts from the beginning
     audio.play().catch(err => console.warn("Playback failed:", err));
 } break;
+
 
    case "js": {  // audio
     const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/ded.ogg?v=1745062506652'); // Pfad zur Audiodatei
