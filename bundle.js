@@ -5067,13 +5067,13 @@ let color = ["#ff0000"]
 
           },
 {                   
-                    visible: 0,
+                    visible: 3,  // change ts to 0 for halloween.
             id: "error",
             type: "main",
             code: "glitch-err-q",
             at: p.glitch("do-not-join-server"),
            
-            prefer: 0,
+            prefer: 1,
              featured: 0, // For Featured Status.
 
           },
@@ -6940,5 +6940,5 @@ pvp: {"teal":"#ff0000",
 }.call(this);
 
 
-  alert('If you are playing the horror mode please note: IT CONTAINS LOUD JUMPSCARES AND FLASHING LIGHTS; FOR A BETTER EXPIRIENCE ENABLE HORROR MODE IN THE OPTIONS MENU! ALSO ENABLE POPUPS FOR THE FULL SCARE EFFECT!!');
+//  alert('If you are playing the horror mode please note: IT CONTAINS LOUD JUMPSCARES AND FLASHING LIGHTS; FOR A BETTER EXPIRIENCE ENABLE HORROR MODE IN THE OPTIONS MENU! ALSO ENABLE POPUPS FOR THE FULL SCARE EFFECT!!');
 
