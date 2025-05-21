@@ -4897,6 +4897,7 @@ let color = ["#ff0000"]
         KEY_SCREENSHOT: 81,
         KEY_UPGRADE_MAX: 77,
         KEY_CLASS_TREE: 84,
+        KEY_ARTY: 66,
         KEY_RECORD: 90,
         KEY_UP: 87,
         KEY_PING: 76,
@@ -5672,6 +5673,9 @@ let color = ["#ff0000"]
                   break;
             case a.KEY_LEVEL_UP:
               this.emit("L");
+              break;
+               case a.KEY_ARTY:
+              this.emit("arty");
               break;
             case a.KEY_CHAT:
             case 191:
