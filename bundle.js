@@ -5068,7 +5068,7 @@ let color = ["#ff0000"]
                     visible: 0,
             id: "b",
             type: "main",
-            code: "render-worldwide-d",
+            code: "render-frankfurt-d",
             at: p.render("lunix-servera"),
             
             prefer: 0,
