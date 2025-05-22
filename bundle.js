@@ -4852,6 +4852,7 @@ let color = ["#ff0000"]
         replit: a => `${a}.replit.dev`,
         render: a => `${a}.onrender.com`,
         heroku: a => `${a}.herokuapp.com`,
+        render: a => `${a}.onrender.com`,
         railway: a => `${a}.up.railway.app`,
         arras: (a, e = 5e3) => `ip-${a}.arras.io:${e}`,
         arrasUnknown: (a, e = 5e3) => `ipu-${a}.arras.io:${e}`
@@ -4996,6 +4997,7 @@ let color = ["#ff0000"]
 
             os: "OpenShift",
             heroku: "Heroku",
+            render: "Render",
             flyio: "Fly.io",
             replit: "Repl.it",
             glitch: "Glitch",
@@ -5066,8 +5068,8 @@ let color = ["#ff0000"]
                     visible: 0,
             id: "b",
             type: "main",
-            code: "glitch-worldwide-d",
-            at: p.glitch("wd-serverj"),
+            code: "render-worldwide-d",
+            at: p.render("lunix-servera"),
             
             prefer: 0,
              featured: 0, // For Featured Status.
