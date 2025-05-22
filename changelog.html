@@ -22,6 +22,32 @@
     </style>
   </head>
   <body>
+<div class="patchnoteSection">
+      <p class="patchnoteTitle">
+         Client optimization,
+        <span class="patchnoteTime">22 may, 2025</span>
+      </p>
+      <ul class="patchnoteBody">
+        <li2
+          >Optimized Client Performance
+          <ul>
+         <li>Performance Optimization - font loading</li>
+    <ul>
+      <li>Added <code>preconnect</code> links to <code>fonts.googleapis.com</code> and <code>fonts.gstatic.com</code> to reduce connection setup time (~160ms saved).</li>
+      <li>Updated Google Fonts link to use modern <code>css2</code> API with <code>display=swap</code> to prevent render-blocking and layout shifts.</li>
+      <li>Resulted in faster text rendering and improved Lighthouse scores (FCP, LCP, CLS).</li>
+    </ul>
+  
+     
+     
+          </ul>
+ 
+        </li2>
+      </ul>
+      <p>-------------------------------------------------------------</p>
+    </div>
+
+
 
 <div class="patchnoteSection">
       <p class="patchnoteTitle">
