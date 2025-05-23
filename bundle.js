@@ -4102,6 +4102,9 @@ let color = ["#ff0000"]
                   
                   W[7].draw(
                     "Players:" + socket.length,
+                    h + 200,
+                    m - 28,
+                    10,
                     l.green, 
                     "right"
                   );
