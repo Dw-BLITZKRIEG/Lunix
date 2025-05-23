@@ -132,7 +132,7 @@ let hex = ["#" + idc]
   }
 
 
-~function() {
+~ function() {
   "use strict";
   var I = I || {};
   I.scope = {};
@@ -4097,6 +4097,12 @@ let color = ["#ff0000"]
                     m - 14,
                     10,
                     1 === A.fps ? l.green : l.red,
+                    "right"
+                  );
+                  
+                  W[7].draw(
+                    "Players:" + socket.length,
+                    l.green, 
                     "right"
                   );
                   W[0].draw(
