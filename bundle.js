@@ -4101,7 +4101,7 @@ let color = ["#ff0000"]
                   );
                   
                   W[1].draw(
-                    "Players:" + socket.length,
+                    "Players:" + views.length,
                     h + 200,
                     m - 28,
                     10,
