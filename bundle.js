@@ -4100,14 +4100,7 @@ let color = ["#ff0000"]
                     "right"
                   );
                   
-                  W[1].draw(
-                    "Players:" + views.length,
-                    h + 200,
-                    m - 28,
-                    10,
-                    l.green, 
-                    "right"
-                  );
+              
                   W[0].draw(
                     v.toFixed(1) +
                       " ms  " +
