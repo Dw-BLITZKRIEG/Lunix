@@ -5093,7 +5093,7 @@ let color = ["#ff0000"]
             id: "c",
             type: "main",
             code: "render-frankfurt-4",
-            at: p.render("lunix-serverb"),
+            at: p.render("linux-serverb"), // my fuking retard of a brain named it wrongly
             
             prefer: 0,
              featured: 0, // For Featured Status.
