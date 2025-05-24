@@ -220,39 +220,58 @@ function PlaySound() {
 
 
 
-                  <td><div>
-                    <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode</label>
+                    <td><div>
+                    <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode <span class="tooltiptext">Hides the UI</span></label>
                   </div></td>
                   <td><div>
-                    <label class="container"><input id="optNoPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic Traps</label>
-                  </div></td>
-                </tr><tr>
-                  <td><div>
-                    <label class="container"><input id="optFancy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Graphics</label>
-                  </div></td>
-                  <td><div>
-                    <label class="container"><input id="optShield" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Separate Shield Bar</label>
+                    <label class="container"><input id="optNoPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic Traps<span class="tooltiptext">Makes Traps look like Diep's Traps</span></label>
                   </div></td>
                 </tr><tr>
                   <td><div>
-                    <label class="container"><input id="optAutoLevel" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Auto-Level Up</label>
+                    <label class="container"><input id="optFancy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Graphics <span class="tooltiptext">Enables low Graphics for better Performance</span></label>
                   </div></td>
                   <td><div>
-                    <label class="container"><input id="optPrediction" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Use New Interpolation</label>
+                    <label class="container"><input id="optShield" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Separate Shield Bar<span class="tooltiptext">Health and Shield bar will be seperated instead of being in the same container</span></label>
                   </div></td>
                 </tr><tr>
                   <td><div>
-                    <label class="container"><input id="optPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Sharp Edges</label>
+                    <label class="container"><input id="optAutoLevel" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Auto-Level Up<span class="tooltiptext">Makes you level up automatically, useful for mobile</span></label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optPrediction" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Use New Interpolation<span class="tooltiptext">Makes the game smoother</span></label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Sharp Edges <span class="tooltiptext">Makes Triangles and other shapes sharp</span></label>
              </div></td>
                   <td><div>
-                    <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
+                    <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music<span class="tooltiptext">Enables Music </span></label>
                   </div></td> <!-- Toggleable audio via checkbox -->
 
 
                 </tr>
 <tr>
                           <td><div>
-                    <label class="container"><input id="optjs" tabindex="-1" class="checkbox" type="checkbox" onclick="swtHm()"><span class="checkmark"></span>Horror Mode</label>
+                    <label class="container"><input id="optjs" tabindex="-1" class="checkbox" type="checkbox" onclick="swtHm()"><span class="checkmark"></span>Horror Mode<span class="tooltiptext">Enables scary Jumpscares and sfx to play randomly</span></label>
+                  </div>
+  
+  
+  </td> <!-- Toggleable horrormode via checkbox -->
+    
+                          <td><div>
+                <label class="container">  <input id="enable-audio-checkbox" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" ></span>Enable Sound   <span class="tooltiptext">Enables Sound effects (atm not in use)</span></label>
+                  </div></td> <!-- Toggleable audio via checkbox -->
+    
+  
+   </tr>
+  <tr>
+  <td><div>
+             <label class="container">
+  <input id="optch" tabindex="-1" class="checkbox" type="checkbox" onclick="swtCH()">
+  <span class="checkmark"></span>
+  Crosshair
+  <span class="tooltiptext">Enables the Crosshair</span>
+</label>
                   </div>
   
   
