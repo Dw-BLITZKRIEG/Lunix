@@ -160,6 +160,20 @@ function PlayMusic() {
       console.log("Jumpscares disabled.");
     }
   }
+
+function swtCH() {
+    const checkbox = document.getElementById("optch");
+
+    if (checkbox.checked) {
+  gameCanvas.classList.add('crosshair-cursor');
+      console.log("Crosshair enabled.");
+
+    } else {
+  gameCanvas.classList.remove('crosshair-cursor');
+      console.log("Crosshair disabled.");
+    }
+  }
+
 </script>
        <script>
 var gears = new Audio();
@@ -246,11 +260,20 @@ function PlaySound() {
     
                           <td><div>
                 <label class="container">  <input id="enable-audio-checkbox" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" ></span>Enable Sound</label>
-                  </div></td> <!-- Toggleable horrormode via checkbox -->
+                  </div></td> <!-- Toggleable Audio via checkbox -->
     
   
    </tr>
+    <tr>
+  <td><div>
+                    <label class="container"><input id="optch" tabindex="-1" class="checkbox" type="checkbox" onclick="swtCH()"><span class="checkmark"></span>Crosshair</label>
+                  </div>
   
+  
+  </td> <!-- Toggleable Crosshair via checkbox -->
+
+
+  </tr>
   
     </table>
 
