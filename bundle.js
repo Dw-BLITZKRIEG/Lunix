@@ -5092,8 +5092,8 @@ let color = ["#ff0000"]
                     visible: 0,
             id: "c",
             type: "main",
-            code: "glitch-worldwide-4",
-            at: p.glitch("wd-servert"),
+            code: "render-frankfurt-4",
+            at: p.render("lunix-serverb"),
             
             prefer: 0,
              featured: 0, // For Featured Status.
