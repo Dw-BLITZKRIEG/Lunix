@@ -337,10 +337,10 @@ a.menuTab:link:hover, a.menuTab:visited:hover {
   width: 340px;
 }
 .changelogSelector span {
-  transition: color 500ms;
   color: #222;
   cursor: pointer;
 }
+
 .changelogSelector span:hover {
   transition: color 200ms;
   color: #555;
