@@ -2528,7 +2528,7 @@ let hex = ["#" + idc]
                             status: 2,
                             alpha: 0,
                             time: Date.now(),
-
+ 
                       
                             
                          //   color: l.black || c[1] || c[2] 
@@ -5078,7 +5078,7 @@ let color = ["#ff0000"]
 
           },
 {                   
-                    visible: 0,
+                    visible: 1,
             id: "s",
             type: "main",
             code: "glitch-worldwide-s",
@@ -5111,7 +5111,7 @@ let color = ["#ff0000"]
 
           },
 {                   
-                    visible: 0,
+                    visible: 1,
             id: "z",
             type: "main",
             code: "glitch-worldwide-t",
