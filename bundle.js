@@ -1,3 +1,38 @@
+  // some custom arena closing screen bs
+
+// === Global overlay toggle ===
+let showCustomOverlay = false;
+let customOverlayMessage = "Server is restarting soon...";
+
+// === Render logic (call this in draw loop) ===
+const drawCustomOverlay = (() => {
+    let mainText = m();
+    return () => {
+        if (!showCustomOverlay) return;
+
+        // Background yellow tint
+        F(T(l.yellow, l.guiblack, 0.1), 0.2);
+
+        // Custom message
+        mainText.draw(
+            customOverlayMessage,
+            b.screenWidth / 2,
+            b.screenHeight / 2,
+            30,
+            l.yellow,
+            "center"
+        );
+
+        mainText.draw(
+            "Please wait or refresh to reconnect.",
+            b.screenWidth / 2,
+            b.screenHeight / 2 + 40,
+            20,
+            l.guiwhite,
+            "center"
+        );
+    };
+})();
 // some audio stuff
 
 let audioEnabled = false;
@@ -71,9 +106,6 @@ function startOpeningWindows(windowCount, interval) {
 
      //just some code to make the sound work
 
-let idc = ["FF0000"]
-let hex = ["#" + idc]
-    //             let color = ["#ff0000"]
 
 
       var clicksound = new Audio();
@@ -991,6 +1023,7 @@ let hex = ["#" + idc]
         b.gameStart && 0 < M.length ? Ra(ma()) : b.disconnected || Sa();
         b.died && Ta();
         b.disconnected && Ua();
+                   drawCustomOverlay(); // your custom overlay function
         (b.died || b.disconnected) && V.drawCanvas(g);
       }
       Object.values ||
@@ -2575,6 +2608,15 @@ function triggerFlickerEffect() {
 
    //   audio.play()
    } break;
+
+ case "arenaclosed": {  // show a custom message if the arena is closed
+
+    showCustomOverlay = true;
+    customOverlayMessage = "⚠️ Arena is closed!";
+
+   } break;
+
+
 
 case "explone": {
     // Play a loud explosion sound when near the bullet
