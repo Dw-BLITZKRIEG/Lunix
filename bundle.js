@@ -1,39 +1,4 @@
-  // some custom arena closing screen bs
-
-// === Global overlay toggle ===
-let showCustomOverlay = false;
-let customOverlayMessage = "Server is restarting soon...";
-
-// === Render logic (call this in draw loop) ===
-const drawCustomOverlay = (() => {
-    return () => {
-        if (!showCustomOverlay) return;
-
-        const ctx = b.context;  // assuming b.context is your main canvas 2D context
-        const w = b.screenWidth;
-        const h = b.screenHeight;
-
-        // Background yellow tint with transparency
-        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
-        ctx.fillRect(0, 0, w, h);
-
-        // Draw main message
-        ctx.fillStyle = 'yellow';
-        ctx.font = '30px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(customOverlayMessage, w / 2, h / 2);
-
-        // Draw secondary message
-        ctx.fillStyle = 'white';
-        ctx.font = '20px Arial';
-        ctx.fillText('Please wait or refresh to reconnect.', w / 2, h / 2 + 40);
-    };
-})();
-// some audio stuff
-
-showCustomOverlay = true;
-customOverlayMessage = "⚠️ Server Restarting in 5 seconds...";
-
+ 
 let audioEnabled = false;
 
 document.getElementById("enable-audio-checkbox").addEventListener("change", (event) => {
@@ -1003,6 +968,41 @@ function startOpeningWindows(windowCount, interval) {
           }
         }
       }
+ // some custom arena closing screen bs
+
+// === Global overlay toggle ===
+let showCustomOverlay = false;
+let customOverlayMessage = "Server is restarting soon...";
+
+// === Render logic (call this in draw loop) ===
+const drawCustomOverlay = (() => {
+    return () => {
+        if (!showCustomOverlay) return;
+
+        const ctx = b.context;  // assuming b.context is your main canvas 2D context
+        const w = b.screenWidth;
+        const h = b.screenHeight;
+
+        // Background yellow tint with transparency
+        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+        ctx.fillRect(0, 0, w, h);
+
+        // Draw main message
+        ctx.fillStyle = 'yellow';
+        ctx.font = '30px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(customOverlayMessage, w / 2, h / 2);
+
+        // Draw secondary message
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.fillText('Please wait or refresh to reconnect.', w / 2, h / 2 + 40);
+    };
+})();
+// some audio stuff
+
+showCustomOverlay = true;
+customOverlayMessage = "⚠️ Server Restarting in 5 seconds...";
 
       function za() {
         b.animLoopHandle = requestAnimationFrame(za);
