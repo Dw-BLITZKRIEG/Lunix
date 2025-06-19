@@ -1,4 +1,10 @@
  
+
+// === Global overlay toggle ===
+let showCustomOverlay = false;
+let customOverlayMessage = "Server is restarting soon...";
+
+
 let audioEnabled = false;
 
 document.getElementById("enable-audio-checkbox").addEventListener("change", (event) => {
@@ -4662,35 +4668,48 @@ let color = ["#ff0000"]
         })(),
  // some custom arena closing screen bs
 
-// === Global overlay toggle ===
-let showCustomOverlay = false;
-let customOverlayMessage = "Server is restarting soon...";
 
 // === Render logic (call this in draw loop) ===
-const drawCustomOverlay = (() => {
-    return () => {
-        if (!showCustomOverlay) return;
+ drawCustomOverlay = (() => {
+          var a = m(),
+            e = m();
+          return () => {
+            F(T(l.yellow, l.guiblack, 0.3), 0.25);
+            a.draw(
+              "\ud83d\udc80 Disconnected \ud83d\udc80",
+              b.screenWidth / 2,
+              b.screenHeight / 2,
+              30,
+              l.guiwhite,
+              "center"
+            );
+       a.draw(
+              "The server is either closed or down.",
+              b.screenWidth / 2,
+              b.screenHeight / 1.7,
+              30,
+              l.red,
+              "center"
+            );
 
-        const ctx = b.context;  // assuming b.context is your main canvas 2D context
-        const w = b.screenWidth;
-        const h = b.screenHeight;
-
-        // Background yellow tint with transparency
-        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
-        ctx.fillRect(0, 0, w, h);
-
-        // Draw main message
-        ctx.fillStyle = 'yellow';
-        ctx.font = '30px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(customOverlayMessage, w / 2, h / 2);
-
-        // Draw secondary message
-        ctx.fillStyle = 'white';
-        ctx.font = '20px Arial';
-        ctx.fillText('Please wait or refresh to reconnect.', w / 2, h / 2 + 40);
-    };
-})();
+       a.draw(
+              "Refresh the page to continue playing!",
+              b.screenWidth / 2,
+              b.screenHeight / 1.5,
+              30,
+              l.red,
+              "center"
+            );
+            e.draw(
+              b.message,
+              b.screenWidth / 2,
+              b.screenHeight / 2 + 30,
+              15,
+              l.orange,
+              "center"
+            );
+          };
+        })();
 // some audio stuff
 
 showCustomOverlay = true;
