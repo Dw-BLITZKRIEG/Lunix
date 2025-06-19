@@ -1,8 +1,4 @@
- 
 
-// === Global overlay toggle ===
-let showCustomOverlay = false;
-let customOverlayMessage = "Server is restarting soon...";
 
 
 let audioEnabled = false;
@@ -4666,56 +4662,9 @@ let color = ["#ff0000"]
             );
           };
         })(),
- // some custom arena closing screen bs
+ 
 
-
-// === Render logic (call this in draw loop) ===
- drawCustomOverlay = (() => {
-          var a = m(),
-            e = m();
-          return () => {
-            F(T(l.yellow, l.guiblack, 0.3), 0.25);
-            a.draw(
-              "\ud83d\udc80 Disconnected \ud83d\udc80",
-              b.screenWidth / 2,
-              b.screenHeight / 2,
-              30,
-              l.guiwhite,
-              "center"
-            );
-       a.draw(
-              "The server is either closed or down.",
-              b.screenWidth / 2,
-              b.screenHeight / 1.7,
-              30,
-              l.red,
-              "center"
-            );
-
-       a.draw(
-              "Refresh the page to continue playing!",
-              b.screenWidth / 2,
-              b.screenHeight / 1.5,
-              30,
-              l.red,
-              "center"
-            );
-            e.draw(
-              b.message,
-              b.screenWidth / 2,
-              b.screenHeight / 2 + 30,
-              15,
-              l.orange,
-              "center"
-            );
-          };
-        })();
-// some audio stuff
-
-showCustomOverlay = true;
-customOverlayMessage = "⚠️ Server Restarting in 5 seconds...";
-
-        Ua = (() => {
+      Ua = (() => {
           var a = m(),
             e = m();
           return () => {
