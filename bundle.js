@@ -31,6 +31,9 @@ const drawCustomOverlay = (() => {
 })();
 // some audio stuff
 
+showCustomOverlay = true;
+customOverlayMessage = "⚠️ Server Restarting in 5 seconds...";
+
 let audioEnabled = false;
 
 document.getElementById("enable-audio-checkbox").addEventListener("change", (event) => {
