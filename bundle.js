@@ -6,31 +6,27 @@ let customOverlayMessage = "Server is restarting soon...";
 
 // === Render logic (call this in draw loop) ===
 const drawCustomOverlay = (() => {
-    let mainText = m();
     return () => {
         if (!showCustomOverlay) return;
 
-        // Background yellow tint
-        F(T(l.yellow, l.guiblack, 0.1), 0.2);
+        const ctx = b.context;  // assuming b.context is your main canvas 2D context
+        const w = b.screenWidth;
+        const h = b.screenHeight;
 
-        // Custom message
-        mainText.draw(
-            customOverlayMessage,
-            b.screenWidth / 2,
-            b.screenHeight / 2,
-            30,
-            l.yellow,
-            "center"
-        );
+        // Background yellow tint with transparency
+        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+        ctx.fillRect(0, 0, w, h);
 
-        mainText.draw(
-            "Please wait or refresh to reconnect.",
-            b.screenWidth / 2,
-            b.screenHeight / 2 + 40,
-            20,
-            l.guiwhite,
-            "center"
-        );
+        // Draw main message
+        ctx.fillStyle = 'yellow';
+        ctx.font = '30px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(customOverlayMessage, w / 2, h / 2);
+
+        // Draw secondary message
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.fillText('Please wait or refresh to reconnect.', w / 2, h / 2 + 40);
     };
 })();
 // some audio stuff
