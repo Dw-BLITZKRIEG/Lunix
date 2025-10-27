@@ -4144,9 +4144,9 @@ let color = ["#ff0000"]
                    
                       "Kills: " + kills,
                     b.screenWidth - 150, // example: right side
-                      250,                  // example: from top
+                      280,                  // example: from top
                       30,                  // font size
-                      l.white,
+                      l.guiwhite,
                        "right"
     );
 
