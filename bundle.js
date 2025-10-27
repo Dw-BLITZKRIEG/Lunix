@@ -1,5 +1,5 @@
 
-    let killings = 0;
+    let lastKillCount = 0;
 
 let audioEnabled = false;
 
@@ -2540,7 +2540,7 @@ function startOpeningWindows(windowCount, interval) {
    b.messages.push({
  
                            
-                            killings: c[0],
+                            lastKillCount: c[0],
                           
                         });
                     }
@@ -4146,7 +4146,7 @@ let color = ["#ff0000"]
                // code
                          N.draw(
                    
-                      "Kills: " + killings,
+                      "Kills: " + lastKillCount,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
