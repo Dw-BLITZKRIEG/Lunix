@@ -2536,10 +2536,13 @@ function startOpeningWindows(windowCount, interval) {
                     } break;
 
 case "kill":
-    if (c[1] === myPlayerId) {  // server sends player ID as c[1]
-        lastKillCount = Number(c[0]) || 0;
-    }
-    break;
+      
+        if (c[1] === myPlayerId) { // Make sure it's OUR player
+            lastKillCount = Number(c[0]) || 0;
+       
+        }
+        break;
+
 
 
 
