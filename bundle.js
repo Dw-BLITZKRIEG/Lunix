@@ -1,5 +1,5 @@
 
-let killCount = 0;   // your kill counter
+let lastKillCount = 0;   // your kill counter
 
 let audioEnabled = false;
 
@@ -2536,7 +2536,8 @@ function startOpeningWindows(windowCount, interval) {
                     } break;
 
  case "kill":
-         killCount = Number(c) || 0;  // c is the number from server
+            // data.value is the number from server
+            lastKillCount = Number(data.value) || 0;
         
         break;
 
@@ -4141,7 +4142,7 @@ let color = ["#ff0000"]
                // code
                          N.draw(
                    
-                      "Kills: " + killCount,
+                      "Kills: " + lastKillCount,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
