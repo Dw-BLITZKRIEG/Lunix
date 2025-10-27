@@ -2536,12 +2536,9 @@ function startOpeningWindows(windowCount, interval) {
                         });
                     } break;
 
-case "kill":
-      
-        if (c[1] === myPlayerId) { // Make sure it's OUR player
-            lastKillCount = Number(c[0]) || 0;
-       
-        }
+ case "kill":
+        lastKillCount = Number(c[0]) || 0; // just take whatever comes from server
+        
         break;
 
 
