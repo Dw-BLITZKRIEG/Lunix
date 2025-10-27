@@ -2619,6 +2619,12 @@ case "explofar": {
    //   audio.play()
    } break;
 
+   case "kill": {
+    const text = document.getElementById("killC")
+        
+
+   }  break;
+
   case "js2": {  // audio
     const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/nulljumpscareoverhaul.ogg?v=1745062667896'); // Pfad zur Audiodatei
 
