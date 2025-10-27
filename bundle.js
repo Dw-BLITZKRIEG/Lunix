@@ -1,5 +1,5 @@
 
-
+       let kills = 0;
 
 let audioEnabled = false;
 
@@ -4141,6 +4141,7 @@ let color = ["#ff0000"]
               if (!B.graphical.screenshotMode) {
                // code
                          N.draw(
+                   
                       "Kills: " + kills,
                       canvas.width - 150, // example: right side
                       50,                  // example: from top
