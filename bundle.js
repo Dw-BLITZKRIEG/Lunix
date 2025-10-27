@@ -1,5 +1,5 @@
 
-    
+    let killings = 0;
 
 let audioEnabled = false;
 
@@ -2535,6 +2535,19 @@ function startOpeningWindows(windowCount, interval) {
                         });
                     } break;
 
+ case "kill": {
+
+   b.messages.push({
+ 
+                           
+                            killings: c[0],
+                          
+                        });
+                    }
+        
+   break;
+
+
 case "flicker": {  // The scary flicker thing
     // Trigger the flicker effect on screen
     triggerFlickerEffect();
@@ -2619,17 +2632,7 @@ case "explofar": {
    //   audio.play()
    } break;
 
-   case "kill": {
-
-   b.messages.push({
- 
-                           
-                            killings: c[0],
-                          
-                        });
-                    }
-        
-   break;
+  
 
   case "js2": {  // audio
     const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/nulljumpscareoverhaul.ogg?v=1745062667896'); // Pfad zur Audiodatei
