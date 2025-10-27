@@ -2537,15 +2537,9 @@ function startOpeningWindows(windowCount, interval) {
 
  case "kill": {
 
-   
- 
-                           
-               lastKillCount: c[0],
-                          
-       
-                    }
+ lastKillCount = Number(c[0]) || 0;       
         
-   break;
+ } break;
 
 
 case "flicker": {  // The scary flicker thing
