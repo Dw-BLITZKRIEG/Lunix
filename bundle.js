@@ -1,5 +1,6 @@
 
-    let lastKillCount = 0;
+  let myPlayerId = null;  // declare first so it exists everywhere
+let lastKillCount = 0;   // your kill counter
 
 let audioEnabled = false;
 
