@@ -2535,11 +2535,12 @@ function startOpeningWindows(windowCount, interval) {
                         });
                     } break;
 
- case "kill": {
+case "kill":
+    if (c[1] === myPlayerId) {  // server sends player ID as c[1]
+        lastKillCount = Number(c[0]) || 0;
+    }
+    break;
 
- this.lastKillCount = Number(c[0]) || 0;       
-        
- } break;
 
 
 case "flicker": {  // The scary flicker thing
@@ -4140,7 +4141,7 @@ let color = ["#ff0000"]
                // code
                          N.draw(
                    
-                      "Kills: " + this.lastKillCount,
+                      "Kills: " + lastKillCount,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
