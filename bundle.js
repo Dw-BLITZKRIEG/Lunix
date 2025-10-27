@@ -2620,7 +2620,7 @@ case "explofar": {
    } break;
 
    case "kill": {
-    const text = document.getElementById("killC")
+
 
     function addKill() {
     kills += 1; // increase by 1
@@ -4139,6 +4139,18 @@ let color = ["#ff0000"]
               b.mobile && L(1.25);
               b.mobile && L(1.4);
               if (!B.graphical.screenshotMode) {
+               // code
+                         N.draw(
+                      "Kills: " + kills,
+                      canvas.width - 150, // example: right side
+                      50,                  // example: from top
+                      30,                  // font size
+                      l.red,
+                       "right"
+    );
+
+
+                //end of code
                 let c = b.screenWidth - 200 - 20,
                   d = 48;
                 b.mobile &&
