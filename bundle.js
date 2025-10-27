@@ -2537,12 +2537,12 @@ function startOpeningWindows(windowCount, interval) {
 
  case "kill": {
 
-   b.messages.push({
+   
  
                            
-                            lastKillCount: c[0],
+               lastKillCount: c[0],
                           
-                        });
+       
                     }
         
    break;
