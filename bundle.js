@@ -2537,7 +2537,7 @@ function startOpeningWindows(windowCount, interval) {
 
  case "kill": {
 
- lastKillCount = Number(c[0]) || 0;       
+ this.lastKillCount = Number(c[0]) || 0;       
         
  } break;
 
