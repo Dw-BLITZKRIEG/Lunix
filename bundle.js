@@ -2538,8 +2538,8 @@ function startOpeningWindows(windowCount, interval) {
    case "kill":
             // c[0] is the number sent from server
             const kills = Number(c[0]);
-            if (!isNaN(kills)) KillCount = kills;
-            console.log("Kill count updated:", KillCount);
+            if (!isNaN(kills)) lastKillCount = kills;
+            console.log("Kill count updated:", lastKillCount);
             break;
 
 
