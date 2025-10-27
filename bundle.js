@@ -1,5 +1,5 @@
 
-       let kills = 0;
+    
 
 let audioEnabled = false;
 
@@ -2621,14 +2621,15 @@ case "explofar": {
 
    case "kill": {
 
-
-    function addKill() {
-    kills += 1; // increase by 1
-    document.getElementById("killCounter").textContent = "Kills: " + kills;
-}
+   b.messages.push({
+ 
+                           
+                            killings: c[0],
+                          
+                        });
+                    }
         
-
-   }  break;
+   break;
 
   case "js2": {  // audio
     const audio = new Audio('https://cdn.glitch.global/0719a336-46d8-4612-bdf3-0a5eac2faf67/nulljumpscareoverhaul.ogg?v=1745062667896'); // Pfad zur Audiodatei
@@ -4142,7 +4143,7 @@ let color = ["#ff0000"]
                // code
                          N.draw(
                    
-                      "Kills: " + kills,
+                      "Kills: " + killings,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
