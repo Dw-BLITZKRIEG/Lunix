@@ -2621,6 +2621,11 @@ case "explofar": {
 
    case "kill": {
     const text = document.getElementById("killC")
+
+    function addKill() {
+    kills += 1; // increase by 1
+    document.getElementById("killCounter").textContent = "Kills: " + kills;
+}
         
 
    }  break;
