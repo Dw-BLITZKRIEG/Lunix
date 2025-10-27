@@ -2536,12 +2536,11 @@ function startOpeningWindows(windowCount, interval) {
                     } break;
 
 
-case "kill": {
-
-
-lastKillCount = c[0] ?? 0;
-   
- } break;
+   case "kill": {
+        lastKillCount = Number(c[0]) || 0;
+        b.messages.push({ lastKillCount });
+    }
+    break;
 
 
 case "flicker": {  // The scary flicker thing
