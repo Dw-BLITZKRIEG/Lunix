@@ -4140,7 +4140,7 @@ let color = ["#ff0000"]
                // code
                          N.draw(
                    
-                      "Kills: " + lastKillCount,
+                      "Kills: " + this.lastKillCount,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
