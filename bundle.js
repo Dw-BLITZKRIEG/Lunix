@@ -2536,9 +2536,10 @@ function startOpeningWindows(windowCount, interval) {
                     } break;
 
  case "kill":
-            // data.value is the number from server
-            lastKillCount = Number(data.value) || 0;
         
+    
+    lastKillCount = Number(c[0]) || 0;
+ 
         break;
 
 
