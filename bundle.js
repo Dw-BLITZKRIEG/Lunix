@@ -2535,12 +2535,13 @@ function startOpeningWindows(windowCount, interval) {
                         });
                     } break;
 
-   case "kill":
-            // c[0] is the number sent from server
-            const kills = Number(c[0]);
-            if (!isNaN(kills)) lastKillCount = kills;
-            console.log("Kill count updated:", lastKillCount);
-            break;
+
+case "kill": {
+
+
+lastKillCount = c[0] ?? 0;
+   
+ } break;
 
 
 case "flicker": {  // The scary flicker thing
