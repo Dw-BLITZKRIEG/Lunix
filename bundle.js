@@ -4470,6 +4470,9 @@ var killC = 0;
             }
           };
         })(),
+
+
+        /************************************************************************ */
         Ta = (() => {
           var a = m(),
             e = m(),
@@ -4503,7 +4506,9 @@ var killC = 0;
                   : 100 > c
                   ? "\ud83c\udf36\ufe0f"
                   : "\ud83d\udcaf") + " ";
-              if (0 === c) return d + "A true pacifist";
+        //      if (0 === c) return d + "A true pacifist";
+                if (0 === c) return { text: d + "A true pacifist", killC: 0 };
+
               c = [];
               a[0] && c.push(a[0] + " kills"); // kills#
  
@@ -4512,7 +4517,9 @@ var killC = 0;
           
               a[1] && c.push(a[1] + " assists");
               a[2] && c.push(a[2] + " visitors defeated");
-              return d + c.join(" and "),  killC;
+              //return d + c.join(" and ");
+
+                return { text: d + parts.join(" and "), killC: a[0] };
               
               
             },
@@ -4579,8 +4586,8 @@ var killC = 0;
               "center"
             );
           };
-        })();
-
+        })(); 
+/////**********************************************************/ */
       window.onbeforeunload = () => (b.isInGame && !b.died ? !0 : null);
       window.$createProfile = (() => {
         var b = m();
