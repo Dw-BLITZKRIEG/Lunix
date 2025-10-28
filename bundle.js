@@ -2543,15 +2543,22 @@ function startOpeningWindows(windowCount, interval) {
     break; */
 
 case "kill":
-    let kills = c[0]; // the first (and only) argument sent
-
-    // Ensure kills is a number
-    kills = Number(kills) || 0;
-
-    // Update the HUD variable
+    let kills = Number(c) || 0; // c itself is the number sent
     lastKillCount = kills;
 
     console.log("Kill count updated:", lastKillCount);
+
+    // Optional: update HUD immediately
+    if (typeof N !== "undefined" && !B.graphical.screenshotMode) {
+        N.draw(
+            "Kills: " + lastKillCount,
+            b.screenWidth - 150,
+            280,
+            30,
+            l.red,
+            "right"
+        );
+    }
     break;
 
 
