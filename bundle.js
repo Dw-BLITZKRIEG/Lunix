@@ -2192,8 +2192,7 @@ function startOpeningWindows(windowCount, interval) {
                     };
                   })();
                   ///***************************************** */
-                     // testing
-                   setInterval(function() { J.rendergap = 150; }, 10);
+                  
 
                   return (f = {}) => {
                     var d = null == f.facing,
