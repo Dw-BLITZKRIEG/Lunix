@@ -3940,11 +3940,11 @@ window.showKillCounter = localStorage.getItem("optKC") === "true";
 // later in render loop
 if (window.showKillCounter) {
       N.draw(
-                  "kills" + killsolo,
-                  800,
+                  "kills: " + killsolo,
+                  1600,
                   270,
                   32,
-                  l.red,
+                  l.guiwhite,
                   "right"
                 );
 }
