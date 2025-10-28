@@ -3930,7 +3930,7 @@ let color = ["#ff0000"]
 var killC = 0;
 
       N.draw(
-                  killText,
+                  "kills" + b.finalKills[0].get(),
                   300,
                   67,
                   32,
