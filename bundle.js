@@ -4512,14 +4512,14 @@ var killC = 0;
               c = [];
               a[0] && c.push(a[0] + " kills"); // kills#
  
-             var killC = a[0];
+      
 
           
               a[1] && c.push(a[1] + " assists");
               a[2] && c.push(a[2] + " visitors defeated");
-              //return d + c.join(" and ");
+              return d + c.join(" and ");
 
-                return { text: d + c.join(" and "), killC: a[0] };
+         
               
               
             },
