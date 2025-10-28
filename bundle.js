@@ -4148,7 +4148,7 @@ let color = ["#ff0000"]
               b.mobile && L(1.4);
               if (!B.graphical.screenshotMode) {
                // code
-                   N.draw(
+         /**          N.draw(
                    
                       "Kills: " + c(a[0]) ?? 0,
                     b.screenWidth - 150, // example: right side
@@ -4156,7 +4156,7 @@ let color = ["#ff0000"]
                       30,                  // font size
                       l.guiwhite,
                        "right"
-    );    
+    );    **/
 
 
                 //end of code
