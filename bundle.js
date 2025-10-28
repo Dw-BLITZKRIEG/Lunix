@@ -2704,10 +2704,13 @@ case "explofar": {
                 b.finalKills[1].set(c[3]);
                 b.finalKills[2].set(c[4]);
                 b.finalKillers = [];
+
+                let killText = "kills: " + b.finalKills[0].get();
+
                 for (d = 0; d < c[5]; d++) b.finalKillers.push(c[6 + d]);
                 b.died = !0;
                 b.respawnOn = Date.now() + (ia ? 0e3 : 0e3);
-
+                  
               case "K":
                 b.isInGame = !1;
                 c[0] && (b.message = c[0]);
@@ -3927,7 +3930,7 @@ let color = ["#ff0000"]
 var killC = 0;
 
       N.draw(
-                  "kills:" + killC ,
+                  killText,
                   300,
                   67,
                   32,
