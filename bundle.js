@@ -3935,7 +3935,7 @@ let color = ["#ff0000"]
                   "center"
                 );
 
-
+if (showKillCounter) {
       N.draw(
                   "kills" + killsolo,
                   800,
@@ -3944,7 +3944,7 @@ let color = ["#ff0000"]
                   l.red,
                   "right"
                 );
-
+}
                 if (z.name.includes("[AI]"))
                   N.draw(
                     z.name,
