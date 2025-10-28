@@ -4506,8 +4506,8 @@ var killC = 0;
                   : 100 > c
                   ? "\ud83c\udf36\ufe0f"
                   : "\ud83d\udcaf") + " ";
-        //      if (0 === c) return d + "A true pacifist";
-                if (0 === c) return { text: d + "A true pacifist", killC: 0 };
+              if (0 === c) return d + "A true pacifist";
+           
 
               c = [];
               a[0] && c.push(a[0] + " kills"); // kills#
