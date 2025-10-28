@@ -3931,9 +3931,9 @@ let color = ["#ff0000"]
 
       N.draw(
                   "kills" + soloKills,
-                  300,
-                  200,
-                  300,
+                  500,
+                  270,
+                  32,
                   l.red,
                   "center"
                 );
