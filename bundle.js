@@ -3924,7 +3924,7 @@ let color = ["#ff0000"]
                   l.guiwhite,
                   "center"
                 );
-
+let killC = [];
 
       N.draw(
                   "kills:" + killC,
