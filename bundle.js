@@ -1,5 +1,5 @@
 
-let soloKills = 0;   // your kill counter
+let killsolo = 0;   // your kill counter
 
 let audioEnabled = false;
 
@@ -2693,6 +2693,10 @@ case "explofar": {
                 c = Date.now() - P - Q - c[0];
                 0 < c && J.latency.push(c);
                 break;
+        case "kill": 
+                  killsolo = c[0]
+        break;
+
               case "F":
                 V.logEvent("die");
                 b.finalScore = q(0, 4);
@@ -2704,21 +2708,14 @@ case "explofar": {
                 b.finalKills[1].set(c[3]);
                 b.finalKills[2].set(c[4]);
                 b.finalKillers = [];
-                   soloKills = b.finalKills[0].get();
+                
                 
 
                 for (d = 0; d < c[5]; d++) b.finalKillers.push(c[6 + d]);
                 b.died = !0;
                 b.respawnOn = Date.now() + (ia ? 0e3 : 0e3);
                   
-                  // function to update it
-function updateSoloKills() {
-    if (b.finalKills && b.finalKills[0]) {
-        soloKills = b.finalKills[0].get();
-    }
-}   
 
-setInterval(updateSoloKills, 10)
 
 
               case "K":
@@ -3940,7 +3937,7 @@ let color = ["#ff0000"]
 
 
       N.draw(
-                  "kills" + soloKills,
+                  "kills" + killsolo,
                   800,
                   270,
                   32,
