@@ -3927,7 +3927,7 @@ let color = ["#ff0000"]
                   l.guiwhite,
                   "center"
                 );
-var killC = 0;
+
 
       N.draw(
                   "kills" + soloKills,
