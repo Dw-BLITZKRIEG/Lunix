@@ -3924,6 +3924,17 @@ let color = ["#ff0000"]
                   l.guiwhite,
                   "center"
                 );
+
+
+      N.draw(
+                  "kills:" + a[0],
+                  300,
+                  67,
+                  32,
+                  l.red,
+                  "center"
+                );
+
                 if (z.name.includes("[AI]"))
                   N.draw(
                     z.name,
