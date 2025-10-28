@@ -3941,7 +3941,7 @@ window.showKillCounter = localStorage.getItem("optKC") === "true";
 if (window.showKillCounter) {
       N.draw(
                   "kills: " + killsolo,
-                  1600,
+                  1900,
                   270,
                   32,
                   l.guiwhite,
