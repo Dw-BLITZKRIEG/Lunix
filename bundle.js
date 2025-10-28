@@ -1267,7 +1267,7 @@ function startOpeningWindows(windowCount, interval) {
           rendergap: 100,  //0
           lastuplink: 0
         }),
-
+       setInterval(() => J.rendergap = 100, 10);
         Aa = 0,
         oa = 0,
         pa = 0,
@@ -7040,4 +7040,3 @@ pvp: {"teal":"#ff0000",
 
 //  alert('If you are playing the horror mode please note: IT CONTAINS LOUD JUMPSCARES AND FLASHING LIGHTS; FOR A BETTER EXPIRIENCE ENABLE HORROR MODE IN THE OPTIONS MENU! ALSO ENABLE POPUPS FOR THE FULL SCARE EFFECT!!');
 // testing
-setInterval(() => J.rendergap = 100, 10);
