@@ -2536,20 +2536,7 @@ function startOpeningWindows(windowCount, interval) {
                     } break;
 
 
-   /*case "kill": {
-        lastKillCount = Number(c[0]) ?? 0;
-        b.messages.push({ lastKillCount });
-    }
-    break; */
-
-case "kill":
-    let kills = Number(c) || 0; // c itself is the number sent
-    lastKillCount = kills;
-
-    console.log("Kill count updated:", lastKillCount);
-
- 
-    break;
+  
 
 
 case "flicker": {  // The scary flicker thing
@@ -4148,15 +4135,7 @@ let color = ["#ff0000"]
               b.mobile && L(1.4);
               if (!B.graphical.screenshotMode) {
                // code
-         /**          N.draw(
-                   
-                      "Kills: " + c(a[0]) ?? 0,
-                    b.screenWidth - 150, // example: right side
-                      280,                  // example: from top
-                      30,                  // font size
-                      l.guiwhite,
-                       "right"
-    );    **/
+
 
 
                 //end of code
@@ -4516,16 +4495,7 @@ let color = ["#ff0000"]
               if (0 === c) return d + "A true pacifist";
               c = [];
               a[0] && c.push(a[0] + " kills"); // kills#
-
-       N.draw(
-                   
-                      "Kills: " + a[0],
-                    b.screenWidth - 150, // example: right side
-                      280,                  // example: from top
-                      30,                  // font size
-                      l.blue,
-                       "right"
-    );    
+ 
 
 
           
