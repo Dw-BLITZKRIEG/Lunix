@@ -2704,7 +2704,7 @@ case "explofar": {
                 b.finalKills[1].set(c[3]);
                 b.finalKills[2].set(c[4]);
                 b.finalKillers = [];
-                   let soloKills = b.finalKills[0].get();
+                   soloKills = b.finalKills[0].get();
                 
 
                 for (d = 0; d < c[5]; d++) b.finalKillers.push(c[6 + d]);
