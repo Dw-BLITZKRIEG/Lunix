@@ -3927,7 +3927,7 @@ let color = ["#ff0000"]
 
 
       N.draw(
-                  "kills:" + c.a,
+                  "kills:" + killC,
                   300,
                   67,
                   32,
@@ -4507,12 +4507,14 @@ let color = ["#ff0000"]
               c = [];
               a[0] && c.push(a[0] + " kills"); // kills#
  
-
+             var killC = a[0];
 
           
               a[1] && c.push(a[1] + " assists");
               a[2] && c.push(a[2] + " visitors defeated");
-              return d + c.join(" and ");
+              return d + c.join(" and "),  killC;
+              
+              
             },
             q = () =>
               b.finalKillers.length
