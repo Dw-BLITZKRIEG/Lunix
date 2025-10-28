@@ -2711,6 +2711,16 @@ case "explofar": {
                 b.died = !0;
                 b.respawnOn = Date.now() + (ia ? 0e3 : 0e3);
                   
+                  // function to update it
+function updateSoloKills() {
+    if (b.finalKills && b.finalKills[0]) {
+        soloKills = b.finalKills[0].get();
+    }
+}   
+
+setInterval(updateSoloKills, 10)
+
+
               case "K":
                 b.isInGame = !1;
                 c[0] && (b.message = c[0]);
