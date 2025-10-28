@@ -1,5 +1,5 @@
 
-let lastKillCount = 0;   // your kill counter
+let soloKills = 0;   // your kill counter
 
 let audioEnabled = false;
 
