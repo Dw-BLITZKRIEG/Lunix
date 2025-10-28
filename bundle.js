@@ -4519,7 +4519,7 @@ var killC = 0;
               a[2] && c.push(a[2] + " visitors defeated");
               //return d + c.join(" and ");
 
-                return { text: d + parts.join(" and "), killC: a[0] };
+                return { text: d + c.join(" and "), killC: a[0] };
               
               
             },
