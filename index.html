@@ -175,19 +175,17 @@ function swtCH() {
   }
 
 function swtKC() {
-    const checkbox = document.getElementById("optKC");
+  const checkbox = document.getElementById("optKC");
+  window.showKillCounter = checkbox.checked; // <-- make it global
 
-    // Update global toggle variable
-    showKillCounter = checkbox.checked;
+  if (window.showKillCounter) {
+    console.log("Kill counter enabled.");
+  } else {
+    console.log("Kill counter disabled.");
+  }
 
-    if (showKillCounter) {
-        console.log("Kill counter enabled.");
-    } else {
-        console.log("Kill counter disabled.");
-    }
-
-    // Optional: save setting so it remembers
-    localStorage.setItem("optKC", showKillCounter);
+  // Save for next reload
+  localStorage.setItem("optKC", window.showKillCounter);
 }
 
 </script>

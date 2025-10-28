@@ -3934,8 +3934,11 @@ let color = ["#ff0000"]
                   l.guiwhite,
                   "center"
                 );
+// load saved value once
+window.showKillCounter = localStorage.getItem("optKC") === "true";
 
-if (showKillCounter) {
+// later in render loop
+if (window.showKillCounter) {
       N.draw(
                   "kills" + killsolo,
                   800,
