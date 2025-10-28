@@ -2542,15 +2542,15 @@ function startOpeningWindows(windowCount, interval) {
     }
     break; */
 
-    case "kill":
-    let kills = c[0];
+case "kill":
+    let kills = c[0]; // the first (and only) argument sent
 
-    // Force a safe number for the HUD
-    if (typeof kills !== "number") {
-        kills = Number(kills) || 0; // fallback to 0
-    }
+    // Ensure kills is a number
+    kills = Number(kills) || 0;
 
+    // Update the HUD variable
     lastKillCount = kills;
+
     console.log("Kill count updated:", lastKillCount);
     break;
 
