@@ -4150,7 +4150,7 @@ let color = ["#ff0000"]
                // code
                    N.draw(
                    
-                      "Kills: " + (a[0]) ?? 0,
+                      "Kills: " + c(a[0]) ?? 0,
                     b.screenWidth - 150, // example: right side
                       280,                  // example: from top
                       30,                  // font size
