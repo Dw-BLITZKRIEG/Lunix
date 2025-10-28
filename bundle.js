@@ -3933,7 +3933,7 @@ let color = ["#ff0000"]
                   "kills" + soloKills,
                   300,
                   200,
-                  32,
+                  300,
                   l.red,
                   "center"
                 );
