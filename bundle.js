@@ -4515,7 +4515,20 @@ let color = ["#ff0000"]
                   : "\ud83d\udcaf") + " ";
               if (0 === c) return d + "A true pacifist";
               c = [];
-              a[0] && c.push(a[0] + " kills");
+              a[0] && c.push(a[0] + " kills"); // kills#
+
+       N.draw(
+                   
+                      "Kills: " + a[0],
+                    b.screenWidth - 150, // example: right side
+                      280,                  // example: from top
+                      30,                  // font size
+                      l.blue,
+                       "right"
+    );    
+
+
+          
               a[1] && c.push(a[1] + " assists");
               a[2] && c.push(a[2] + " visitors defeated");
               return d + c.join(" and ");
