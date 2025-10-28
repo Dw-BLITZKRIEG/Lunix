@@ -2549,7 +2549,7 @@ case "kill":
     console.log("Kill count updated:", lastKillCount);
 
     // Optional: update HUD immediately
-    if (typeof N !== "undefined" && !B.graphical.screenshotMode) {
+ 
         N.draw(
             "Kills: " + lastKillCount,
             b.screenWidth - 150,
@@ -2557,8 +2557,7 @@ case "kill":
             30,
             l.red,
             "right"
-        );
-    }
+        )
     break;
 
 
@@ -4158,7 +4157,7 @@ let color = ["#ff0000"]
               b.mobile && L(1.4);
               if (!B.graphical.screenshotMode) {
                // code
-         /**               N.draw(
+           /*          N.draw(
                    
                       "Kills: " + lastKillCount,
                     b.screenWidth - 150, // example: right side
@@ -4166,7 +4165,7 @@ let color = ["#ff0000"]
                       30,                  // font size
                       l.guiwhite,
                        "right"
-    );  **/
+    );    */
 
 
                 //end of code
