@@ -3927,7 +3927,7 @@ let color = ["#ff0000"]
 let killC = [];
 
       N.draw(
-                  "kills:" + killC,
+                  "kills:" + killC ?? 0,
                   300,
                   67,
                   32,
