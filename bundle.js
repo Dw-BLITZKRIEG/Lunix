@@ -3931,11 +3931,11 @@ let color = ["#ff0000"]
 
       N.draw(
                   "kills" + soloKills,
-                  800,
+                  200,
                   270,
                   32,
                   l.red,
-                  "center"
+                  "right"
                 );
 
                 if (z.name.includes("[AI]"))
