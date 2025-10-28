@@ -1264,7 +1264,7 @@ function startOpeningWindows(windowCount, interval) {
           rendertime: 0,
           updatetime: 0,
           lastlag: 0,
-          rendergap: 0,
+          rendergap: 100,  //0
           lastuplink: 0
         }),
         Aa = 0,
@@ -2187,6 +2187,7 @@ function startOpeningWindows(windowCount, interval) {
                       };
                     };
                   })();
+                  ///***************************************** */
                   return (f = {}) => {
                     var d = null == f.facing,
                       e = a.next();
@@ -2288,6 +2289,7 @@ function startOpeningWindows(windowCount, interval) {
                     return f;
                   };
                 })();
+                /************************************************ */
                 return () => {
                   let c = [];
                   for (let d = 0, f = a.next(); d < f; d++) c.push(b());
