@@ -3572,109 +3572,79 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
+da.forEach(function(a) {
+    if (!a.render.draws) return; // Skip if we shouldn't draw
 
-// CONSTANTS
-const MS_PER_TICK = 1000 / 30;
-const VELOCITY_EXTRAP = 0.25; // tweak 0.0-0.5 for snappiness
-const CAMERA_LERP = 0.12;     // 0.05 tight, 0.12 default, 0.2 very smooth
-
-// Utility
-function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-
-// Interpolate/extrapolate entity positions & facing
-function getEntityDrawPos(f, now) {
-    const intervalMs = (f.render?.interval || J.rendergap) * MS_PER_TICK;
-    const lastRender = f.render?.lastRender || now;
-    const serverNow = z.time || now;
-
-    let alpha = clamp((serverNow - lastRender) / (intervalMs || MS_PER_TICK), 0, 1.2);
-
-    const lx = f.render?.lastx ?? f.x;
-    const ly = f.render?.lasty ?? f.y;
-    const lvx = f.render?.lastvx ?? f.vx;
-    const lvy = f.render?.lastvy ?? f.vy;
-
-    const baseX = lx + (f.x - lx) * alpha;
-    const baseY = ly + (f.y - ly) * alpha;
-
-    const drawX = baseX + lvx * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
-    const drawY = baseY + lvy * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
-
-    // Facing interpolation
-    let facing = f.facing;
-    if (f.render?.lastf != null) {
-        let df = facing - f.render.lastf;
-        if (df > Math.PI) df -= 2 * Math.PI;
-        if (df < -Math.PI) df += 2 * Math.PI;
-        facing = f.render.lastf + df * alpha;
+    // --- Smooth position interpolation/extrapolation ---
+    var d;
+    if (1 === a.render.status.getFade()) {
+        // When fading, use exact predict
+        d = h();
+        a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = d.predictFacing(a.render.lastf, a.facing);
+    } else {
+        // Normal interpolation/extrapolation
+        d = h(a.render.lastRender, a.interval);
+        a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // Special handling for player
-    if (f.id === A.playerid && !(f.twiggle & 1)) {
-        facing = Math.atan2(U.target.y, U.target.x);
+    // --- Player barrel rotation (pointing to mouse) ---
+    if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
+        a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            facing -= Math.atan2(
+            a.render.f -= Math.atan2(
                 b.gameWidth / 2 - z.cx,
                 b.gameHeight / 2 - z.cy
             );
         }
-        if (f.twiggle & 2) facing += Math.PI;
+        if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    return { x: drawX, y: drawY, facing, alpha };
-}
+    // --- Smooth camera follow ---
+    let screenX = c * a.render.x - q;
+    let screenY = c * a.render.y - y;
 
-// Smooth camera update
-function updateCamera(playerX, playerY) {
-    if (!playerX || !playerY) return;
-    // lerp camera position towards player
-    z.renderx += (playerX - z.renderx) * CAMERA_LERP;
-    z.rendery += (playerY - z.rendery) * CAMERA_LERP;
-}
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            // Smooth camera movement towards player
+            const CAMERA_LERP = 0.1; // 0.05-0.2 is smooth range
+            z.x += (screenX + b.screenWidth / 2 - z.x) * CAMERA_LERP;
+            z.y += (screenY + b.screenHeight / 2 - z.y) * CAMERA_LERP;
 
-// === MAIN ENTITY RENDER LOOP ===
-function renderEntities() {
-    let playerPos = { x: 0, y: 0 };
+            screenX = z.x - b.screenWidth / 2;
+            screenY = z.y - b.screenHeight / 2;
+        }
+    } else {
+        screenX += b.screenWidth / 2;
+        screenY += b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x += (screenX - z.x) * 0.1;
+            z.y += (screenY - z.y) * 0.1;
+            screenX = z.x;
+            screenY = z.y;
+        }
+    }
 
-    da.forEach(a => {
-        if (!a.render.draws) return;
-
-        const draw = getEntityDrawPos(a, performance.now());
-
-        // Save player position for camera
-        if (a.id === A.playerid) playerPos.x = draw.x, playerPos.y = draw.y;
-
-        const x = draw.x - z.renderx + U.cv.width / 2;
-        const y = draw.y - z.rendery + U.cv.height / 2;
-
-        // Draw entity
-        ba(
-            x,
-            y,
-            a,
-            c,
-            a.id === A.playerid || b.showInvisible
-                ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
-                : a.alpha,
-            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-            draw.facing,
-            false,
-            true
-        );
-
-        // Save last render values for interpolation
-        a.render.lastx = a.x;
-        a.render.lasty = a.y;
-        a.render.lastvx = a.vx;
-        a.render.lastvy = a.vy;
-        a.render.lastf = a.facing;
-        a.render.lastRender = z.time || performance.now();
-    });
-
-    // Update camera after entities
-    updateCamera(playerPos.x, playerPos.y);
-}
-
+    // --- Draw entity using original ba function ---
+    ba(
+        screenX,
+        screenY,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha
+                ? 0.6 * a.alpha + 0.4
+                : 0.25
+            : a.alpha,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+        a.render.f,
+        false,
+        true
+    );
+});
 /////////////////////////////////////////////////////////////////////////////////
 
 
