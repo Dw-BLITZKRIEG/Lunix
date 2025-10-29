@@ -2073,6 +2073,90 @@ function startOpeningWindows(windowCount, interval) {
           lastUpdate: 0,
           time: 0
         };
+
+         // idk
+          // CONSTANT: ms per server tick (Arras style uses 30 ticks/sec)
+const MS_PER_TICK = 1000 / 30;
+
+// small utility
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+
+// Get per-entity draw position (interpolated / lightly extrapolated)
+function getEntityDrawPos(f, nowTime) {
+  // f.render.lastRender should be z.time saved when packet arrived
+  // f.render.interval is stored as J.rendergap (ticks) in your parser
+  const intervalMs = (f.render && f.render.interval ? f.render.interval : J.rendergap) * MS_PER_TICK;
+
+  // if lastRender not present, fallback to immediate
+  const lastRender = (f.render && f.render.lastRender) || nowTime;
+
+  // compute alpha = how far we are between lastRender -> lastRender+intervalMs
+  // Use z.time (server-timestamped timeline) if available for consistency:
+  const serverNow = z.time || nowTime;
+  let alpha = (serverNow - lastRender) / (intervalMs || MS_PER_TICK);
+
+  // allow very small extrapolation but cap to avoid wild overshoot
+  alpha = clamp(alpha, 0, 1.2);
+
+  // interpolate / lightly extrapolate position & velocity
+  const lx = (f.render && f.render.lastx) != null ? f.render.lastx : f.x;
+  const ly = (f.render && f.render.lasty) != null ? f.render.lasty : f.y;
+  const lvx = (f.render && f.render.lastvx) != null ? f.render.lastvx : f.vx;
+  const lvy = (f.render && f.render.lastvy) != null ? f.render.lastvy : f.vy;
+
+  // basic interpolation with velocity-based small extrapolation
+  // This blends pos + a small velocity contribution to feel snappy
+  const baseX = lx + (f.x - lx) * alpha;
+  const baseY = ly + (f.y - ly) * alpha;
+
+  // velocity contribution scaled down to avoid popping
+  const velExtrap = 0.25; // tweak 0.0-0.5
+  const drawX = baseX + f.vx * velExtrap * (alpha > 1 ? (alpha - 1) : 0);
+  const drawY = baseY + f.vy * velExtrap * (alpha > 1 ? (alpha - 1) : 0);
+
+  // facing interpolation (wrap aware)
+  let facing = f.facing;
+  if (f.render && typeof f.render.lastf === "number") {
+    // shortest angle lerp
+    let df = f.facing - f.render.lastf;
+    if (df > Math.PI) df -= 2 * Math.PI;
+    if (df < -Math.PI) df += 2 * Math.PI;
+    facing = f.render.lastf + df * alpha;
+  }
+
+  return { x: drawX, y: drawY, facing, alpha };
+}
+
+// Smooth camera update using lerp
+function updateCamera(nowTime) {
+  // Use server-synced time z.time as the reference for interpolation
+  // Compute how far camera should be between last and current server positions
+  // z.lastx/lasty were set on packet; z.cx/cy are current server-centre
+  const intervalMs = (J.rendergap || 1) * MS_PER_TICK;
+  const lastRender = z.lastUpdate || (nowTime - intervalMs);
+  let camAlpha = clamp((z.time - lastRender) / intervalMs, 0, 1.2);
+
+  // Use a small smoothing factor to avoid jumps when server corrects camera
+  // The camera lags slightly behind the server to match entity interpolation
+  const CAMERA_LERP = 0.12; // between 0.05 (tight) and 0.2 (very smooth)
+  const targetRenderX = z.lastx + (z.cx - z.lastx) * camAlpha;
+  const targetRenderY = z.lasty + (z.cy - z.lasty) * camAlpha;
+
+  // exponential smoothing to remove micro jitter
+  z.renderx += (targetRenderX - z.renderx) * CAMERA_LERP;
+  z.rendery += (targetRenderY - z.rendery) * CAMERA_LERP;
+}
+
+
+
+
+
+
+
+         // idk 2
+
+
+
       b.player = z;
       var ya = (() => {
         let a = 0,
