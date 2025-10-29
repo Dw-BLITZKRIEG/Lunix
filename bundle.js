@@ -3572,7 +3572,7 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-da.forEach(function(a) {
+  /* da.forEach(function(a) {
     if (!a.render.draws) return;
 
     // Smooth movement / interpolation
@@ -3637,11 +3637,11 @@ da.forEach(function(a) {
         false,
         true
     );
-});
+});   */
 /////////////////////////////////////////////////////////////////////////////////
 
 
-             /* da.forEach(function(a) {
+              da.forEach(function(a) {
                 if (a.render.draws) {
                   if (1 === a.render.status.getFade()) {
                     var d = h();
@@ -3710,7 +3710,7 @@ da.forEach(function(a) {
                     !0
                   );
                 }
-              }); */
+              }); 
               b.radial && g.restore();
               if (!B.graphical.screenshotMode)
                 for (let f of da) {
