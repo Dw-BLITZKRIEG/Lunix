@@ -3572,7 +3572,7 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-              da.forEach(function(a) {
+      da.forEach(function(a) {
     if (a.render.draws) {
         // --- Interpolated position & facing ---
         const draw = getEntityDrawPos(a, performance.now());
@@ -3608,13 +3608,6 @@ case "explofar": {
             !1,
             !0
         );
-
-        // --- Update fade / status if needed ---
-        if (a.render.status.getFade && a.render.status.getFade() > 0) {
-            a.render.status.set(
-                1 === a.health ? "dying" : "killed"
-            );
-        }
     }
 });
 
