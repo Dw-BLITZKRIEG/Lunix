@@ -3572,10 +3572,23 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
+// --- First: update camera to follow player ---
+let player = da.find(a => a.id === A.playerid);
+if (player) {
+    // Smooth interpolation for player camera
+    const CAMERA_LERP = 0.12; // 0.05 = tighter, 0.2 = very smooth
+    const targetX = c * player.render.x - q + b.screenWidth / 2;
+    const targetY = c * player.render.y - y + b.screenHeight / 2;
+
+    z.x += (targetX - z.x) * CAMERA_LERP;
+    z.y += (targetY - z.y) * CAMERA_LERP;
+}
+
+// --- Then: render all entities relative to camera ---
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- Smooth position interpolation/extrapolation ---
+    // Smooth interpolation/extrapolation
     var d;
     if (1 === a.render.status.getFade()) {
         d = h();
@@ -3589,7 +3602,7 @@ da.forEach(function(a) {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- Player barrel rotation ---
+    // Player barrel rotation
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3601,22 +3614,11 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Compute screen position ---
-    let screenX = c * a.render.x - q + b.screenWidth / 2;
-    let screenY = c * a.render.y - y + b.screenHeight / 2;
+    // Compute screen coordinates relative to smoothed camera
+    let screenX = c * a.render.x - q - (z.x - b.screenWidth / 2);
+    let screenY = c * a.render.y - y - (z.y - b.screenHeight / 2);
 
-    // --- Smooth camera follow for player only ---
-    if (a.id === A.playerid) {
-        const CAMERA_LERP = 0.12; // tweak for smoothness
-        z.x += (screenX - z.x) * CAMERA_LERP;
-        z.y += (screenY - z.y) * CAMERA_LERP;
-
-        // Adjust all other entities relative to camera
-        screenX = a.render.x * c - q - (z.x - b.screenWidth / 2);
-        screenY = a.render.y * c - y - (z.y - b.screenHeight / 2);
-    }
-
-    // --- Draw entity using original ba function ---
+    // Draw using original ba function
     ba(
         screenX,
         screenY,
