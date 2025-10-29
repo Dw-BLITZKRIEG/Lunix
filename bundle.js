@@ -3573,25 +3573,23 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 da.forEach(function(a) {
-    if (!a.render.draws) return; // Skip if we shouldn't draw
+    if (!a.render.draws) return;
 
     // --- Smooth position interpolation/extrapolation ---
     var d;
     if (1 === a.render.status.getFade()) {
-        // When fading, use exact predict
         d = h();
         a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = d.predictFacing(a.render.lastf, a.facing);
     } else {
-        // Normal interpolation/extrapolation
         d = h(a.render.lastRender, a.interval);
         a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- Player barrel rotation (pointing to mouse) ---
+    // --- Player barrel rotation ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3603,29 +3601,19 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Smooth camera follow ---
-    let screenX = c * a.render.x - q;
-    let screenY = c * a.render.y - y;
+    // --- Compute screen position ---
+    let screenX = c * a.render.x - q + b.screenWidth / 2;
+    let screenY = c * a.render.y - y + b.screenHeight / 2;
 
-    if (b.radial) {
-        if (a.id === A.playerid) {
-            // Smooth camera movement towards player
-            const CAMERA_LERP = 0.1; // 0.05-0.2 is smooth range
-            z.x += (screenX + b.screenWidth / 2 - z.x) * CAMERA_LERP;
-            z.y += (screenY + b.screenHeight / 2 - z.y) * CAMERA_LERP;
+    // --- Smooth camera follow for player only ---
+    if (a.id === A.playerid) {
+        const CAMERA_LERP = 0.12; // tweak for smoothness
+        z.x += (screenX - z.x) * CAMERA_LERP;
+        z.y += (screenY - z.y) * CAMERA_LERP;
 
-            screenX = z.x - b.screenWidth / 2;
-            screenY = z.y - b.screenHeight / 2;
-        }
-    } else {
-        screenX += b.screenWidth / 2;
-        screenY += b.screenHeight / 2;
-        if (a.id === A.playerid) {
-            z.x += (screenX - z.x) * 0.1;
-            z.y += (screenY - z.y) * 0.1;
-            screenX = z.x;
-            screenY = z.y;
-        }
+        // Adjust all other entities relative to camera
+        screenX = a.render.x * c - q - (z.x - b.screenWidth / 2);
+        screenY = a.render.y * c - y - (z.y - b.screenHeight / 2);
     }
 
     // --- Draw entity using original ba function ---
