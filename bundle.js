@@ -3572,76 +3572,56 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-// Smooth camera follow with proper anchoring
-let player = da.find(a => a.id === A.playerid);
-if (player) {
-    // Ideal camera position (player centered)
-    const idealCamX = c * player.render.x;
-    const idealCamY = c * player.render.y;
-
-    // Distance from current camera to ideal
-    const dx = idealCamX - z.x;
-    const dy = idealCamY - z.y;
-    const distance = Math.hypot(dx, dy);
-
-    // Determine smoothing factor
-    let CAMERA_LERP = 0.12;
-
-    // If player stopped moving, snap camera closer
-    const playerMoving = player.vx !== 0 || player.vy !== 0;
-    if (!playerMoving) {
-        // Force anchor to player faster
-        CAMERA_LERP = 0.25; // bigger lerp -> faster snapping
-    }
-
-    // Smoothly move camera
-    z.x += dx * CAMERA_LERP;
-    z.y += dy * CAMERA_LERP;
-}
-
-// --- Render entities relative to smoothed camera ---
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    var d;
+    // Use prediction/interpolation for smooth movement
+    let predictor;
     if (1 === a.render.status.getFade()) {
-        d = h();
-        a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        a.render.f = d.predictFacing(a.render.lastf, a.facing);
+        predictor = h();
+        a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } else {
-        d = h(a.render.lastRender, a.interval);
-        a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
+        predictor = h(a.render.lastRender, a.interval);
+        a.render.x = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // Player barrel rotation
+    // Barrel / turret aiming for the player
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
+            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // Screen coordinates relative to smoothed camera
-    const screenX = c * a.render.x - z.x + b.screenWidth / 2;
-    const screenY = c * a.render.y - z.y + b.screenHeight / 2;
+    // Smooth camera follow
+    const scale = c; // world-to-screen scale
+    let drawX = a.render.x * scale;
+    let drawY = a.render.y * scale;
 
-    // Draw entity
+    // Center camera on player smoothly
+    if (a.id === A.playerid) {
+        const CAMERA_LERP = 0.1; // 0.05-0.2, tweak for smoothness
+        z.renderx += (drawX - z.renderx - b.screenWidth / 2) * CAMERA_LERP;
+        z.rendery += (drawY - z.rendery - b.screenHeight / 2) * CAMERA_LERP;
+    }
+
+    // Apply camera offset
+    const screenX = drawX - z.renderx + b.screenWidth / 2;
+    const screenY = drawY - z.rendery + b.screenHeight / 2;
+
+    // Render entity
     ba(
         screenX,
         screenY,
         a,
-        c,
+        scale,
         a.id === A.playerid || b.showInvisible
-            ? a.alpha
-                ? 0.6 * a.alpha + 0.4
-                : 0.25
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
             : a.alpha,
         0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
