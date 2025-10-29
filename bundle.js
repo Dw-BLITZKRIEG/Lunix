@@ -3573,29 +3573,61 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-// --- Camera update ---
-function updateCamera(nowTime) {
+// --- Constants ---
+const MS_PER_TICK = 1000 / 30;
+const CAMERA_LERP = 0.08; // smaller = smoother camera
+
+// --- Get interpolated/extrapolated entity position ---
+function getEntityDrawPos(entity, nowTime) {
+    const intervalMs = (entity.render?.interval || J.rendergap) * MS_PER_TICK;
+    const lastRender = entity.render?.lastRender || nowTime;
+
+    let alpha = (z.time || nowTime - lastRender) / (intervalMs || MS_PER_TICK);
+    alpha = Math.min(Math.max(alpha, 0), 1.2);
+
+    const lx = entity.render?.lastx ?? entity.x;
+    const ly = entity.render?.lasty ?? entity.y;
+    const lvx = entity.render?.lastvx ?? entity.vx;
+    const lvy = entity.render?.lastvy ?? entity.vy;
+
+    const baseX = lx + (entity.x - lx) * alpha;
+    const baseY = ly + (entity.y - ly) * alpha;
+
+    const velExtrap = 0.25;
+    const drawX = baseX + lvx * velExtrap * Math.max(0, alpha - 1);
+    const drawY = baseY + lvy * velExtrap * Math.max(0, alpha - 1);
+
+    let facing = entity.facing;
+    if (entity.render?.lastf != null) {
+        let df = entity.facing - entity.render.lastf;
+        if (df > Math.PI) df -= 2 * Math.PI;
+        if (df < -Math.PI) df += 2 * Math.PI;
+        facing = entity.render.lastf + df * alpha;
+    }
+
+    return { x: drawX, y: drawY, facing };
+}
+
+// --- Smooth camera update ---
+function updateCamera() {
     const player = da.find(e => e.id === A.playerid);
     if (!player) return;
 
-    // Interpolated target position (can use velocity if you want)
-    const draw = getEntityDrawPos(player, nowTime);
+    const draw = getEntityDrawPos(player, performance.now());
     const targetX = draw.x;
     const targetY = draw.y;
 
-    // Smooth camera lerp
-    const CAMERA_LERP = 0.08; // smaller = smoother/lazier
     z.renderx += (targetX - z.renderx) * CAMERA_LERP;
     z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
 
-// --- Main entity rendering ---
-function renderEntities(nowTime) {
+// --- Main render loop ---
+function renderEntities() {
+    const now = performance.now();
     da.forEach(entity => {
-        if (!entity.render.draws) return;
+        if (!entity.render?.draws) return;
 
-        const draw = getEntityDrawPos(entity, nowTime);
-
+        const draw = getEntityDrawPos(entity, now);
         const screenX = draw.x - z.renderx + U.cv.width / 2;
         const screenY = draw.y - z.rendery + U.cv.height / 2;
 
