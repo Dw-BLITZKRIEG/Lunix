@@ -3572,43 +3572,27 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-      da.forEach(function(a) {
-    if (a.render.draws) {
-        // --- Interpolated position & facing ---
-        const draw = getEntityDrawPos(a, performance.now());
-        const x = draw.x - z.renderx + b.screenWidth / 2;
-        const y = draw.y - z.rendery + b.screenHeight / 2;
-        const facing = draw.facing;
+   // Main entity render loop
+da.forEach(entity => {
+    // --- Smooth position/facing interpolation ---
+    const draw = getEntityDrawPos(entity, performance.now());
+    const x = draw.x - z.renderx + b.screenWidth / 2;
+    const y = draw.y - z.rendery + b.screenHeight / 2;
+    const facing = draw.facing;
 
-        // --- Player facing adjustments ---
-        if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
-            a.render.f = Math.atan2(U.target.y, U.target.x);
-            if (b.radial) {
-                a.render.f -= Math.atan2(
-                    b.gameWidth / 2 - z.cx,
-                    b.gameHeight / 2 - z.cy
-                );
-            }
-            if (a.twiggle & 2) a.render.f += Math.PI;
-        }
-
-        // --- Draw entity using ba ---
-        ba(
-            x,
-            y,
-            a,
-            c,
-            a.id === A.playerid || b.showInvisible
-                ? a.alpha
-                    ? 0.6 * a.alpha + 0.4
-                    : 0.25
-                : a.alpha,
-            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-            facing,
-            !1,
-            !0
-        );
-    }
+    // --- Draw entity using ba ---
+    // Parameters: context, x, y, size, shape/color, scale, rotation, extra options
+    ba(
+        bContext,       // your canvas context
+        x,
+        y,
+        entity.size,
+        entity.shape,   // or entity.color if ba expects color
+        facing,
+        1,              // scale (1 = normal)
+        false,          // don't flip
+        true            // some extra flag your ba might use
+    );
 });
 
 
