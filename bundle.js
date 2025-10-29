@@ -2392,46 +2392,22 @@ function updateCamera(nowTime) {
                 return () => {
                   let c = [];
                   for (let d = 0, f = a.next(); d < f; d++) c.push(b());
-      /***            da.forEach(b => {
-                              //idk 5
-                const draw = getEntityDrawPos(b, performance.now());
-const x = draw.x - z.renderx + U.cv.width / 2;
-const y = draw.y - z.rendery + U.cv.height / 2;
-                //idk6
+                da.forEach(b => {
+           
 
 
                     b.render.status.set(1 === b.health ? "dying" : "killed");
                     0 !== b.render.status.getFade() &&
                       R(
-                  //      b.render.x - z.renderx,
-                   //     b.render.y - z.rendery,
-                           x,
-                           y,
+                      b.render.x - z.renderx,
+                    b.render.y - z.rendery,
+                     
                         b.size,
                         !0
                       ) &&
                       c.push(b);
-                  });  **/
+                  });  
 
-      da.forEach(b => {
-    // Get interpolated draw position
-    const draw = getEntityDrawPos(b, performance.now());
-    const x = draw.x - z.renderx + U.cv.width / 2;
-    const y = draw.y - z.rendery + U.cv.height / 2;
-
-    // Update the status as before
-    const healthState = b.health === 1 ? "dying" : "killed";
-    b.render.status.set(healthState);
-
-    // Advance the fade timer manually based on server time
-    if (b.render.status.getFade() > 0 && R(x, y, b.size, true)) {
-        c.push(b);
-    }
-
-    // Store interpolated positions for actual draw calls
-    b.render.drawX = x;
-    b.render.drawY = y;
-});
                   da = c;
                   da.sort((b, a) => b.layer - a.layer || a.id - b.id);
 
@@ -3049,7 +3025,25 @@ case "explofar": {
             };
           };
         })(),
+
+        // Inside your main render loop, where entities are drawn:
+da.forEach(entity => {
+    const draw = getEntityDrawPos(entity, performance.now());
+    const x = draw.x - z.renderx + U.cv.width / 2;
+    const y = draw.y - z.rendery + U.cv.height / 2;
+    const facing = draw.facing;
+
+    // Draw using ba
+    ba(bContext, x, y, entity.size, entity.shape, facing, entity.color);
+
+    // Original fade/status logic stays here
+});
+
         ba = (() => {
+
+
+
+
           function b(b, a, d, e, g, f = 0) {
             b.beginPath();
             if (g)
