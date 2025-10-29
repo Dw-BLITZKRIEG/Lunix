@@ -3572,10 +3572,12 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-  /* da.forEach(function(a) {
+
+
+da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // Smooth movement / interpolation
+    // --- Smooth interpolation of entity position & facing ---
     let predictor;
     if (1 === a.render.status.getFade()) {
         predictor = h();
@@ -3589,7 +3591,7 @@ case "explofar": {
         a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // Player barrel pointing
+    // --- Player barrel pointing ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3598,37 +3600,19 @@ case "explofar": {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    const scale = c;
-    const worldX = a.render.x * scale;
-    const worldY = a.render.y * scale;
+    // --- Calculate screen position relative to current camera offsets ---
+    const worldX = a.render.x * c;
+    const worldY = a.render.y * c;
 
-    // Smooth camera follow & recenter when player stops
-    if (a.id === A.playerid) {
-        const CAMERA_LERP = 0.08;   // smaller = smoother
-        const dx = worldX - z.renderx - b.screenWidth / 2;
-        const dy = worldY - z.rendery - b.screenHeight / 2;
+    const screenX = worldX - q + b.screenWidth / 2;
+    const screenY = worldY - y + b.screenHeight / 2;
 
-        // If player moving, follow smoothly
-        if (Math.abs(a.vx) > 0.01 || Math.abs(a.vy) > 0.01) {
-            z.renderx += dx * CAMERA_LERP;
-            z.rendery += dy * CAMERA_LERP;
-        } else {
-            // Player stopped: recenter camera faster
-            z.renderx += dx * (CAMERA_LERP * 2);
-            z.rendery += dy * (CAMERA_LERP * 2);
-        }
-    }
-
-    // Apply camera offset
-    const screenX = worldX - z.renderx + b.screenWidth / 2;
-    const screenY = worldY - z.rendery + b.screenHeight / 2;
-
-    // Render entity
+    // --- Render entity ---
     ba(
         screenX,
         screenY,
         a,
-        scale,
+        c,
         a.id === A.playerid || b.showInvisible
             ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
             : a.alpha,
@@ -3637,11 +3621,13 @@ case "explofar": {
         false,
         true
     );
-});   */
+});
+
+
 /////////////////////////////////////////////////////////////////////////////////
 
 
-              da.forEach(function(a) {
+       /*       da.forEach(function(a) {
                 if (a.render.draws) {
                   if (1 === a.render.status.getFade()) {
                     var d = h();
@@ -3710,7 +3696,8 @@ case "explofar": {
                     !0
                   );
                 }
-              }); 
+              });  */
+              //-----
               b.radial && g.restore();
               if (!B.graphical.screenshotMode)
                 for (let f of da) {
