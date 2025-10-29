@@ -3577,18 +3577,16 @@ da.forEach(function(a) {
     if (!a.render.draws) return;
 
     // --- Smoothing config ---
-    const SMOOTH_POS = 0.18;    // position smoothing, tweak 0.1-0.2
+    const SMOOTH_POS = 0.18;    // position smoothing factor
     const SMOOTH_FACING = 0.25; // facing smoothing
-    const MAX_EXTRAP = 1.2;     // maximum extrapolation factor
+    const MAX_EXTRAP = 1.2;     // max alpha cap
 
     const now = performance.now();
-
-    // --- Calculate interpolation alpha (0-1) based on server interval ---
     let intervalMs = (a.render.interval || J.rendergap) * (1000 / 30);
     let alpha = ((now - (a.render.lastRender || now)) / intervalMs);
     alpha = Math.min(alpha, MAX_EXTRAP);
 
-    // --- Predictor ---
+    // --- Predict positions ---
     let predictor;
     if (1 === a.render.status.getFade()) {
         predictor = h();
@@ -3598,13 +3596,13 @@ da.forEach(function(a) {
     } else {
         predictor = h(a.render.lastRender, a.render.interval);
 
-        // Extrapolated target
+        // Target positions (predicted)
         const targetX = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         const targetY = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
 
-        // --- Micro-frame exponential smoothing ---
-        a.render.x += (targetX - a.render.x) * SMOOTH_POS * alpha;
-        a.render.y += (targetY - a.render.y) * SMOOTH_POS * alpha;
+        // --- Linear interpolation (lerp) between last render and target ---
+        a.render.x = a.render.lastx + (targetX - a.render.lastx) * alpha;
+        a.render.y = a.render.lasty + (targetY - a.render.lasty) * alpha;
 
         // Smooth facing with wrap-around
         const targetF = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
