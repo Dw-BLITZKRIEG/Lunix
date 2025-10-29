@@ -3572,15 +3572,16 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-// Constants
+
+// CONSTANTS
 const MS_PER_TICK = 1000 / 30;
-const VELOCITY_EXTRAP = 0.25;
-const CAMERA_LERP = 0.1; // tweak 0.05-0.15 for smoothness
+const VELOCITY_EXTRAP = 0.25; // tweak 0.0-0.5 for snappiness
+const CAMERA_LERP = 0.12;     // 0.05 tight, 0.12 default, 0.2 very smooth
 
-// Clamp utility
-function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+// Utility
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
-// Smooth entity interpolation/extrapolation
+// Interpolate/extrapolate entity positions & facing
 function getEntityDrawPos(f, now) {
     const intervalMs = (f.render?.interval || J.rendergap) * MS_PER_TICK;
     const lastRender = f.render?.lastRender || now;
@@ -3599,6 +3600,7 @@ function getEntityDrawPos(f, now) {
     const drawX = baseX + lvx * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
     const drawY = baseY + lvy * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
 
+    // Facing interpolation
     let facing = f.facing;
     if (f.render?.lastf != null) {
         let df = facing - f.render.lastf;
@@ -3607,56 +3609,71 @@ function getEntityDrawPos(f, now) {
         facing = f.render.lastf + df * alpha;
     }
 
+    // Special handling for player
+    if (f.id === A.playerid && !(f.twiggle & 1)) {
+        facing = Math.atan2(U.target.y, U.target.x);
+        if (b.radial) {
+            facing -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
+        }
+        if (f.twiggle & 2) facing += Math.PI;
+    }
+
     return { x: drawX, y: drawY, facing, alpha };
 }
 
 // Smooth camera update
-function updateCamera(targetX, targetY) {
-    z.renderx += (targetX - z.renderx) * CAMERA_LERP;
-    z.rendery += (targetY - z.rendery) * CAMERA_LERP;
+function updateCamera(playerX, playerY) {
+    if (!playerX || !playerY) return;
+    // lerp camera position towards player
+    z.renderx += (playerX - z.renderx) * CAMERA_LERP;
+    z.rendery += (playerY - z.rendery) * CAMERA_LERP;
 }
 
-// Main render loop
-let playerPos = { x: 0, y: 0 };
+// === MAIN ENTITY RENDER LOOP ===
+function renderEntities() {
+    let playerPos = { x: 0, y: 0 };
 
-da.forEach(a => {
-    if (!a.render.draws) return;
+    da.forEach(a => {
+        if (!a.render.draws) return;
 
-    // Interpolated/extrapolated position
-    const draw = getEntityDrawPos(a, performance.now());
+        const draw = getEntityDrawPos(a, performance.now());
 
-    // Save player position for camera
-    if (a.id === A.playerid) playerPos.x = draw.x, playerPos.y = draw.y;
+        // Save player position for camera
+        if (a.id === A.playerid) playerPos.x = draw.x, playerPos.y = draw.y;
 
-    // Draw entity relative to camera
-    const x = draw.x - z.renderx + U.cv.width / 2;
-    const y = draw.y - z.rendery + U.cv.height / 2;
+        const x = draw.x - z.renderx + U.cv.width / 2;
+        const y = draw.y - z.rendery + U.cv.height / 2;
 
-    ba(
-        x,
-        y,
-        a,
-        c,
-        a.id === A.playerid || b.showInvisible
-            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
-            : a.alpha,
-        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-        draw.facing,
-        false,
-        true
-    );
+        // Draw entity
+        ba(
+            x,
+            y,
+            a,
+            c,
+            a.id === A.playerid || b.showInvisible
+                ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+                : a.alpha,
+            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+            draw.facing,
+            false,
+            true
+        );
 
-    // Save last render values for next frame
-    a.render.lastx = a.x;
-    a.render.lasty = a.y;
-    a.render.lastvx = a.vx;
-    a.render.lastvy = a.vy;
-    a.render.lastf = a.facing;
-    a.render.lastRender = z.time || performance.now();
-});
+        // Save last render values for interpolation
+        a.render.lastx = a.x;
+        a.render.lasty = a.y;
+        a.render.lastvx = a.vx;
+        a.render.lastvy = a.vy;
+        a.render.lastf = a.facing;
+        a.render.lastRender = z.time || performance.now();
+    });
 
-// Update camera AFTER all entities
-updateCamera(playerPos.x, playerPos.y);
+    // Update camera after entities
+    updateCamera(playerPos.x, playerPos.y);
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 
