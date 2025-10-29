@@ -3576,42 +3576,49 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    const SMOOTH_POS = 0.18;
-    const SMOOTH_FACING = 0.25;
-    const MAX_EXTRAP = 1.2;
+    const POS_SMOOTH = 0.18;
+    const FACING_SMOOTH = 0.25;
 
-    const now = performance.now();
-    let intervalMs = (a.render.interval || J.rendergap) * (1000 / 30);
-    let alpha = Math.min((now - (a.render.lastRender || now)) / intervalMs, MAX_EXTRAP);
-
-    let predictor = h();
-    const status = a.render.status.publish ? a.render.status.publish() : 1; // Safely get current status
+    // Grab render status safely (fix for "not a function" errors)
+    const status = a.render.status.publish ? a.render.status.publish() : 1;
     const isDying = status === "dying" || status === "killed";
 
-    // --- Stop extrapolation when entity is dying/dead ---
+    let d, predictor;
+
     if (isDying) {
-        a.render.x += (a.x - a.render.x) * SMOOTH_POS * 0.5;
-        a.render.y += (a.y - a.render.y) * SMOOTH_POS * 0.5;
-        a.render.f += (a.facing - a.render.f) * SMOOTH_FACING;
-    } else if (1 === a.render.status.getFade()) {
-        // Normal fade interpolation
+        // 💀 Entity is dying or dead — stop extrapolating completely.
+        // Just smoothly ease toward final known server position.
+        a.render.x += (a.x - a.render.x) * POS_SMOOTH * 0.5;
+        a.render.y += (a.y - a.render.y) * POS_SMOOTH * 0.5;
+
+        // Smoothly interpolate facing direction to avoid snapping.
+        let df = a.facing - a.render.f;
+        if (df > Math.PI) df -= 2 * Math.PI;
+        if (df < -Math.PI) df += 2 * Math.PI;
+        a.render.f += df * FACING_SMOOTH;
+    } 
+    else if (1 === a.render.status.getFade()) {
+        // Normal interpolation (entity alive, fade active)
+        predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
-    } else {
+    } 
+    else {
         // Normal extrapolation for alive entities
-        predictor = h(a.render.lastRender, a.render.interval);
-        const targetX = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        const targetY = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        const targetF = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
+        predictor = h(a.render.lastRender, a.interval);
+        const tx = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        const ty = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        const tf = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
 
-        a.render.x += (targetX - a.render.x) * SMOOTH_POS * alpha;
-        a.render.y += (targetY - a.render.y) * SMOOTH_POS * alpha;
+        // 🧈 Smooth positional blending to remove jitter
+        a.render.x += (tx - a.render.x) * POS_SMOOTH;
+        a.render.y += (ty - a.render.y) * POS_SMOOTH;
 
-        let df = targetF - a.render.f;
+        let df = tf - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
-        a.render.f += df * SMOOTH_FACING * alpha;
+        a.render.f += df * FACING_SMOOTH;
     }
 
     // --- Player barrel logic (unchanged) ---
@@ -3626,8 +3633,8 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Camera + render positions ---
-    let d = c * a.render.x - q;
+    // --- Camera + render offsets ---
+    d = c * a.render.x - q;
     let f = c * a.render.y - y;
 
     if (b.radial) {
@@ -3661,6 +3668,7 @@ da.forEach(function(a) {
         true
     );
 });
+
 
 /////////////////////////////////////////////////////////////////////////////////
 
