@@ -2413,21 +2413,22 @@ const y = draw.y - z.rendery + U.cv.height / 2;
                       c.push(b);
                   });  **/
 
-                  da.forEach(b => {
-    // Get interpolated position
+      da.forEach(b => {
+    // Get interpolated draw position
     const draw = getEntityDrawPos(b, performance.now());
     const x = draw.x - z.renderx + U.cv.width / 2;
     const y = draw.y - z.rendery + U.cv.height / 2;
 
-    // Keep status logic unchanged
-    b.render.status.set(b.health === 1 ? "dying" : "killed");
+    // Update the status as before
+    const healthState = b.health === 1 ? "dying" : "killed";
+    b.render.status.set(healthState);
 
-    // Only push if fade is still > 0
+    // Advance the fade timer manually based on server time
     if (b.render.status.getFade() > 0 && R(x, y, b.size, true)) {
         c.push(b);
     }
 
-    // Optional: store interpolated position for other systems
+    // Store interpolated positions for actual draw calls
     b.render.drawX = x;
     b.render.drawY = y;
 });
