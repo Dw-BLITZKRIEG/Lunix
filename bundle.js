@@ -3575,7 +3575,7 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // Use prediction/interpolation for smooth movement
+    // Smooth movement
     let predictor;
     if (1 === a.render.status.getFade()) {
         predictor = h();
@@ -3589,7 +3589,7 @@ da.forEach(function(a) {
         a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // Barrel / turret aiming for the player
+    // Player barrel pointing
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3598,21 +3598,21 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // Smooth camera follow
-    const scale = c; // world-to-screen scale
-    let drawX = a.render.x * scale;
-    let drawY = a.render.y * scale;
+    // Compute draw positions (world -> screen)
+    const scale = c;
+    const worldX = a.render.x * scale;
+    const worldY = a.render.y * scale;
 
-    // Center camera on player smoothly
+    // Smooth camera follow
     if (a.id === A.playerid) {
-        const CAMERA_LERP = 0.1; // 0.05-0.2, tweak for smoothness
-        z.renderx += (drawX - z.renderx - b.screenWidth / 2) * CAMERA_LERP;
-        z.rendery += (drawY - z.rendery - b.screenHeight / 2) * CAMERA_LERP;
+        const CAMERA_LERP = 0.1;
+        z.renderx += (worldX - b.screenWidth / 2 - z.renderx) * CAMERA_LERP;
+        z.rendery += (worldY - b.screenHeight / 2 - z.rendery) * CAMERA_LERP;
     }
 
     // Apply camera offset
-    const screenX = drawX - z.renderx + b.screenWidth / 2;
-    const screenY = drawY - z.rendery + b.screenHeight / 2;
+    const screenX = worldX - z.renderx;
+    const screenY = worldY - z.rendery;
 
     // Render entity
     ba(
