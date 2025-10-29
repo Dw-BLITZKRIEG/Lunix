@@ -3573,70 +3573,70 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
+// Global smoothing helpers (keep outside loop!)
+if (!window.__interp) {
+    window.__interp = {
+        lastTickTime: performance.now(),
+        avgTick: 1000 / 30,
+        lastNow: performance.now(),
+    };
+}
 
-// if u  see this the client has been updated
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- CONFIG ---
-    const POS_SMOOTH = 0.25;        // overall movement smoothing
-    const FACING_SMOOTH = 0.25;     // rotation smoothing
-    const EXTRAPOLATE_SCALE = 0.25; // small extrapolation factor for fluidity
-    const MS_PER_TICK = 1000 / 30;  // base tick duration
+    const POS_SMOOTH = 0.25;
+    const FACING_SMOOTH = 0.25;
+    const EXTRAPOLATE_SCALE = 0.25;
 
     const now = performance.now();
+    const interp = window.__interp;
 
-    // Calculate alpha based on how far into the current tick we are
-    const lastRender = a.render.lastRender || now;
-    const intervalMs = (a.interval || 1) * MS_PER_TICK;
-    let alpha = (now - lastRender) / intervalMs;
+    // Estimate stable tick timing
+    const elapsed = now - interp.lastTickTime;
+    interp.avgTick += (elapsed - interp.avgTick) * 0.05; // smooth out network jitter
+    interp.lastTickTime = now;
+
+    // Compute alpha (fraction of tick)
+    let alpha = (now - interp.lastNow) / interp.avgTick;
     if (alpha < 0) alpha = 0;
-    if (alpha > 1.25) alpha = 1.25; // allow slight extrapolation
+    if (alpha > 1.1) alpha = 1.1;
 
-    const status = a.render.status?.publish ? a.render.status.publish() : 1;
-    const isDying = status === "dying" || status === "killed";
-
+    const isDying = a.render.status?.publish?.() === "dying" || a.render.status?.publish?.() === "killed";
     let predictor;
 
     if (isDying) {
-        // 💀 Stop extrapolation, softly ease to final position
+        // Dying interpolation - no extrapolation
         a.render.x += (a.x - a.render.x) * POS_SMOOTH * 0.5;
         a.render.y += (a.y - a.render.y) * POS_SMOOTH * 0.5;
         let df = a.facing - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
         a.render.f += df * FACING_SMOOTH;
-    } 
-    else if (1 === a.render.status.getFade?.()) {
-        // Regular interpolation
+    } else if (1 === a.render.status.getFade?.()) {
         predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
-    } 
-    else {
-        // Advanced smooth extrapolation + sub-frame correction
+    } else {
         predictor = h(a.render.lastRender, a.interval);
         const tx = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         const ty = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
         const tf = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
 
-        // Alpha-blended smoothing
-        a.render.x += (tx - a.render.x) * (POS_SMOOTH + alpha * 0.1);
-        a.render.y += (ty - a.render.y) * (POS_SMOOTH + alpha * 0.1);
-
-        // Light velocity extrapolation for smooth catch-up
+        const smoothFactor = POS_SMOOTH + alpha * 0.1;
+        a.render.x += (tx - a.render.x) * smoothFactor;
+        a.render.y += (ty - a.render.y) * smoothFactor;
         a.render.x += a.vx * EXTRAPOLATE_SCALE * (alpha - 1);
         a.render.y += a.vy * EXTRAPOLATE_SCALE * (alpha - 1);
 
-        // Smooth rotation
         let df = tf - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
         a.render.f += df * FACING_SMOOTH;
     }
 
-    // --- Barrel aiming (untouched) ---
+    // Barrel aiming untouched
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3648,7 +3648,7 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Screen projection ---
+    // Project to screen
     let d = c * a.render.x - q;
     let f = c * a.render.y - y;
 
@@ -3666,7 +3666,7 @@ da.forEach(function(a) {
         }
     }
 
-    // --- Render entity ---
+    // Draw
     ba(
         d,
         f,
@@ -3682,6 +3682,8 @@ da.forEach(function(a) {
         false,
         true
     );
+
+    interp.lastNow = now;
 });
 
 
