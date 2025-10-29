@@ -3573,53 +3573,57 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- Smooth interpolation of entity position & facing ---
+    // --- Interpolation setup ---
     let predictor;
+
     if (1 === a.render.status.getFade()) {
+        // For fading entities, use normal prediction
         predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } else {
+        // For regular entities, use extrapolation with lastRender & interval
         predictor = h(a.render.lastRender, a.interval);
-        a.render.x = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        // Interpolate with velocity for smooth movement
+        const alphaX = (a.x - a.render.lastx) * 0.5; // tweak 0.5 for smoothness
+        const alphaY = (a.y - a.render.lasty) * 0.5;
+
+        a.render.x = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx) + alphaX;
+        a.render.y = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy) + alphaY;
+
+        // Smooth facing
         a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- Player barrel pointing (corrected) ---
+    // --- Player barrel pointing (kept intact) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
-        // Proper angle to mouse
         a.render.f = Math.atan2(U.target.y, U.target.x);
 
-        // Adjust for radial camera if needed
         if (b.radial) {
-            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+            a.render.f -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
         }
 
-        // Flip if twiggle bit 2
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Calculate screen position relative to camera ---
-    let screenX, screenY;
+    // --- Compute screen coordinates ---
+    let screenX = c * a.render.x - q + b.screenWidth / 2;
+    let screenY = c * a.render.y - y + b.screenHeight / 2;
 
-    const worldX = a.render.x * c;
-    const worldY = a.render.y * c;
-
-    if (b.radial && a.id === A.playerid) {
-        screenX = worldX - q + b.screenWidth / 2;
-        screenY = worldY - y + b.screenHeight / 2;
-    } else {
-        screenX = worldX - q + b.screenWidth / 2;
-        screenY = worldY - y + b.screenHeight / 2;
+    // Update camera position for player
+    if (a.id === A.playerid) {
+        z.x = screenX;
+        z.y = screenY;
     }
 
-    // --- Render entity ---
+    // --- Render the entity ---
     ba(
         screenX,
         screenY,
@@ -3634,7 +3638,6 @@ da.forEach(function(a) {
         true
     );
 });
-
 
 /////////////////////////////////////////////////////////////////////////////////
 
