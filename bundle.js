@@ -2392,7 +2392,7 @@ function updateCamera(nowTime) {
                 return () => {
                   let c = [];
                   for (let d = 0, f = a.next(); d < f; d++) c.push(b());
-                  da.forEach(b => {
+      /***            da.forEach(b => {
                               //idk 5
                 const draw = getEntityDrawPos(b, performance.now());
 const x = draw.x - z.renderx + U.cv.width / 2;
@@ -2411,7 +2411,26 @@ const y = draw.y - z.rendery + U.cv.height / 2;
                         !0
                       ) &&
                       c.push(b);
-                  });
+                  });  **/
+
+                  da.forEach(b => {
+    // Get interpolated position
+    const draw = getEntityDrawPos(b, performance.now());
+    const x = draw.x - z.renderx + U.cv.width / 2;
+    const y = draw.y - z.rendery + U.cv.height / 2;
+
+    // Keep status logic unchanged
+    b.render.status.set(b.health === 1 ? "dying" : "killed");
+
+    // Only push if fade is still > 0
+    if (b.render.status.getFade() > 0 && R(x, y, b.size, true)) {
+        c.push(b);
+    }
+
+    // Optional: store interpolated position for other systems
+    b.render.drawX = x;
+    b.render.drawY = y;
+});
                   da = c;
                   da.sort((b, a) => b.layer - a.layer || a.id - b.id);
 
