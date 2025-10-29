@@ -3573,117 +3573,95 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-// Global smoothing helpers (keep outside loop!)
+// if u see this new  code 
+
+// --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
-        lastTickTime: performance.now(),
-        avgTick: 1000 / 30,
         lastNow: performance.now(),
+        smoothedDelta: 1000 / 60, // assume 60fps start
+        avgTick: 1000 / 30,       // 30 ticks per second baseline
     };
+} else {
+    const now = performance.now();
+    const rawDelta = now - window.__interp.lastNow;
+    // Blend previous and current frame delta for stability
+    window.__interp.smoothedDelta =
+        window.__interp.smoothedDelta * 0.9 + rawDelta * 0.1;
+    window.__interp.lastNow = now;
 }
 
-da.forEach(function(a) {
-    if (!a.render.draws) return;
+// --- main render interpolation loop ---
+da.forEach(function (a) {
+    if (a.render.draws) {
+        // compute smooth frame factor based on FPS delta
+        const smoothFactor = Math.min(window.__interp.smoothedDelta / window.__interp.avgTick, 2);
 
-    const POS_SMOOTH = 0.25;
-    const FACING_SMOOTH = 0.25;
-    const EXTRAPOLATE_SCALE = 0.25;
+        if (1 === a.render.status.getFade()) {
+            var d = h();
+            a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+            a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+            a.render.f = d.predictFacing(a.render.lastf, a.facing);
+        } else {
+            d = h(a.render.lastRender, a.interval);
+            a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+            a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+            a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
+        }
 
-    const now = performance.now();
-    const interp = window.__interp;
+        // --- velocity smoothing ---
+        const lerp = (from, to, t) => from + (to - from) * t;
+        const smoothingStrength = 0.15; // lower = more responsive, higher = smoother
+        a.render.x = lerp(a.render.x, a.x, smoothingStrength * smoothFactor);
+        a.render.y = lerp(a.render.y, a.y, smoothingStrength * smoothFactor);
 
-    // Estimate stable tick timing
-    const elapsed = now - interp.lastTickTime;
-    interp.avgTick += (elapsed - interp.avgTick) * 0.05; // smooth out network jitter
-    interp.lastTickTime = now;
+        // --- barrel + facing stays untouched ---
+        if (a.id === A.playerid && (a.twiggle & 1) === 0) {
+            a.render.f = Math.atan2(U.target.y, U.target.x);
+            if (b.radial) {
+                a.render.f -= Math.atan2(
+                    b.gameWidth / 2 - z.cx,
+                    b.gameHeight / 2 - z.cy
+                );
+            }
+            if (a.twiggle & 2) a.render.f += Math.PI;
+        }
 
-    // Compute alpha (fraction of tick)
-    let alpha = (now - interp.lastNow) / interp.avgTick;
-    if (alpha < 0) alpha = 0;
-    if (alpha > 1.1) alpha = 1.1;
+        // --- screen transform + render position ---
+        d = c * a.render.x - q;
+        var f = c * a.render.y - y;
 
-    const isDying = a.render.status?.publish?.() === "dying" || a.render.status?.publish?.() === "killed";
-    let predictor;
-
-    if (isDying) {
-        // Dying interpolation - no extrapolation
-        a.render.x += (a.x - a.render.x) * POS_SMOOTH * 0.5;
-        a.render.y += (a.y - a.render.y) * POS_SMOOTH * 0.5;
-        let df = a.facing - a.render.f;
-        if (df > Math.PI) df -= 2 * Math.PI;
-        if (df < -Math.PI) df += 2 * Math.PI;
-        a.render.f += df * FACING_SMOOTH;
-    } else if (1 === a.render.status.getFade?.()) {
-        predictor = h();
-        a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
-    } else {
-        predictor = h(a.render.lastRender, a.interval);
-        const tx = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        const ty = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        const tf = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
-
-        const smoothFactor = POS_SMOOTH + alpha * 0.1;
-        a.render.x += (tx - a.render.x) * smoothFactor;
-        a.render.y += (ty - a.render.y) * smoothFactor;
-        a.render.x += a.vx * EXTRAPOLATE_SCALE * (alpha - 1);
-        a.render.y += a.vy * EXTRAPOLATE_SCALE * (alpha - 1);
-
-        let df = tf - a.render.f;
-        if (df > Math.PI) df -= 2 * Math.PI;
-        if (df < -Math.PI) df += 2 * Math.PI;
-        a.render.f += df * FACING_SMOOTH;
-    }
-
-    // Barrel aiming untouched
-    if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
-        a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
+            if (a.id === A.playerid) {
+                z.x = d + b.screenWidth / 2;
+                z.y = f + b.screenHeight / 2;
+            }
+        } else {
+            d += b.screenWidth / 2;
+            f += b.screenHeight / 2;
+            if (a.id === A.playerid) {
+                z.x = d;
+                z.y = f;
+            }
         }
-        if (a.twiggle & 2) a.render.f += Math.PI;
+
+        // --- final draw ---
+        ba(
+            d,
+            f,
+            a,
+            c,
+            a.id === A.playerid || b.showInvisible
+                ? a.alpha
+                    ? 0.6 * a.alpha + 0.4
+                    : 0.25
+                : a.alpha,
+            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+            a.render.f,
+            !1,
+            !0
+        );
     }
-
-    // Project to screen
-    let d = c * a.render.x - q;
-    let f = c * a.render.y - y;
-
-    if (b.radial) {
-        if (a.id === A.playerid) {
-            z.x = d + b.screenWidth / 2;
-            z.y = f + b.screenHeight / 2;
-        }
-    } else {
-        d += b.screenWidth / 2;
-        f += b.screenHeight / 2;
-        if (a.id === A.playerid) {
-            z.x = d;
-            z.y = f;
-        }
-    }
-
-    // Draw
-    ba(
-        d,
-        f,
-        a,
-        c,
-        a.id === A.playerid || b.showInvisible
-            ? a.alpha
-                ? 0.6 * a.alpha + 0.4
-                : 0.25
-            : a.alpha,
-        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-        a.render.f,
-        false,
-        true
-    );
-
-    interp.lastNow = now;
 });
 
 
