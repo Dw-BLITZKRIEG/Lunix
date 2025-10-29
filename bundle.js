@@ -3572,7 +3572,7 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-/*
+
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3663,82 +3663,10 @@ da.forEach(function (a) {
             !0
         );
     }
-});*/
+});
 
 /////////////////////////////////////////////////////////////////////////////////
 
-
-            da.forEach(function(a) {
-                if (a.render.draws) {
-                  if (1 === a.render.status.getFade()) {
-                    var d = h();
-                    a.render.x = d.predict(
-                      a.render.lastx,
-                      a.x,
-                      a.render.lastvx,
-                      a.vx
-                    );
-                    a.render.y = d.predict(
-                      a.render.lasty,
-                      a.y,
-                      a.render.lastvy,
-                      a.vy
-                    );
-                    a.render.f = d.predictFacing(a.render.lastf, a.facing);
-                  } else
-                    (d = h(a.render.lastRender, a.interval)),
-                      (a.render.x = d.predictExtrapolate(
-                        a.render.lastx,
-                        a.x,
-                        a.render.lastvx,
-                        a.vx
-                      )),
-                      (a.render.y = d.predictExtrapolate(
-                        a.render.lasty,
-                        a.y,
-                        a.render.lastvy,
-                        a.vy
-                      )),
-                      (a.render.f = d.predictFacingExtrapolate(
-                        a.render.lastf,
-                        a.facing
-                      ));
-                  a.id === A.playerid &&
-                    0 === (a.twiggle & 1) &&
-                    ((a.render.f = Math.atan2(U.target.y, U.target.x)),
-                    b.radial &&
-                      (a.render.f -= Math.atan2(
-                        b.gameWidth / 2 - z.cx,
-                        b.gameHeight / 2 - z.cy
-                      )),
-                    a.twiggle & 2 && (a.render.f += Math.PI));
-                  d = c * a.render.x - q;
-                  var f = c * a.render.y - y;
-                  b.radial
-                    ? a.id === A.playerid &&
-                      ((z.x = d + b.screenWidth / 2),
-                      (z.y = f + b.screenHeight / 2))
-                    : ((d += b.screenWidth / 2),
-                      (f += b.screenHeight / 2),
-                      a.id === A.playerid && ((z.x = d), (z.y = f)));
-                  ba(
-                    d,
-                    f,
-                    a,
-                    c,
-                    a.id === A.playerid || b.showInvisible
-                      ? a.alpha
-                        ? 0.6 * a.alpha + 0.4
-                        : 0.25
-                      : a.alpha,
-                    0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-                    a.render.f,
-                    !1,
-                    !0
-                  );
-                }
-              });  
-              //-----
               b.radial && g.restore();
               if (!B.graphical.screenshotMode)
                 for (let f of da) {
