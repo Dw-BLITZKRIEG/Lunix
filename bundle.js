@@ -3574,84 +3574,59 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
- da.forEach(function(entity) {
+// --- Smooth camera update ---
+function updateCamera(nowTime) {
+    const intervalMs = (J.rendergap || 1) * (1000 / 30); // ms per server tick
+    const lastRender = z.lastUpdate || (nowTime - intervalMs);
+    let camAlpha = (z.time - lastRender) / intervalMs;
+    camAlpha = Math.min(Math.max(camAlpha, 0), 1.2); // clamp 0..1.2
+
+    const CAMERA_LERP = 0.12; // smoothing factor, tweak 0.05-0.2
+    const targetX = z.lastx + (z.cx - z.lastx) * camAlpha;
+    const targetY = z.lasty + (z.cy - z.lasty) * camAlpha;
+
+    z.renderx += (targetX - z.renderx) * CAMERA_LERP;
+    z.rendery += (targetY - z.rendery) * CAMERA_LERP;
+}
+
+// --- Smooth entity render ---
+da.forEach(function(entity) {
     if (!entity.render.draws) return;
 
-    let predictor = h(); // your existing prediction/extrapolation helper
+    let predictor = h(); // existing prediction helper
+    const VELOCITY_BLEND = 0.25; // tweak 0.0-0.5 for snappy vs smooth
 
-    // Interpolate or lightly extrapolate positions
     if (entity.render.status.getFade() === 1) {
-        // During fade, standard prediction
-        entity.render.x = predictor.predict(
-            entity.render.lastx,
-            entity.x,
-            entity.render.lastvx,
-            entity.vx
-        );
-        entity.render.y = predictor.predict(
-            entity.render.lasty,
-            entity.y,
-            entity.render.lastvy,
-            entity.vy
-        );
+        // Fade: standard prediction
+        entity.render.x = predictor.predict(entity.render.lastx, entity.x, entity.render.lastvx, entity.vx);
+        entity.render.y = predictor.predict(entity.render.lasty, entity.y, entity.render.lastvy, entity.vy);
         entity.render.f = predictor.predictFacing(entity.render.lastf, entity.facing);
     } else {
-        // Otherwise, lightly extrapolate with small velocity contribution
-        const alpha = 0.25; // tweak 0.0-0.5 for snappier vs smoother
-        entity.render.x = predictor.predictExtrapolate(
-            entity.render.lastx,
-            entity.x,
-            entity.render.lastvx,
-            entity.vx * alpha
-        );
-        entity.render.y = predictor.predictExtrapolate(
-            entity.render.lasty,
-            entity.y,
-            entity.render.lastvy,
-            entity.vy * alpha
-        );
+        // Smooth movement: interpolate + slight velocity contribution
+        entity.render.x = predictor.predictExtrapolate(entity.render.lastx, entity.x, entity.render.lastvx, entity.vx * VELOCITY_BLEND);
+        entity.render.y = predictor.predictExtrapolate(entity.render.lasty, entity.y, entity.render.lastvy, entity.vy * VELOCITY_BLEND);
         entity.render.f = predictor.predictFacingExtrapolate(entity.render.lastf, entity.facing);
     }
 
-    // Player-specific facing corrections
+    // Player-specific facing
     if (entity.id === A.playerid && (entity.twiggle & 1) === 0) {
         entity.render.f = Math.atan2(U.target.y, U.target.x);
-        if (b.radial) {
-            entity.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
-        }
+        if (b.radial) entity.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
         if (entity.twiggle & 2) entity.render.f += Math.PI;
     }
 
-    // Compute screen coordinates
-    let screenX = c * entity.render.x - q;
-    let screenY = c * entity.render.y - y;
-    if (b.radial) {
-        if (entity.id === A.playerid) {
-            z.x = screenX + b.screenWidth / 2;
-            z.y = screenY + b.screenHeight / 2;
-        }
-    } else {
-        screenX += b.screenWidth / 2;
-        screenY += b.screenHeight / 2;
-        if (entity.id === A.playerid) {
-            z.x = screenX;
-            z.y = screenY;
-        }
-    }
+    // Screen coordinates (camera applied)
+    let screenX = c * entity.render.x - q - z.renderx + U.cv.width / 2;
+    let screenY = c * entity.render.y - y - z.rendery + U.cv.height / 2;
 
-    // Draw entity using existing ba call
+    // Draw entity
     ba(
         screenX,
         screenY,
         entity,
         c,
         entity.id === A.playerid || b.showInvisible
-            ? entity.alpha
-                ? 0.6 * entity.alpha + 0.4
-                : 0.25
+            ? entity.alpha ? 0.6 * entity.alpha + 0.4 : 0.25
             : entity.alpha,
         M[entity.index].shape === 0 ? 1 : B.graphical.compensationScale,
         entity.render.f,
