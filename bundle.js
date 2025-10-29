@@ -3573,29 +3573,30 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-// if u see this new  code 
-
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
+        times: Array(10).fill(1000 / 60), // store last 10 frame times
+        i: 0,
+        avg: 1000 / 60,
         lastNow: performance.now(),
-        smoothedDelta: 1000 / 60, // assume 60fps start
-        avgTick: 1000 / 30,       // 30 ticks per second baseline
     };
 } else {
     const now = performance.now();
-    const rawDelta = now - window.__interp.lastNow;
-    // Blend previous and current frame delta for stability
-    window.__interp.smoothedDelta =
-        window.__interp.smoothedDelta * 0.9 + rawDelta * 0.1;
+    const delta = now - window.__interp.lastNow;
     window.__interp.lastNow = now;
+    window.__interp.times[window.__interp.i] = delta;
+    window.__interp.i = (window.__interp.i + 1) % window.__interp.times.length;
+    // Weighted average to smooth frame jitter
+    const avg = window.__interp.times.reduce((a, b) => a + b, 0) / window.__interp.times.length;
+    window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
 }
 
 // --- main render interpolation loop ---
 da.forEach(function (a) {
     if (a.render.draws) {
-        // compute smooth frame factor based on FPS delta
-        const smoothFactor = Math.min(window.__interp.smoothedDelta / window.__interp.avgTick, 2);
+        // Calculate smoothFactor based on rolling average
+        const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
 
         if (1 === a.render.status.getFade()) {
             var d = h();
@@ -3609,13 +3610,13 @@ da.forEach(function (a) {
             a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
         }
 
-        // --- velocity smoothing ---
+        // --- apply damped interpolation smoothing ---
         const lerp = (from, to, t) => from + (to - from) * t;
-        const smoothingStrength = 0.15; // lower = more responsive, higher = smoother
-        a.render.x = lerp(a.render.x, a.x, smoothingStrength * smoothFactor);
-        a.render.y = lerp(a.render.y, a.y, smoothingStrength * smoothFactor);
+        const damping = 1 - Math.exp(-smoothFactor * 0.18); // exponential smoothing curve
+        a.render.x = lerp(a.render.x, a.x, damping);
+        a.render.y = lerp(a.render.y, a.y, damping);
 
-        // --- barrel + facing stays untouched ---
+        // --- keep barrel / facing logic intact ---
         if (a.id === A.playerid && (a.twiggle & 1) === 0) {
             a.render.f = Math.atan2(U.target.y, U.target.x);
             if (b.radial) {
@@ -3627,7 +3628,7 @@ da.forEach(function (a) {
             if (a.twiggle & 2) a.render.f += Math.PI;
         }
 
-        // --- screen transform + render position ---
+        // --- convert to screen coords ---
         d = c * a.render.x - q;
         var f = c * a.render.y - y;
 
@@ -3663,7 +3664,6 @@ da.forEach(function (a) {
         );
     }
 });
-
 
 /////////////////////////////////////////////////////////////////////////////////
 
