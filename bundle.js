@@ -3572,23 +3572,29 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-// --- Smooth camera follow with true anchoring ---
+// Smooth camera follow with proper anchoring
 let player = da.find(a => a.id === A.playerid);
 if (player) {
     // Ideal camera position (player centered)
     const idealCamX = c * player.render.x;
     const idealCamY = c * player.render.y;
 
-    // Compute distance from current camera to ideal
+    // Distance from current camera to ideal
     const dx = idealCamX - z.x;
     const dy = idealCamY - z.y;
     const distance = Math.hypot(dx, dy);
 
-    // Dynamic smoothing: faster when far, slower when close
+    // Determine smoothing factor
     let CAMERA_LERP = 0.12;
-    if (distance < 1) CAMERA_LERP = 0.18; // anchor faster when almost centered
 
-    // Lerp camera to ideal position
+    // If player stopped moving, snap camera closer
+    const playerMoving = player.vx !== 0 || player.vy !== 0;
+    if (!playerMoving) {
+        // Force anchor to player faster
+        CAMERA_LERP = 0.25; // bigger lerp -> faster snapping
+    }
+
+    // Smoothly move camera
     z.x += dx * CAMERA_LERP;
     z.y += dy * CAMERA_LERP;
 }
