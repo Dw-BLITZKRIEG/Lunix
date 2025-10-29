@@ -3585,11 +3585,11 @@ da.forEach(function(a) {
     let alpha = Math.min((now - (a.render.lastRender || now)) / intervalMs, MAX_EXTRAP);
 
     let predictor = h();
-    const isDying = a.render.status.get() === "dying" || a.render.status.get() === "killed";
+    const status = a.render.status.publish ? a.render.status.publish() : 1; // Safely get current status
+    const isDying = status === "dying" || status === "killed";
 
-    // --- Skip velocity extrapolation if dying or dead ---
+    // --- Stop extrapolation when entity is dying/dead ---
     if (isDying) {
-        // Just freeze position and fade naturally
         a.render.x += (a.x - a.render.x) * SMOOTH_POS * 0.5;
         a.render.y += (a.y - a.render.y) * SMOOTH_POS * 0.5;
         a.render.f += (a.facing - a.render.f) * SMOOTH_FACING;
@@ -3614,7 +3614,7 @@ da.forEach(function(a) {
         a.render.f += df * SMOOTH_FACING * alpha;
     }
 
-    // --- Player barrel logic (do NOT touch) ---
+    // --- Player barrel logic (unchanged) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3644,7 +3644,7 @@ da.forEach(function(a) {
         }
     }
 
-    // --- Draw ---
+    // --- Draw entity ---
     ba(
         d,
         f,
