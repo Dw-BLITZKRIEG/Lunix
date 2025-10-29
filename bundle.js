@@ -3609,8 +3609,31 @@ da.forEach(function(a) {
     let screenX, screenY;
 
     const worldX = a.render.x * c;
-    const worldY = a.render.y * c*
+    const worldY = a.render.y * c;
 
+    if (b.radial && a.id === A.playerid) {
+        screenX = worldX - q + b.screenWidth / 2;
+        screenY = worldY - y + b.screenHeight / 2;
+    } else {
+        screenX = worldX - q + b.screenWidth / 2;
+        screenY = worldY - y + b.screenHeight / 2;
+    }
+
+    // --- Render entity ---
+    ba(
+        screenX,
+        screenY,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+            : a.alpha,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+        a.render.f,
+        false,
+        true
+    );
+});
 
 
 /////////////////////////////////////////////////////////////////////////////////
