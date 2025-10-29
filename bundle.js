@@ -3591,37 +3591,26 @@ da.forEach(function(a) {
         a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- Player barrel pointing ---
+    // --- Player barrel pointing (corrected) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
+        // Proper angle to mouse
         a.render.f = Math.atan2(U.target.y, U.target.x);
+
+        // Adjust for radial camera if needed
         if (b.radial) {
             a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         }
+
+        // Flip if twiggle bit 2
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Calculate screen position relative to current camera offsets ---
+    // --- Calculate screen position relative to camera ---
+    let screenX, screenY;
+
     const worldX = a.render.x * c;
-    const worldY = a.render.y * c;
+    const worldY = a.render.y * c*
 
-    const screenX = worldX - q + b.screenWidth / 2;
-    const screenY = worldY - y + b.screenHeight / 2;
-
-    // --- Render entity ---
-    ba(
-        screenX,
-        screenY,
-        a,
-        c,
-        a.id === A.playerid || b.showInvisible
-            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
-            : a.alpha,
-        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-        a.render.f,
-        false,
-        true
-    );
-});
 
 
 /////////////////////////////////////////////////////////////////////////////////
