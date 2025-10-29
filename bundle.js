@@ -3575,7 +3575,7 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // Smooth movement
+    // Smooth movement / interpolation
     let predictor;
     if (1 === a.render.status.getFade()) {
         predictor = h();
@@ -3598,21 +3598,30 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // Compute draw positions (world -> screen)
     const scale = c;
     const worldX = a.render.x * scale;
     const worldY = a.render.y * scale;
 
-    // Smooth camera follow
+    // Smooth camera follow & recenter when player stops
     if (a.id === A.playerid) {
-        const CAMERA_LERP = 0.1;
-        z.renderx += (worldX - b.screenWidth / 2 - z.renderx) * CAMERA_LERP;
-        z.rendery += (worldY - b.screenHeight / 2 - z.rendery) * CAMERA_LERP;
+        const CAMERA_LERP = 0.08;   // smaller = smoother
+        const dx = worldX - z.renderx - b.screenWidth / 2;
+        const dy = worldY - z.rendery - b.screenHeight / 2;
+
+        // If player moving, follow smoothly
+        if (Math.abs(a.vx) > 0.01 || Math.abs(a.vy) > 0.01) {
+            z.renderx += dx * CAMERA_LERP;
+            z.rendery += dy * CAMERA_LERP;
+        } else {
+            // Player stopped: recenter camera faster
+            z.renderx += dx * (CAMERA_LERP * 2);
+            z.rendery += dy * (CAMERA_LERP * 2);
+        }
     }
 
     // Apply camera offset
-    const screenX = worldX - z.renderx;
-    const screenY = worldY - z.rendery;
+    const screenX = worldX - z.renderx + b.screenWidth / 2;
+    const screenY = worldY - z.rendery + b.screenHeight / 2;
 
     // Render entity
     ba(
