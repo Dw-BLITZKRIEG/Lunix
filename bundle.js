@@ -3576,54 +3576,57 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- Interpolation setup ---
+    // --- Exponential smoothing factor ---
+    const SMOOTH_POS = 0.15;  // 0.1-0.2 is usually buttery, tweak as needed
+    const SMOOTH_FACING = 0.2;
+
+    // --- Predictor instance ---
     let predictor;
 
     if (1 === a.render.status.getFade()) {
-        // For fading entities, use normal prediction
         predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } else {
-        // For regular entities, use extrapolation with lastRender & interval
         predictor = h(a.render.lastRender, a.interval);
-        // Interpolate with velocity for smooth movement
-        const alphaX = (a.x - a.render.lastx) * 0.5; // tweak 0.5 for smoothness
-        const alphaY = (a.y - a.render.lasty) * 0.5;
 
-        a.render.x = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx) + alphaX;
-        a.render.y = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy) + alphaY;
+        // Extrapolate positions
+        const targetX = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        const targetY = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+
+        // Smooth movement with exponential lerp
+        a.render.x += (targetX - a.render.x) * SMOOTH_POS;
+        a.render.y += (targetY - a.render.y) * SMOOTH_POS;
 
         // Smooth facing
-        a.render.f = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
+        const targetF = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
+        let df = targetF - a.render.f;
+        if (df > Math.PI) df -= 2 * Math.PI;
+        if (df < -Math.PI) df += 2 * Math.PI;
+        a.render.f += df * SMOOTH_FACING;
     }
 
-    // --- Player barrel pointing (kept intact) ---
+    // --- Player barrel pointing (intact) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
-
         if (b.radial) {
-            a.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
+            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         }
-
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Compute screen coordinates ---
+    // --- Screen coordinates ---
     let screenX = c * a.render.x - q + b.screenWidth / 2;
     let screenY = c * a.render.y - y + b.screenHeight / 2;
 
-    // Update camera position for player
+    // Update camera for player
     if (a.id === A.playerid) {
         z.x = screenX;
         z.y = screenY;
     }
 
-    // --- Render the entity ---
+    // --- Render ---
     ba(
         screenX,
         screenY,
