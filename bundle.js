@@ -3573,48 +3573,47 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-
 // --- Camera update ---
-// Anchored to the actual player position, no extrapolation
-function updateCamera() {
+function updateCamera(nowTime) {
     const player = da.find(e => e.id === A.playerid);
     if (!player) return;
 
-    // Target coordinates are player's true position
-    const targetX = player.x;
-    const targetY = player.y;
+    // Interpolated target position (can use velocity if you want)
+    const draw = getEntityDrawPos(player, nowTime);
+    const targetX = draw.x;
+    const targetY = draw.y;
 
-    const CAMERA_LERP = 0.12; // smoothing factor
+    // Smooth camera lerp
+    const CAMERA_LERP = 0.08; // smaller = smoother/lazier
     z.renderx += (targetX - z.renderx) * CAMERA_LERP;
     z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
 
-// --- Entity rendering ---
-da.forEach(entity => {
-    if (!entity.render.draws) return;
+// --- Main entity rendering ---
+function renderEntities(nowTime) {
+    da.forEach(entity => {
+        if (!entity.render.draws) return;
 
-    const now = performance.now();
-    const draw = getEntityDrawPos(entity, now); // smooth/interpolated pos
+        const draw = getEntityDrawPos(entity, nowTime);
 
-    // Screen coordinates relative to camera
-    const screenX = draw.x - z.renderx + U.cv.width / 2;
-    const screenY = draw.y - z.rendery + U.cv.height / 2;
+        const screenX = draw.x - z.renderx + U.cv.width / 2;
+        const screenY = draw.y - z.rendery + U.cv.height / 2;
 
-    // Draw entity
-    ba(
-        screenX,
-        screenY,
-        entity,
-        c,
-        entity.id === A.playerid || b.showInvisible
-            ? entity.alpha ? 0.6 * entity.alpha + 0.4 : 0.25
-            : entity.alpha,
-        M[entity.index].shape === 0 ? 1 : B.graphical.compensationScale,
-        draw.facing,
-        false,
-        true
-    );
-});
+        ba(
+            screenX,
+            screenY,
+            entity,
+            c,
+            entity.id === A.playerid || b.showInvisible
+                ? entity.alpha ? 0.6 * entity.alpha + 0.4 : 0.25
+                : entity.alpha,
+            M[entity.index].shape === 0 ? 1 : B.graphical.compensationScale,
+            draw.facing,
+            false,
+            true
+        );
+    });
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 
