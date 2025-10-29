@@ -3573,79 +3573,91 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-// --- Constants ---
+// Constants
 const MS_PER_TICK = 1000 / 30;
-const CAMERA_LERP = 0.08; // smaller = smoother camera
+const VELOCITY_EXTRAP = 0.25; // tweak for smoothness
+const CAMERA_LERP = 0.12;     // 0.05-0.2 for smoothing camera
 
-// --- Get interpolated/extrapolated entity position ---
-function getEntityDrawPos(entity, nowTime) {
-    const intervalMs = (entity.render?.interval || J.rendergap) * MS_PER_TICK;
-    const lastRender = entity.render?.lastRender || nowTime;
+// Utility
+function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
-    let alpha = (z.time || nowTime - lastRender) / (intervalMs || MS_PER_TICK);
-    alpha = Math.min(Math.max(alpha, 0), 1.2);
+// Smooth entity draw position
+function getEntityDrawPos(f, now) {
+    const intervalMs = (f.render?.interval || J.rendergap) * MS_PER_TICK;
+    const lastRender = f.render?.lastRender || now;
+    const serverNow = z.time || now;
 
-    const lx = entity.render?.lastx ?? entity.x;
-    const ly = entity.render?.lasty ?? entity.y;
-    const lvx = entity.render?.lastvx ?? entity.vx;
-    const lvy = entity.render?.lastvy ?? entity.vy;
+    let alpha = clamp((serverNow - lastRender) / (intervalMs || MS_PER_TICK), 0, 1.2);
 
-    const baseX = lx + (entity.x - lx) * alpha;
-    const baseY = ly + (entity.y - ly) * alpha;
+    const lx = f.render?.lastx ?? f.x;
+    const ly = f.render?.lasty ?? f.y;
+    const lvx = f.render?.lastvx ?? f.vx;
+    const lvy = f.render?.lastvy ?? f.vy;
 
-    const velExtrap = 0.25;
-    const drawX = baseX + lvx * velExtrap * Math.max(0, alpha - 1);
-    const drawY = baseY + lvy * velExtrap * Math.max(0, alpha - 1);
+    const baseX = lx + (f.x - lx) * alpha;
+    const baseY = ly + (f.y - ly) * alpha;
 
-    let facing = entity.facing;
-    if (entity.render?.lastf != null) {
-        let df = entity.facing - entity.render.lastf;
+    const drawX = baseX + lvx * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
+    const drawY = baseY + lvy * VELOCITY_EXTRAP * Math.max(0, alpha - 1);
+
+    let facing = f.facing;
+    if (f.render?.lastf != null) {
+        let df = facing - f.render.lastf;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
-        facing = entity.render.lastf + df * alpha;
+        facing = f.render.lastf + df * alpha;
     }
 
-    return { x: drawX, y: drawY, facing };
+    return { x: drawX, y: drawY, facing, alpha };
 }
 
-// --- Smooth camera update ---
-function updateCamera() {
-    const player = da.find(e => e.id === A.playerid);
-    if (!player) return;
+// Smooth camera follow
+function updateCamera(now) {
+    const intervalMs = (J.rendergap || 1) * MS_PER_TICK;
+    const lastRender = z.lastUpdate || (now - intervalMs);
+    const camAlpha = clamp((z.time - lastRender) / intervalMs, 0, 1.2);
 
-    const draw = getEntityDrawPos(player, performance.now());
-    z.renderx += (draw.x - z.renderx) * CAMERA_LERP;
-    z.rendery += (draw.y - z.rendery) * CAMERA_LERP;
+    const targetX = z.lastx + (z.cx - z.lastx) * camAlpha;
+    const targetY = z.lasty + (z.cy - z.lasty) * camAlpha;
+
+    z.renderx += (targetX - z.renderx) * CAMERA_LERP;
+    z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
 
-// --- Main render loop (call each frame) ---
-function renderEntities() {
-    const now = performance.now();
-    updateCamera();
+// Main render loop (replace your old da.forEach)
+da.forEach(function(a) {
+    if (!a.render.draws) return;
 
-    da.forEach(entity => {
-        if (!entity.render?.draws) return;
+    const draw = getEntityDrawPos(a, performance.now());
+    const x = draw.x - z.renderx + U.cv.width / 2;
+    const y = draw.y - z.rendery + U.cv.height / 2;
 
-        const draw = getEntityDrawPos(entity, now);
-        const screenX = draw.x - z.renderx + U.cv.width / 2;
-        const screenY = draw.y - z.rendery + U.cv.height / 2;
+    // Draw using original ba function
+    ba(
+        x,
+        y,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+            : a.alpha,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+        draw.facing,
+        false,
+        true
+    );
 
-        // Draw entity
-        ba(
-            screenX,
-            screenY,
-            entity,
-            c,
-            entity.id === A.playerid || b.showInvisible
-                ? entity.alpha ? 0.6 * entity.alpha + 0.4 : 0.25
-                : entity.alpha,
-            M[entity.index].shape === 0 ? 1 : B.graphical.compensationScale,
-            draw.facing,
-            false,
-            true
-        );
-    });
-}
+    // Store last rendered values for smooth interpolation
+    a.render.lastx = a.x;
+    a.render.lasty = a.y;
+    a.render.lastvx = a.vx;
+    a.render.lastvy = a.vy;
+    a.render.lastf = a.facing;
+    a.render.lastRender = z.time || performance.now();
+});
+
+// Update camera at end of loop
+updateCamera(performance.now());
 
 /////////////////////////////////////////////////////////////////////////////////
 
