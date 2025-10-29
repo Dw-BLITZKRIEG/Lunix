@@ -3573,55 +3573,70 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
+
+// if u  see this the client has been updated
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    const POS_SMOOTH = 0.18;
-    const FACING_SMOOTH = 0.25;
+    // --- CONFIG ---
+    const POS_SMOOTH = 0.25;        // overall movement smoothing
+    const FACING_SMOOTH = 0.25;     // rotation smoothing
+    const EXTRAPOLATE_SCALE = 0.25; // small extrapolation factor for fluidity
+    const MS_PER_TICK = 1000 / 30;  // base tick duration
 
-    // Grab render status safely (fix for "not a function" errors)
-    const status = a.render.status.publish ? a.render.status.publish() : 1;
+    const now = performance.now();
+
+    // Calculate alpha based on how far into the current tick we are
+    const lastRender = a.render.lastRender || now;
+    const intervalMs = (a.interval || 1) * MS_PER_TICK;
+    let alpha = (now - lastRender) / intervalMs;
+    if (alpha < 0) alpha = 0;
+    if (alpha > 1.25) alpha = 1.25; // allow slight extrapolation
+
+    const status = a.render.status?.publish ? a.render.status.publish() : 1;
     const isDying = status === "dying" || status === "killed";
 
-    let d, predictor;
+    let predictor;
 
     if (isDying) {
-        // 💀 Entity is dying or dead — stop extrapolating completely.
-        // Just smoothly ease toward final known server position.
+        // 💀 Stop extrapolation, softly ease to final position
         a.render.x += (a.x - a.render.x) * POS_SMOOTH * 0.5;
         a.render.y += (a.y - a.render.y) * POS_SMOOTH * 0.5;
-
-        // Smoothly interpolate facing direction to avoid snapping.
         let df = a.facing - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
         a.render.f += df * FACING_SMOOTH;
     } 
-    else if (1 === a.render.status.getFade()) {
-        // Normal interpolation (entity alive, fade active)
+    else if (1 === a.render.status.getFade?.()) {
+        // Regular interpolation
         predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } 
     else {
-        // Normal extrapolation for alive entities
+        // Advanced smooth extrapolation + sub-frame correction
         predictor = h(a.render.lastRender, a.interval);
         const tx = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         const ty = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
         const tf = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
 
-        // 🧈 Smooth positional blending to remove jitter
-        a.render.x += (tx - a.render.x) * POS_SMOOTH;
-        a.render.y += (ty - a.render.y) * POS_SMOOTH;
+        // Alpha-blended smoothing
+        a.render.x += (tx - a.render.x) * (POS_SMOOTH + alpha * 0.1);
+        a.render.y += (ty - a.render.y) * (POS_SMOOTH + alpha * 0.1);
 
+        // Light velocity extrapolation for smooth catch-up
+        a.render.x += a.vx * EXTRAPOLATE_SCALE * (alpha - 1);
+        a.render.y += a.vy * EXTRAPOLATE_SCALE * (alpha - 1);
+
+        // Smooth rotation
         let df = tf - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
         a.render.f += df * FACING_SMOOTH;
     }
 
-    // --- Player barrel logic (unchanged) ---
+    // --- Barrel aiming (untouched) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3633,8 +3648,8 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Camera + render offsets ---
-    d = c * a.render.x - q;
+    // --- Screen projection ---
+    let d = c * a.render.x - q;
     let f = c * a.render.y - y;
 
     if (b.radial) {
@@ -3651,7 +3666,7 @@ da.forEach(function(a) {
         }
     }
 
-    // --- Draw entity ---
+    // --- Render entity ---
     ba(
         d,
         f,
