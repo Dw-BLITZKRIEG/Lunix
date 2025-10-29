@@ -3574,52 +3574,54 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
-// --- Smooth camera update ---
+// --- Smooth camera, anchored on player ---
 function updateCamera(nowTime) {
     const intervalMs = (J.rendergap || 1) * (1000 / 30); // ms per server tick
     const lastRender = z.lastUpdate || (nowTime - intervalMs);
     let camAlpha = (z.time - lastRender) / intervalMs;
-    camAlpha = Math.min(Math.max(camAlpha, 0), 1.2); // clamp 0..1.2
+    camAlpha = Math.min(Math.max(camAlpha, 0), 1.2);
 
-    const CAMERA_LERP = 0.12; // smoothing factor, tweak 0.05-0.2
-    const targetX = z.lastx + (z.cx - z.lastx) * camAlpha;
-    const targetY = z.lasty + (z.cy - z.lasty) * camAlpha;
+    // Target is always the **player's render position**, not the interpolated entity positions
+    const player = da.find(e => e.id === A.playerid);
+    if (!player) return;
 
+    const targetX = player.render.x;
+    const targetY = player.render.y;
+
+    const CAMERA_LERP = 0.12;
     z.renderx += (targetX - z.renderx) * CAMERA_LERP;
     z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
 
-// --- Smooth entity render ---
-da.forEach(function(entity) {
+// --- Entity rendering (smooth but independent of camera) ---
+da.forEach(entity => {
     if (!entity.render.draws) return;
 
-    let predictor = h(); // existing prediction helper
-    const VELOCITY_BLEND = 0.25; // tweak 0.0-0.5 for snappy vs smooth
+    const predictor = h();
+    const VELOCITY_BLEND = 0.25;
 
+    // Smooth movement
     if (entity.render.status.getFade() === 1) {
-        // Fade: standard prediction
         entity.render.x = predictor.predict(entity.render.lastx, entity.x, entity.render.lastvx, entity.vx);
         entity.render.y = predictor.predict(entity.render.lasty, entity.y, entity.render.lastvy, entity.vy);
         entity.render.f = predictor.predictFacing(entity.render.lastf, entity.facing);
     } else {
-        // Smooth movement: interpolate + slight velocity contribution
         entity.render.x = predictor.predictExtrapolate(entity.render.lastx, entity.x, entity.render.lastvx, entity.vx * VELOCITY_BLEND);
         entity.render.y = predictor.predictExtrapolate(entity.render.lasty, entity.y, entity.render.lastvy, entity.vy * VELOCITY_BLEND);
         entity.render.f = predictor.predictFacingExtrapolate(entity.render.lastf, entity.facing);
     }
 
-    // Player-specific facing
+    // Player facing
     if (entity.id === A.playerid && (entity.twiggle & 1) === 0) {
         entity.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) entity.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
         if (entity.twiggle & 2) entity.render.f += Math.PI;
     }
 
-    // Screen coordinates (camera applied)
-    let screenX = c * entity.render.x - q - z.renderx + U.cv.width / 2;
-    let screenY = c * entity.render.y - y - z.rendery + U.cv.height / 2;
+    // Screen coordinates relative to **smoothed camera**
+    const screenX = c * entity.render.x - z.renderx + U.cv.width / 2;
+    const screenY = c * entity.render.y - z.rendery + U.cv.height / 2;
 
-    // Draw entity
     ba(
         screenX,
         screenY,
