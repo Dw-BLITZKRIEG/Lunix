@@ -3576,69 +3576,84 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- Smoothing config ---
-    const SMOOTH_POS = 0.18;    // position smoothing factor
-    const SMOOTH_FACING = 0.25; // facing smoothing
-    const MAX_EXTRAP = 1.2;     // max alpha cap
+    const SMOOTH_POS = 0.18;
+    const SMOOTH_FACING = 0.25;
+    const MAX_EXTRAP = 1.2;
 
     const now = performance.now();
     let intervalMs = (a.render.interval || J.rendergap) * (1000 / 30);
-    let alpha = ((now - (a.render.lastRender || now)) / intervalMs);
-    alpha = Math.min(alpha, MAX_EXTRAP);
+    let alpha = Math.min((now - (a.render.lastRender || now)) / intervalMs, MAX_EXTRAP);
 
-    // --- Predict positions ---
-    let predictor;
-    if (1 === a.render.status.getFade()) {
-        predictor = h();
+    let predictor = h();
+    const isDying = a.render.status.get() === "dying" || a.render.status.get() === "killed";
+
+    // --- Skip velocity extrapolation if dying or dead ---
+    if (isDying) {
+        // Just freeze position and fade naturally
+        a.render.x += (a.x - a.render.x) * SMOOTH_POS * 0.5;
+        a.render.y += (a.y - a.render.y) * SMOOTH_POS * 0.5;
+        a.render.f += (a.facing - a.render.f) * SMOOTH_FACING;
+    } else if (1 === a.render.status.getFade()) {
+        // Normal fade interpolation
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } else {
+        // Normal extrapolation for alive entities
         predictor = h(a.render.lastRender, a.render.interval);
-
-        // Target positions (predicted)
         const targetX = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         const targetY = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-
-        // --- Linear interpolation (lerp) between last render and target ---
-        a.render.x = a.render.lastx + (targetX - a.render.lastx) * alpha;
-        a.render.y = a.render.lasty + (targetY - a.render.lasty) * alpha;
-
-        // Smooth facing with wrap-around
         const targetF = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
+
+        a.render.x += (targetX - a.render.x) * SMOOTH_POS * alpha;
+        a.render.y += (targetY - a.render.y) * SMOOTH_POS * alpha;
+
         let df = targetF - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
         a.render.f += df * SMOOTH_FACING * alpha;
     }
 
-    // --- Player barrel pointing (intact) ---
+    // --- Player barrel logic (do NOT touch) ---
     if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+            a.render.f -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- Screen coordinates ---
-    let screenX = c * a.render.x - q + b.screenWidth / 2;
-    let screenY = c * a.render.y - y + b.screenHeight / 2;
+    // --- Camera + render positions ---
+    let d = c * a.render.x - q;
+    let f = c * a.render.y - y;
 
-    // Update camera for player
-    if (a.id === A.playerid) {
-        z.x = screenX;
-        z.y = screenY;
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            z.x = d + b.screenWidth / 2;
+            z.y = f + b.screenHeight / 2;
+        }
+    } else {
+        d += b.screenWidth / 2;
+        f += b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x = d;
+            z.y = f;
+        }
     }
 
-    // --- Render ---
+    // --- Draw ---
     ba(
-        screenX,
-        screenY,
+        d,
+        f,
         a,
         c,
         a.id === A.playerid || b.showInvisible
-            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+            ? a.alpha
+                ? 0.6 * a.alpha + 0.4
+                : 0.25
             : a.alpha,
         0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
