@@ -3576,35 +3576,42 @@ case "explofar": {
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // --- Exponential smoothing factor ---
-    const SMOOTH_POS = 0.15;  // 0.1-0.2 is usually buttery, tweak as needed
-    const SMOOTH_FACING = 0.2;
+    // --- Smoothing config ---
+    const SMOOTH_POS = 0.18;    // position smoothing, tweak 0.1-0.2
+    const SMOOTH_FACING = 0.25; // facing smoothing
+    const MAX_EXTRAP = 1.2;     // maximum extrapolation factor
 
-    // --- Predictor instance ---
+    const now = performance.now();
+
+    // --- Calculate interpolation alpha (0-1) based on server interval ---
+    let intervalMs = (a.render.interval || J.rendergap) * (1000 / 30);
+    let alpha = ((now - (a.render.lastRender || now)) / intervalMs);
+    alpha = Math.min(alpha, MAX_EXTRAP);
+
+    // --- Predictor ---
     let predictor;
-
     if (1 === a.render.status.getFade()) {
         predictor = h();
         a.render.x = predictor.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = predictor.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
         a.render.f = predictor.predictFacing(a.render.lastf, a.facing);
     } else {
-        predictor = h(a.render.lastRender, a.interval);
+        predictor = h(a.render.lastRender, a.render.interval);
 
-        // Extrapolate positions
+        // Extrapolated target
         const targetX = predictor.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
         const targetY = predictor.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
 
-        // Smooth movement with exponential lerp
-        a.render.x += (targetX - a.render.x) * SMOOTH_POS;
-        a.render.y += (targetY - a.render.y) * SMOOTH_POS;
+        // --- Micro-frame exponential smoothing ---
+        a.render.x += (targetX - a.render.x) * SMOOTH_POS * alpha;
+        a.render.y += (targetY - a.render.y) * SMOOTH_POS * alpha;
 
-        // Smooth facing
+        // Smooth facing with wrap-around
         const targetF = predictor.predictFacingExtrapolate(a.render.lastf, a.facing);
         let df = targetF - a.render.f;
         if (df > Math.PI) df -= 2 * Math.PI;
         if (df < -Math.PI) df += 2 * Math.PI;
-        a.render.f += df * SMOOTH_FACING;
+        a.render.f += df * SMOOTH_FACING * alpha;
     }
 
     // --- Player barrel pointing (intact) ---
