@@ -2393,14 +2393,20 @@ function updateCamera(nowTime) {
                   let c = [];
                   for (let d = 0, f = a.next(); d < f; d++) c.push(b());
                   da.forEach(b => {
-               
+                              //idk 5
+                const draw = getEntityDrawPos(b, performance.now());
+const x = draw.x - z.renderx + U.cv.width / 2;
+const y = draw.y - z.rendery + U.cv.height / 2;
+                //idk6
 
 
                     b.render.status.set(1 === b.health ? "dying" : "killed");
                     0 !== b.render.status.getFade() &&
                       R(
-                        b.render.x - z.renderx,
-                        b.render.y - z.rendery,
+                  //      b.render.x - z.renderx,
+                   //     b.render.y - z.rendery,
+                           x,
+                           y,
                         b.size,
                         !0
                       ) &&
@@ -2458,11 +2464,7 @@ function updateCamera(nowTime) {
               },
               broadcast: () => {
                     
-                       //idk 5
-                const draw = getEntityDrawPos(f, performance.now());
-const x = draw.x - z.renderx + U.cv.width / 2;
-const y = draw.y - z.rendery + U.cv.height / 2;
-                //idk6
+                     
 
 
                 var c = a.all();
