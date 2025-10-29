@@ -2281,6 +2281,15 @@ function updateCamera(nowTime) {
                   return (f = {}) => {
                     var d = null == f.facing,
                       e = a.next();
+
+// idk 3
+
+                      const now = performance.now();
+                  updateCamera(now); 
+
+                  //idk 4
+
+
                     if (e & 1) (f.facing = a.next()), (f.layer = a.next());
                     else {
                       f.interval = J.rendergap;
@@ -2384,6 +2393,9 @@ function updateCamera(nowTime) {
                   let c = [];
                   for (let d = 0, f = a.next(); d < f; d++) c.push(b());
                   da.forEach(b => {
+               
+
+
                     b.render.status.set(1 === b.health ? "dying" : "killed");
                     0 !== b.render.status.getFade() &&
                       R(
@@ -2396,6 +2408,8 @@ function updateCamera(nowTime) {
                   });
                   da = c;
                   da.sort((b, a) => b.layer - a.layer || a.id - b.id);
+
+               
                 };
               })(),
               gui: () => {
@@ -2443,11 +2457,21 @@ function updateCamera(nowTime) {
                   "z" !== b.server.id && (location.hash = "#" + b.server.id));
               },
               broadcast: () => {
+                    
+                       //idk 5
+                const draw = getEntityDrawPos(f, performance.now());
+const x = draw.x - z.renderx + U.cv.width / 2;
+const y = draw.y - z.rendery + U.cv.height / 2;
+                //idk6
+
 
                 var c = a.all();
                 let d = Ba.update(c);
                 d = Ca.update(c, d);
                 d = Da.update(c, d);
+
+
+
                 a.take(d);
                 c = [];
                 for (let { id: a, data: f } of Ba.entries())
