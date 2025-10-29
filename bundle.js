@@ -3026,18 +3026,7 @@ case "explofar": {
           };
         })(),
 
-        // Inside your main render loop, where entities are drawn:
-da.forEach(entity => {
-    const draw = getEntityDrawPos(entity, performance.now());
-    const x = draw.x - z.renderx + U.cv.width / 2;
-    const y = draw.y - z.rendery + U.cv.height / 2;
-    const facing = draw.facing;
 
-    // Draw using ba
-    ba(bContext, x, y, entity.size, entity.shape, facing, entity.color);
-
-    // Original fade/status logic stays here
-});
 
         ba = (() => {
 
@@ -3582,7 +3571,60 @@ da.forEach(entity => {
                 d = Math.sin(c);
                 g.rotate(c);
               }
+////////////////////////////////////////////////////////////
               da.forEach(function(a) {
+    if (a.render.draws) {
+        // --- Interpolated position & facing ---
+        const draw = getEntityDrawPos(a, performance.now());
+        const x = draw.x - z.renderx + b.screenWidth / 2;
+        const y = draw.y - z.rendery + b.screenHeight / 2;
+        const facing = draw.facing;
+
+        // --- Player facing adjustments ---
+        if (a.id === A.playerid && 0 === (a.twiggle & 1)) {
+            a.render.f = Math.atan2(U.target.y, U.target.x);
+            if (b.radial) {
+                a.render.f -= Math.atan2(
+                    b.gameWidth / 2 - z.cx,
+                    b.gameHeight / 2 - z.cy
+                );
+            }
+            if (a.twiggle & 2) a.render.f += Math.PI;
+        }
+
+        // --- Draw entity using ba ---
+        ba(
+            x,
+            y,
+            a,
+            c,
+            a.id === A.playerid || b.showInvisible
+                ? a.alpha
+                    ? 0.6 * a.alpha + 0.4
+                    : 0.25
+                : a.alpha,
+            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+            facing,
+            !1,
+            !0
+        );
+
+        // --- Update fade / status if needed ---
+        if (a.render.status.getFade && a.render.status.getFade() > 0) {
+            a.render.status.set(
+                1 === a.health ? "dying" : "killed"
+            );
+        }
+    }
+});
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+             /* da.forEach(function(a) {
                 if (a.render.draws) {
                   if (1 === a.render.status.getFade()) {
                     var d = h();
@@ -3651,7 +3693,7 @@ da.forEach(entity => {
                     !0
                   );
                 }
-              });
+              }); */
               b.radial && g.restore();
               if (!B.graphical.screenshotMode)
                 for (let f of da) {
