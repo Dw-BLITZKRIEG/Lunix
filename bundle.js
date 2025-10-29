@@ -3574,16 +3574,17 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
-// --- Camera update anchored to real player position ---
+// --- Camera update ---
+// Anchored to the actual player position, no extrapolation
 function updateCamera() {
     const player = da.find(e => e.id === A.playerid);
     if (!player) return;
 
-    // Use raw player position (not smoothed render)
+    // Target coordinates are player's true position
     const targetX = player.x;
     const targetY = player.y;
 
-    const CAMERA_LERP = 0.12; // smooth factor
+    const CAMERA_LERP = 0.12; // smoothing factor
     z.renderx += (targetX - z.renderx) * CAMERA_LERP;
     z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
@@ -3592,25 +3593,14 @@ function updateCamera() {
 da.forEach(entity => {
     if (!entity.render.draws) return;
 
-    const predictor = h();
-    const VELOCITY_BLEND = 0.25;
-
-    // Smooth entity movement
-    entity.render.x = predictor.predictExtrapolate(entity.render.lastx, entity.x, entity.render.lastvx, entity.vx * VELOCITY_BLEND);
-    entity.render.y = predictor.predictExtrapolate(entity.render.lasty, entity.y, entity.render.lastvy, entity.vy * VELOCITY_BLEND);
-    entity.render.f = predictor.predictFacingExtrapolate(entity.render.lastf, entity.facing);
-
-    // Player facing
-    if (entity.id === A.playerid && (entity.twiggle & 1) === 0) {
-        entity.render.f = Math.atan2(U.target.y, U.target.x);
-        if (b.radial) entity.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
-        if (entity.twiggle & 2) entity.render.f += Math.PI;
-    }
+    const now = performance.now();
+    const draw = getEntityDrawPos(entity, now); // smooth/interpolated pos
 
     // Screen coordinates relative to camera
-    const screenX = c * entity.render.x - z.renderx + U.cv.width / 2;
-    const screenY = c * entity.render.y - z.rendery + U.cv.height / 2;
+    const screenX = draw.x - z.renderx + U.cv.width / 2;
+    const screenY = draw.y - z.rendery + U.cv.height / 2;
 
+    // Draw entity
     ba(
         screenX,
         screenY,
@@ -3620,7 +3610,7 @@ da.forEach(entity => {
             ? entity.alpha ? 0.6 * entity.alpha + 0.4 : 0.25
             : entity.alpha,
         M[entity.index].shape === 0 ? 1 : B.graphical.compensationScale,
-        entity.render.f,
+        draw.facing,
         false,
         true
     );
