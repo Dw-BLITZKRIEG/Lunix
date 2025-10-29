@@ -3614,16 +3614,15 @@ function updateCamera() {
     if (!player) return;
 
     const draw = getEntityDrawPos(player, performance.now());
-    const targetX = draw.x;
-    const targetY = draw.y;
-
-    z.renderx += (targetX - z.renderx) * CAMERA_LERP;
-    z.rendery += (targetY - z.rendery) * CAMERA_LERP;
+    z.renderx += (draw.x - z.renderx) * CAMERA_LERP;
+    z.rendery += (draw.y - z.rendery) * CAMERA_LERP;
 }
 
-// --- Main render loop ---
+// --- Main render loop (call each frame) ---
 function renderEntities() {
     const now = performance.now();
+    updateCamera();
+
     da.forEach(entity => {
         if (!entity.render?.draws) return;
 
@@ -3631,6 +3630,7 @@ function renderEntities() {
         const screenX = draw.x - z.renderx + U.cv.width / 2;
         const screenY = draw.y - z.rendery + U.cv.height / 2;
 
+        // Draw entity
         ba(
             screenX,
             screenY,
