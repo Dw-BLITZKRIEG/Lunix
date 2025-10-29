@@ -3572,23 +3572,22 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-// --- First: update camera to follow player ---
+// --- Smooth camera follow ---
 let player = da.find(a => a.id === A.playerid);
 if (player) {
-    // Smooth interpolation for player camera
-    const CAMERA_LERP = 0.12; // 0.05 = tighter, 0.2 = very smooth
-    const targetX = c * player.render.x - q + b.screenWidth / 2;
-    const targetY = c * player.render.y - y + b.screenHeight / 2;
-
-    z.x += (targetX - z.x) * CAMERA_LERP;
-    z.y += (targetY - z.y) * CAMERA_LERP;
+    const CAMERA_LERP = 0.12; // tweak for smoothness
+    // Player world position
+    const targetCamX = c * player.render.x;
+    const targetCamY = c * player.render.y;
+    // Smoothly interpolate camera
+    z.x += (targetCamX - z.x) * CAMERA_LERP;
+    z.y += (targetCamY - z.y) * CAMERA_LERP;
 }
 
-// --- Then: render all entities relative to camera ---
+// --- Render all entities relative to smoothed camera ---
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
-    // Smooth interpolation/extrapolation
     var d;
     if (1 === a.render.status.getFade()) {
         d = h();
@@ -3614,11 +3613,11 @@ da.forEach(function(a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // Compute screen coordinates relative to smoothed camera
-    let screenX = c * a.render.x - q - (z.x - b.screenWidth / 2);
-    let screenY = c * a.render.y - y - (z.y - b.screenHeight / 2);
+    // Screen coordinates relative to smoothed camera
+    const screenX = c * a.render.x - z.x + b.screenWidth / 2;
+    const screenY = c * a.render.y - z.y + b.screenHeight / 2;
 
-    // Draw using original ba function
+    // Draw entity
     ba(
         screenX,
         screenY,
