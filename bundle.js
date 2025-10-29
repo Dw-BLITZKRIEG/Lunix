@@ -3575,12 +3575,12 @@ case "explofar": {
 // Constants
 const MS_PER_TICK = 1000 / 30;
 const VELOCITY_EXTRAP = 0.25;
-const CAMERA_LERP = 0.12;
+const CAMERA_LERP = 0.1; // tweak 0.05-0.15 for smoothness
 
-// Utility
+// Clamp utility
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
-// Smooth entity interpolation
+// Smooth entity interpolation/extrapolation
 function getEntityDrawPos(f, now) {
     const intervalMs = (f.render?.interval || J.rendergap) * MS_PER_TICK;
     const lastRender = f.render?.lastRender || now;
@@ -3610,27 +3610,25 @@ function getEntityDrawPos(f, now) {
     return { x: drawX, y: drawY, facing, alpha };
 }
 
-// Smooth camera follow
+// Smooth camera update
 function updateCamera(targetX, targetY) {
     z.renderx += (targetX - z.renderx) * CAMERA_LERP;
     z.rendery += (targetY - z.rendery) * CAMERA_LERP;
 }
 
 // Main render loop
-let playerDrawX = 0, playerDrawY = 0;
+let playerPos = { x: 0, y: 0 };
 
 da.forEach(a => {
     if (!a.render.draws) return;
 
+    // Interpolated/extrapolated position
     const draw = getEntityDrawPos(a, performance.now());
 
-    if (a.id === A.playerid) {
-        // Player is the camera target
-        playerDrawX = draw.x;
-        playerDrawY = draw.y;
-    }
+    // Save player position for camera
+    if (a.id === A.playerid) playerPos.x = draw.x, playerPos.y = draw.y;
 
-    // Draw entity relative to smoothed camera
+    // Draw entity relative to camera
     const x = draw.x - z.renderx + U.cv.width / 2;
     const y = draw.y - z.rendery + U.cv.height / 2;
 
@@ -3648,7 +3646,7 @@ da.forEach(a => {
         true
     );
 
-    // Save last render data for interpolation
+    // Save last render values for next frame
     a.render.lastx = a.x;
     a.render.lasty = a.y;
     a.render.lastvx = a.vx;
@@ -3657,8 +3655,8 @@ da.forEach(a => {
     a.render.lastRender = z.time || performance.now();
 });
 
-// Update camera to follow player **after all entities**
-updateCamera(playerDrawX, playerDrawY);
+// Update camera AFTER all entities
+updateCamera(playerPos.x, playerPos.y);
 
 /////////////////////////////////////////////////////////////////////////////////
 
