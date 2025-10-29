@@ -3572,19 +3572,24 @@ case "explofar": {
                 g.rotate(c);
               }
 ////////////////////////////////////////////////////////////
-// --- Smooth camera follow ---
+// --- Smooth camera follow with anchor ---
 let player = da.find(a => a.id === A.playerid);
 if (player) {
-    const CAMERA_LERP = 0.12; // tweak for smoothness
-    // Player world position
+    // Compute player world position
     const targetCamX = c * player.render.x;
     const targetCamY = c * player.render.y;
+
+    // Determine smoothing factor dynamically
+    const velocity = Math.hypot(player.vx, player.vy); // player speed
+    let CAMERA_LERP = 0.12; // default (while moving)
+    if (velocity < 0.01) CAMERA_LERP = 0.18; // anchor back faster when stopped
+
     // Smoothly interpolate camera
     z.x += (targetCamX - z.x) * CAMERA_LERP;
     z.y += (targetCamY - z.y) * CAMERA_LERP;
 }
 
-// --- Render all entities relative to smoothed camera ---
+// --- Render entities relative to smoothed camera ---
 da.forEach(function(a) {
     if (!a.render.draws) return;
 
