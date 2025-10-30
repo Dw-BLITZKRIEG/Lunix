@@ -3575,7 +3575,9 @@ case "explofar": {
 
 
 const INTERP_DELAY = 100; // ms behind real-time
+const DAMPING = 0.1; // small value for visual smoothing (0.1 = very subtle)
 
+// helper functions
 function lerp(a, b, t) { return a + (b - a) * t; }
 function clamp01(v) { return Math.max(0, Math.min(1, v)); }
 function lerpAngle(a, b, t) {
@@ -3586,15 +3588,17 @@ function lerpAngle(a, b, t) {
 }
 
 // --- 1. interpolate all entities using snapshots ---
+const now = performance.now();
+const renderTimestamp = now - INTERP_DELAY;
+
 da.forEach(a => {
     if (!a.render.draws) return;
 
     if (!a.snapshots) a.snapshots = [];
 
-    // push snapshot if server state changed
     if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
         a.snapshots.push({
-            time: performance.now(),
+            time: now,
             x: a.x,
             y: a.y,
             facing: a.facing
@@ -3603,11 +3607,8 @@ da.forEach(a => {
         a.__lastServerY = a.y;
         a.__lastServerFacing = a.facing;
     }
-
     while (a.snapshots.length > 10) a.snapshots.shift();
 
-    // find snapshots surrounding render timestamp
-    const renderTimestamp = performance.now() - INTERP_DELAY;
     let older, newer;
     for (let i = 0; i < a.snapshots.length - 1; i++) {
         const s0 = a.snapshots[i], s1 = a.snapshots[i + 1];
@@ -3617,37 +3618,39 @@ da.forEach(a => {
         }
     }
 
+    let targetX, targetY, targetF;
     if (older && newer) {
         const t = clamp01((renderTimestamp - older.time) / (newer.time - older.time));
-        a.render.x = lerp(older.x, newer.x, t);
-        a.render.y = lerp(older.y, newer.y, t);
-        a.render.f = lerpAngle(older.facing, newer.facing, t);
+        targetX = lerp(older.x, newer.x, t);
+        targetY = lerp(older.y, newer.y, t);
+        targetF = lerpAngle(older.facing, newer.facing, t);
     } else if (a.snapshots.length > 0) {
-        // if outside snapshot range, just use the latest snapshot
         const last = a.snapshots[a.snapshots.length - 1];
-        a.render.x = last.x;
-        a.render.y = last.y;
-        a.render.f = last.facing;
+        targetX = last.x;
+        targetY = last.y;
+        targetF = last.facing;
     } else {
-        a.render.x = a.x;
-        a.render.y = a.y;
-        a.render.f = a.facing;
+        targetX = a.x;
+        targetY = a.y;
+        targetF = a.facing;
     }
+
+    // apply **tiny visual damping** to reduce micro-shifts
+    a.render.x = lerp(a.render.x || targetX, targetX, DAMPING);
+    a.render.y = lerp(a.render.y || targetY, targetY, DAMPING);
+    a.render.f = lerpAngle(a.render.f || targetF, targetF, DAMPING);
 
     // local player facing override
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
+            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 });
 
-// --- 2. camera centered on interpolated local player ---
+// --- 2. camera follows interpolated local player ---
 const local = da.find(a => a.id === A.playerid);
 if (local) {
     b.camX = local.render.x;
