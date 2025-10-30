@@ -3600,7 +3600,7 @@ da.forEach(a => {
         a.__respawned = false;
     }
 
-    // record new snapshot if entity moved or rotated
+    // record snapshot if entity moved or rotated
     if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
         a.snapshots.push({ time: now, x: a.x, y: a.y, facing: a.facing });
         a.__lastServerX = a.x;
@@ -3614,7 +3614,7 @@ da.forEach(a => {
 // --- 2. Compute render timestamp ---
 const renderTime = now - INTERP_DELAY;
 
-// --- 3. Interpolate entities ---
+// --- 3. Interpolate entity positions ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
@@ -3645,7 +3645,7 @@ da.forEach(a => {
         targetF = a.facing;
     }
 
-    // tiny damping for buttery motion
+    // apply micro-lag damping for buttery motion
     a.render.x = lerp(a.render.x || targetX, targetX, MICRO_LAG_DAMPING);
     a.render.y = lerp(a.render.y || targetY, targetY, MICRO_LAG_DAMPING);
     a.render.f = lerpAngle(a.render.f || targetF, targetF, MICRO_LAG_DAMPING);
@@ -3658,25 +3658,26 @@ da.forEach(a => {
     }
 });
 
-// --- 4. Smooth camera follow (screen transform only) ---
+// --- 4. Smooth camera follow (screen offset) ---
 const local = da.find(a => a.id === A.playerid);
+let camX = 0, camY = 0;
 if (local) {
     if (!b.camX) b.camX = local.render.x * c;
     if (!b.camY) b.camY = local.render.y * c;
 
     b.camX += (local.render.x * c - b.camX) * CAMERA_DAMPING;
     b.camY += (local.render.y * c - b.camY) * CAMERA_DAMPING;
+
+    camX = b.camX - b.screenWidth / 2;
+    camY = b.camY - b.screenHeight / 2;
 }
 
-// --- 5. Render all entities ---
-ctx.save();
-ctx.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY); // move viewport
-
+// --- 5. Render all entities relative to camera ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
-    const screenX = a.render.x * c;
-    const screenY = a.render.y * c;
+    const screenX = a.render.x * c - camX;
+    const screenY = a.render.y * c - camY;
 
     if (a.id === A.playerid) {
         z.x = screenX;
@@ -3697,8 +3698,6 @@ da.forEach(a => {
         true
     );
 });
-
-ctx.restore();
 
 
 /*
