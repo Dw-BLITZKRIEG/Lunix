@@ -3574,19 +3574,10 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
+const INTERP_DELAY = 100; // ms behind real-time
 
-// --- ultra-smooth snapshot interpolation + render ---
-const INTERP_DELAY = 100; // ms behind real-time (reduces jitter)
-
-// --- helpers ---
-function lerp(a, b, t) {
-    return a + (b - a) * t;
-}
-
-function clamp01(v) {
-    return Math.max(0, Math.min(1, v));
-}
-
+function lerp(a, b, t) { return a + (b - a) * t; }
+function clamp01(v) { return Math.max(0, Math.min(1, v)); }
 function lerpAngle(a, b, t) {
     let diff = b - a;
     while (diff > Math.PI) diff -= 2 * Math.PI;
@@ -3594,15 +3585,13 @@ function lerpAngle(a, b, t) {
     return a + diff * t;
 }
 
-// --- main render loop ---
 da.forEach(function (a) {
     if (!a.render.draws) return;
 
-    // --- snapshot buffer setup ---
     if (!a.snapshots) a.snapshots = [];
     const now = performance.now();
 
-    // add new snapshot when server data changes
+    // push snapshot if server changed
     if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
         a.snapshots.push({
             time: now,
@@ -3616,20 +3605,15 @@ da.forEach(function (a) {
         a.__lastServerY = a.y;
         a.__lastServerFacing = a.facing;
     }
-
-    // keep snapshot history short
     while (a.snapshots.length > 10) a.snapshots.shift();
 
-    // --- interpolation logic ---
+    // find snapshots for interpolation
     const renderTimestamp = now - INTERP_DELAY;
     let older, newer;
-
     for (let i = 0; i < a.snapshots.length - 1; i++) {
-        const s0 = a.snapshots[i];
-        const s1 = a.snapshots[i + 1];
+        const s0 = a.snapshots[i], s1 = a.snapshots[i + 1];
         if (s0.time <= renderTimestamp && s1.time >= renderTimestamp) {
-            older = s0;
-            newer = s1;
+            older = s0; newer = s1;
             break;
         }
     }
@@ -3640,7 +3624,6 @@ da.forEach(function (a) {
         a.render.y = lerp(older.y, newer.y, t);
         a.render.f = lerpAngle(older.facing, newer.facing, t);
     } else {
-        // fallback to extrapolation
         const last = a.snapshots[a.snapshots.length - 1];
         if (last) {
             const dt = (now - last.time) / 1000;
@@ -3648,54 +3631,46 @@ da.forEach(function (a) {
             a.render.y = last.y + last.vy * dt;
             a.render.f = last.facing;
         } else {
-            // if no data yet
             a.render.x = a.x;
             a.render.y = a.y;
             a.render.f = a.facing;
         }
     }
 
-    // --- player-facing logic (unchanged for local player) ---
+    // Player-facing control override (still applies)
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(
-                b.gameWidth / 2 - z.cx,
-                b.gameHeight / 2 - z.cy
-            );
+            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- ensure camera follows rendered (smoothed) position ---
+    // --- unified camera logic (same timeline as entities) ---
     if (a.id === A.playerid) {
+        // initialize or smoothly move camera toward *delayed render* position
         if (!b.camX || !b.camY) {
-            // initialize if not set
             b.camX = a.render.x;
             b.camY = a.render.y;
         }
 
-        // optional: damp camera movement for smooth follow
-        const cameraSmooth = 0.12; // lower = smoother
+        const cameraSmooth = 0.15; // lower = smoother
         b.camX += (a.render.x - b.camX) * cameraSmooth;
         b.camY += (a.render.y - b.camY) * cameraSmooth;
     }
 
-    // --- convert entity to screen coordinates ---
-    // use camera offsets AFTER player interpolation
+    // camera offset based on same interpolated time
     const camOffsetX = c * b.camX;
     const camOffsetY = c * b.camY;
 
     let d = c * a.render.x - camOffsetX + b.screenWidth / 2;
     let f = c * a.render.y - camOffsetY + b.screenHeight / 2;
 
-    // --- update player camera position ---
     if (a.id === A.playerid) {
         z.x = d;
         z.y = f;
     }
 
-    // --- final draw ---
     ba(
         d,
         f,
@@ -3708,12 +3683,10 @@ da.forEach(function (a) {
             : a.alpha,
         0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
-        !1,
-        !0
+        false,
+        true
     );
 });
-
-
 
 
 
