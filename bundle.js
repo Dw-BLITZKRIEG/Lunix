@@ -3510,83 +3510,77 @@ if (!window.__interp) {
     window.__interp.lastNow = now;
     window.__interp.times[window.__interp.i] = delta;
     window.__interp.i = (window.__interp.i + 1) % window.__interp.times.length;
+
     // Weighted average to smooth frame jitter
     const avg = window.__interp.times.reduce((a, b) => a + b, 0) / window.__interp.times.length;
     window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
 }
 
-// --- main render interpolation loop ---
+const frameFactor = Math.min(window.__interp.avg / (1000 / 60), 2);
+
+// --- smooth camera interpolation ---
+if (!window.__cameraRender) {
+    window.__cameraRender = { x: A.camera.x, y: A.camera.y, fov: A.camera.fov };
+}
+
+// lerp helper
+const lerp = (from, to, t) => from + (to - from) * t;
+
+// Smoothly interpolate camera towards server
+const cameraSmooth = 0.08; // tweak for tightness vs smoothness
+window.__cameraRender.x = lerp(window.__cameraRender.x, A.camera.x, cameraSmooth);
+window.__cameraRender.y = lerp(window.__cameraRender.y, A.camera.y, cameraSmooth);
+window.__cameraRender.fov = lerp(window.__cameraRender.fov, A.camera.fov, cameraSmooth);
+
+// --- main render loop ---
 da.forEach(function (a) {
-    if (a.render.draws) {
-        // Calculate smoothFactor based on rolling average
-        const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
+    if (!a.render.draws) return;
 
-        if (1 === a.render.status.getFade()) {
-            var d = h();
-            a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
-            a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
-            a.render.f = d.predictFacing(a.render.lastf, a.facing);
-        } else {
-            d = h(a.render.lastRender, a.interval);
-            a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-            a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-            a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
-        }
-
-        // --- apply damped interpolation smoothing ---
-        const lerp = (from, to, t) => from + (to - from) * t;
-        const damping = 1 - Math.exp(-smoothFactor * 0.18); // exponential smoothing curve
-        a.render.x = lerp(a.render.x, a.x, damping);
-        a.render.y = lerp(a.render.y, a.y, damping);
-
-        // --- keep barrel / facing logic intact ---
-        if (a.id === A.playerid && (a.twiggle & 1) === 0) {
-            a.render.f = Math.atan2(U.target.y, U.target.x);
-            if (b.radial) {
-                a.render.f -= Math.atan2(
-                    b.gameWidth / 2 - z.cx,
-                    b.gameHeight / 2 - z.cy
-                );
-            }
-            if (a.twiggle & 2) a.render.f += Math.PI;
-        }
-
-        // --- convert to screen coords ---
-        d = c * a.render.x - q;
-        var f = c * a.render.y - y;
-
-        if (b.radial) {
-            if (a.id === A.playerid) {
-                z.x = d + b.screenWidth / 2;
-                z.y = f + b.screenHeight / 2;
-            }
-        } else {
-            d += b.screenWidth / 2;
-            f += b.screenHeight / 2;
-            if (a.id === A.playerid) {
-                z.x = d;
-                z.y = f;
-            }
-        }
-
-        // --- final draw ---
-        ba(
-            d,
-            f,
-            a,
-            c,
-            a.id === A.playerid || b.showInvisible
-                ? a.alpha
-                    ? 0.6 * a.alpha + 0.4
-                    : 0.25
-                : a.alpha,
-            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-            a.render.f,
-            !1,
-            !0
-        );
+    // --- entity prediction/extrapolation ---
+    let d;
+    if (a.render.status.getFade() === 1) {
+        d = h();
+        a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = d.predictFacing(a.render.lastf, a.facing);
+    } else {
+        d = h(a.render.lastRender, a.interval);
+        a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
-}); 
+
+    // --- damped smoothing for entity movement ---
+    const entityDamp = 1 - Math.exp(-frameFactor * 0.18);
+    a.render.x = lerp(a.render.x, a.x, entityDamp);
+    a.render.y = lerp(a.render.y, a.y, entityDamp);
+
+    // --- barrel/facing logic ---
+    if (a.id === A.playerid && (a.twiggle & 1) === 0) {
+        a.render.f = Math.atan2(U.target.y, U.target.x);
+        if (b.radial) a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+        if (a.twiggle & 2) a.render.f += Math.PI;
+    }
+
+    // --- convert to screen coords relative to camera ---
+    let dScreen = c * a.render.x - q - window.__cameraRender.x * c + b.screenWidth / 2;
+    let fScreen = c * a.render.y - y - window.__cameraRender.y * c + b.screenHeight / 2;
+
+    // --- final draw ---
+    ba(
+        dScreen,
+        fScreen,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+            : a.alpha,
+        M[a.index].shape === 0 ? 1 : B.graphical.compensationScale,
+        a.render.f,
+        false,
+        true
+    );
+});
 
 /////////////////////////////////////////////////////////////////////////////////
 
