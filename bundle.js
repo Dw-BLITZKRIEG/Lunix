@@ -3492,10 +3492,6 @@ case "explofar": {
 
 
 
-
-
-
-
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3510,35 +3506,31 @@ if (!window.__interp) {
     window.__interp.lastNow = now;
     window.__interp.times[window.__interp.i] = delta;
     window.__interp.i = (window.__interp.i + 1) % window.__interp.times.length;
-
-    // Weighted average to smooth frame jitter
     const avg = window.__interp.times.reduce((a, b) => a + b, 0) / window.__interp.times.length;
     window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
 }
 
-const frameFactor = Math.min(window.__interp.avg / (1000 / 60), 2);
+// --- safe camera interpolation ---
+if (!A.camera) return; // skip frame if camera not ready
 
-// --- smooth camera interpolation ---
 if (!window.__cameraRender) {
     window.__cameraRender = { x: A.camera.x, y: A.camera.y, fov: A.camera.fov };
 }
 
-// lerp helper
-const lerp = (from, to, t) => from + (to - from) * t;
+// exponential smoothing curve to reduce wobble
+const camSmooth = 0.12; // closer to 0 = smoother but slower, tweak as needed
+window.__cameraRender.x += (A.camera.x - window.__cameraRender.x) * camSmooth;
+window.__cameraRender.y += (A.camera.y - window.__cameraRender.y) * camSmooth;
+window.__cameraRender.fov += (A.camera.fov - window.__cameraRender.fov) * camSmooth;
 
-// Smoothly interpolate camera towards server
-const cameraSmooth = 0.08; // tweak for tightness vs smoothness
-window.__cameraRender.x = lerp(window.__cameraRender.x, A.camera.x, cameraSmooth);
-window.__cameraRender.y = lerp(window.__cameraRender.y, A.camera.y, cameraSmooth);
-window.__cameraRender.fov = lerp(window.__cameraRender.fov, A.camera.fov, cameraSmooth);
-
-// --- main render loop ---
+// --- main render interpolation loop ---
 da.forEach(function (a) {
     if (!a.render.draws) return;
 
-    // --- entity prediction/extrapolation ---
+    const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
     let d;
-    if (a.render.status.getFade() === 1) {
+
+    if (1 === a.render.status.getFade()) {
         d = h();
         a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
         a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
@@ -3550,37 +3542,57 @@ da.forEach(function (a) {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- damped smoothing for entity movement ---
-    const entityDamp = 1 - Math.exp(-frameFactor * 0.18);
-    a.render.x = lerp(a.render.x, a.x, entityDamp);
-    a.render.y = lerp(a.render.y, a.y, entityDamp);
+    // damped interpolation to reduce wobble
+    const damping = 1 - Math.exp(-smoothFactor * 0.25); // slightly stronger smoothing
+    a.render.x = a.render.x + (a.x - a.render.x) * damping;
+    a.render.y = a.render.y + (a.y - a.render.y) * damping;
 
-    // --- barrel/facing logic ---
+    // barrel/facing logic
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- convert to screen coords relative to camera ---
-    let dScreen = c * a.render.x - q - window.__cameraRender.x * c + b.screenWidth / 2;
-    let fScreen = c * a.render.y - y - window.__cameraRender.y * c + b.screenHeight / 2;
+    // convert to screen coords using smoothed camera
+    const cam = window.__cameraRender;
+    let screenX = c * a.render.x - q;
+    let screenY = c * a.render.y - y;
 
-    // --- final draw ---
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            z.x = screenX + b.screenWidth / 2;
+            z.y = screenY + b.screenHeight / 2;
+        }
+    } else {
+        screenX += b.screenWidth / 2 - cam.x * c + b.screenWidth / 2;
+        screenY += b.screenHeight / 2 - cam.y * c + b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x = screenX;
+            z.y = screenY;
+        }
+    }
+
+    // final draw
     ba(
-        dScreen,
-        fScreen,
+        screenX,
+        screenY,
         a,
         c,
         a.id === A.playerid || b.showInvisible
-            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+            ? a.alpha
+                ? 0.6 * a.alpha + 0.4
+                : 0.25
             : a.alpha,
-        M[a.index].shape === 0 ? 1 : B.graphical.compensationScale,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
         false,
         true
     );
 });
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////////
 
