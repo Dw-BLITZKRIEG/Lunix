@@ -2203,12 +2203,7 @@ function startOpeningWindows(windowCount, interval) {
                     var d = null == f.facing,
                       e = a.next();
 
-// idk 3
 
-                      const now = performance.now();
-                  updateCamera(now); 
-
-                  //idk 4
 
 
                     if (e & 1) (f.facing = a.next()), (f.layer = a.next());
