@@ -3575,11 +3575,10 @@ case "explofar": {
 
 
 
-
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
-        times: Array(10).fill(1000 / 60), // store last 10 frame times
+        times: Array(10).fill(1000 / 60),
         i: 0,
         avg: 1000 / 60,
         lastNow: performance.now(),
@@ -3603,13 +3602,19 @@ const lerpAngle = (a, b, t) => {
     return a + diff * t;
 };
 
+// --- camera smoothing parameters ---
+const CAMERA_DAMPING = 0.12; // smaller = slower, smoother camera
+
+if (!b.camX) b.camX = 0;
+if (!b.camY) b.camY = 0;
+
 // --- main render loop ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
     // smooth factor based on rolling frame average
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
-    const damping = 1 - Math.exp(-smoothFactor * 0.18); // exponential smoothing
+    const damping = 1 - Math.exp(-smoothFactor * 0.18);
 
     // --- position & facing interpolation ---
     if (a.render.status.getFade() === 1) {
@@ -3624,12 +3629,12 @@ da.forEach(a => {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- damped smoothing towards actual target ---
+    // --- damped interpolation towards actual target ---
     a.render.x = lerp(a.render.x, a.x, damping);
     a.render.y = lerp(a.render.y, a.y, damping);
     a.render.f = lerpAngle(a.render.f, a.facing, damping);
 
-    // --- local player facing logic ---
+    // --- local player facing override ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3640,17 +3645,30 @@ da.forEach(a => {
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
+});
 
-    // --- convert to screen coordinates ---
-    const screenX = c * a.render.x - q + b.screenWidth / 2;
-    const screenY = c * a.render.y - y + b.screenHeight / 2;
+// --- camera follows player smoothly ---
+const local = da.find(a => a.id === A.playerid);
+if (local) {
+    b.camX += (local.render.x - b.camX) * CAMERA_DAMPING;
+    b.camY += (local.render.y - b.camY) * CAMERA_DAMPING;
+}
+
+// --- render all entities relative to camera ---
+da.forEach(a => {
+    if (!a.render.draws) return;
+
+    const camOffsetX = c * b.camX;
+    const camOffsetY = c * b.camY;
+
+    const screenX = c * a.render.x - camOffsetX + b.screenWidth / 2;
+    const screenY = c * a.render.y - camOffsetY + b.screenHeight / 2;
 
     if (a.id === A.playerid) {
         z.x = screenX;
         z.y = screenY;
     }
 
-    // --- final draw ---
     ba(
         screenX,
         screenY,
