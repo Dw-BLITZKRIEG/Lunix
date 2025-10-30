@@ -3574,7 +3574,6 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
-
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3594,7 +3593,7 @@ if (!window.__interp) {
 }
 
 // --- helper functions ---
-const lerp = (from, to, t) => from + (to - from) * t;
+const lerp = (a, b, t) => a + (b - a) * t;
 const lerpAngle = (a, b, t) => {
     let diff = b - a;
     while (diff > Math.PI) diff -= 2 * Math.PI;
@@ -3603,20 +3602,19 @@ const lerpAngle = (a, b, t) => {
 };
 
 // --- camera smoothing parameters ---
-const CAMERA_DAMPING = 0.12; // smaller = slower, smoother camera
-
-if (!b.camX) b.camX = 0;
-if (!b.camY) b.camY = 0;
+const CAMERA_DAMPING = 0.12; // smoothing for screen offset only
+if (!b.screenCamX) b.screenCamX = 0;
+if (!b.screenCamY) b.screenCamY = 0;
 
 // --- main render loop ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
-    // smooth factor based on rolling frame average
+    // smooth factor for entity lerp
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
     const damping = 1 - Math.exp(-smoothFactor * 0.18);
 
-    // --- position & facing interpolation ---
+    // --- interpolate entity positions & facing ---
     if (a.render.status.getFade() === 1) {
         const d = h();
         a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
@@ -3629,7 +3627,7 @@ da.forEach(a => {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- damped interpolation towards actual target ---
+    // --- damped lerp towards target ---
     a.render.x = lerp(a.render.x, a.x, damping);
     a.render.y = lerp(a.render.y, a.y, damping);
     a.render.f = lerpAngle(a.render.f, a.facing, damping);
@@ -3647,19 +3645,19 @@ da.forEach(a => {
     }
 });
 
-// --- camera follows player smoothly ---
+// --- smooth camera screen offset (does NOT move entities) ---
 const local = da.find(a => a.id === A.playerid);
 if (local) {
-    b.camX += (local.render.x - b.camX) * CAMERA_DAMPING;
-    b.camY += (local.render.y - b.camY) * CAMERA_DAMPING;
+    b.screenCamX += (local.render.x - b.screenCamX) * CAMERA_DAMPING;
+    b.screenCamY += (local.render.y - b.screenCamY) * CAMERA_DAMPING;
 }
 
-// --- render all entities relative to camera ---
+// --- render all entities relative to smoothed camera screen ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
-    const camOffsetX = c * b.camX;
-    const camOffsetY = c * b.camY;
+    const camOffsetX = c * b.screenCamX;
+    const camOffsetY = c * b.screenCamY;
 
     const screenX = c * a.render.x - camOffsetX + b.screenWidth / 2;
     const screenY = c * a.render.y - camOffsetY + b.screenHeight / 2;
