@@ -3573,6 +3573,142 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
+
+
+
+// --- ultra-smooth snapshot interpolation + render ---
+const INTERP_DELAY = 100; // ms behind real-time (reduces jitter)
+
+// --- helpers ---
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
+
+function clamp01(v) {
+    return Math.max(0, Math.min(1, v));
+}
+
+// angle interpolation that wraps around (avoids jump between -π and π)
+function lerpAngle(a, b, t) {
+    let diff = b - a;
+    while (diff > Math.PI) diff -= 2 * Math.PI;
+    while (diff < -Math.PI) diff += 2 * Math.PI;
+    return a + diff * t;
+}
+
+// --- main render loop ---
+da.forEach(function (a) {
+    if (!a.render.draws) return;
+
+    // --- snapshot buffer setup ---
+    if (!a.snapshots) a.snapshots = [];
+    const now = performance.now();
+
+    // add new snapshot when server data changes
+    if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
+        a.snapshots.push({
+            time: now,
+            x: a.x,
+            y: a.y,
+            vx: a.vx,
+            vy: a.vy,
+            facing: a.facing
+        });
+        a.__lastServerX = a.x;
+        a.__lastServerY = a.y;
+        a.__lastServerFacing = a.facing;
+    }
+
+    // keep snapshot history short
+    while (a.snapshots.length > 10) a.snapshots.shift();
+
+    // --- interpolation logic ---
+    const renderTimestamp = now - INTERP_DELAY;
+    let older, newer;
+
+    for (let i = 0; i < a.snapshots.length - 1; i++) {
+        const s0 = a.snapshots[i];
+        const s1 = a.snapshots[i + 1];
+        if (s0.time <= renderTimestamp && s1.time >= renderTimestamp) {
+            older = s0;
+            newer = s1;
+            break;
+        }
+    }
+
+    if (older && newer) {
+        const t = clamp01((renderTimestamp - older.time) / (newer.time - older.time));
+        a.render.x = lerp(older.x, newer.x, t);
+        a.render.y = lerp(older.y, newer.y, t);
+        a.render.f = lerpAngle(older.facing, newer.facing, t);
+    } else {
+        // fallback to extrapolation
+        const last = a.snapshots[a.snapshots.length - 1];
+        if (last) {
+            const dt = (now - last.time) / 1000;
+            a.render.x = last.x + last.vx * dt;
+            a.render.y = last.y + last.vy * dt;
+            a.render.f = last.facing;
+        } else {
+            // if no data yet
+            a.render.x = a.x;
+            a.render.y = a.y;
+            a.render.f = a.facing;
+        }
+    }
+
+    // --- player-facing logic (still overrides if it's the local player) ---
+    if (a.id === A.playerid && (a.twiggle & 1) === 0) {
+        a.render.f = Math.atan2(U.target.y, U.target.x);
+        if (b.radial) {
+            a.render.f -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
+        }
+        if (a.twiggle & 2) a.render.f += Math.PI;
+    }
+
+    // --- convert to screen coordinates ---
+    let d = c * a.render.x - q;
+    let f = c * a.render.y - y;
+
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            z.x = d + b.screenWidth / 2;
+            z.y = f + b.screenHeight / 2;
+        }
+    } else {
+        d += b.screenWidth / 2;
+        f += b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x = d;
+            z.y = f;
+        }
+    }
+
+    // --- final draw ---
+    ba(
+        d,
+        f,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha
+                ? 0.6 * a.alpha + 0.4
+                : 0.25
+            : a.alpha,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+        a.render.f,
+        !1,
+        !0
+    );
+});
+
+
+
+
+/*
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3663,7 +3799,7 @@ da.forEach(function (a) {
             !0
         );
     }
-});
+}); */
 
 /////////////////////////////////////////////////////////////////////////////////
 
