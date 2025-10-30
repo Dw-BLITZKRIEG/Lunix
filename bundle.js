@@ -3576,8 +3576,8 @@ case "explofar": {
 
 // --- CONFIGURATION ---
 const INTERP_DELAY = 100; // ms behind server time for snapshot interpolation
-const CAMERA_DAMPING = 0.12; // smoothing for screen translation
-const MICRO_LAG_DAMPING = 0.05; // tiny visual smoothing
+const MICRO_LAG_DAMPING = 0.05; // smoothing for entity motion
+const CAMERA_DAMPING = 0.12;   // smoothing for camera movement
 
 // --- HELPER FUNCTIONS ---
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -3589,42 +3589,32 @@ const lerpAngle = (a, b, t) => {
     return a + diff * t;
 };
 
-// --- INITIALIZE SCREEN OFFSET ---
-if (!b.screenOffsetX) b.screenOffsetX = 0;
-if (!b.screenOffsetY) b.screenOffsetY = 0;
-
-// --- 1. HANDLE ENTITY SNAPSHOTS ---
+// --- 1. Update entity snapshots ---
 const now = performance.now();
 da.forEach(a => {
     if (!a.snapshots) a.snapshots = [];
 
-    // reset snapshots on death/respawn to prevent swishing
+    // reset snapshots on respawn/death
     if (a.__respawned) {
         a.snapshots = [];
         a.__respawned = false;
     }
 
-    // record snapshot if entity has moved or facing changed
+    // record new snapshot if entity moved or rotated
     if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
-        a.snapshots.push({
-            time: now,
-            x: a.x,
-            y: a.y,
-            facing: a.facing
-        });
+        a.snapshots.push({ time: now, x: a.x, y: a.y, facing: a.facing });
         a.__lastServerX = a.x;
         a.__lastServerY = a.y;
         a.__lastServerFacing = a.facing;
     }
 
-    // keep only recent snapshots
     while (a.snapshots.length > 20) a.snapshots.shift();
 });
 
-// --- 2. COMPUTE RENDER TIMESTAMP ---
+// --- 2. Compute render timestamp ---
 const renderTime = now - INTERP_DELAY;
 
-// --- 3. INTERPOLATE ENTITY POSITIONS ---
+// --- 3. Interpolate entities ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
@@ -3655,7 +3645,7 @@ da.forEach(a => {
         targetF = a.facing;
     }
 
-    // apply micro-lag damping for buttery feel
+    // tiny damping for buttery motion
     a.render.x = lerp(a.render.x || targetX, targetX, MICRO_LAG_DAMPING);
     a.render.y = lerp(a.render.y || targetY, targetY, MICRO_LAG_DAMPING);
     a.render.f = lerpAngle(a.render.f || targetF, targetF, MICRO_LAG_DAMPING);
@@ -3668,21 +3658,25 @@ da.forEach(a => {
     }
 });
 
-// --- 4. SMOOTH CAMERA (SCREEN-LEVEL ONLY) ---
+// --- 4. Smooth camera follow (screen transform only) ---
 const local = da.find(a => a.id === A.playerid);
 if (local) {
-    const targetScreenX = local.render.x * c - b.screenWidth / 2;
-    const targetScreenY = local.render.y * c - b.screenHeight / 2;
-    b.screenOffsetX += (targetScreenX - b.screenOffsetX) * CAMERA_DAMPING;
-    b.screenOffsetY += (targetScreenY - b.screenOffsetY) * CAMERA_DAMPING;
+    if (!b.camX) b.camX = local.render.x * c;
+    if (!b.camY) b.camY = local.render.y * c;
+
+    b.camX += (local.render.x * c - b.camX) * CAMERA_DAMPING;
+    b.camY += (local.render.y * c - b.camY) * CAMERA_DAMPING;
 }
 
-// --- 5. RENDER ENTITIES RELATIVE TO SCREEN OFFSET ---
+// --- 5. Render all entities ---
+ctx.save();
+ctx.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY); // move viewport
+
 da.forEach(a => {
     if (!a.render.draws) return;
 
-    const screenX = a.render.x * c - b.screenOffsetX;
-    const screenY = a.render.y * c - b.screenOffsetY;
+    const screenX = a.render.x * c;
+    const screenY = a.render.y * c;
 
     if (a.id === A.playerid) {
         z.x = screenX;
@@ -3703,6 +3697,8 @@ da.forEach(a => {
         true
     );
 });
+
+ctx.restore();
 
 
 /*
