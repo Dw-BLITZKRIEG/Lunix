@@ -3489,102 +3489,10 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-// --- CONFIG ---
-const CAMERA_DAMPING = 0.12; // smooth camera follow speed
-
-// --- ultra-smooth interpolation timing helper ---
-if (!window.__interp) {
-    window.__interp = {
-        times: Array(10).fill(1000 / 60),
-        i: 0,
-        avg: 1000 / 60,
-        lastNow: performance.now(),
-    };
-} else {
-    const now = performance.now();
-    const delta = now - window.__interp.lastNow;
-    window.__interp.lastNow = now;
-    window.__interp.times[window.__interp.i] = delta;
-    window.__interp.i = (window.__interp.i + 1) % window.__interp.times.length;
-    const avg = window.__interp.times.reduce((a, b) => a + b, 0) / window.__interp.times.length;
-    window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
-}
-
-// --- smooth camera follow ---
-const local = da.find(a => a.id === A.playerid);
-if(local){
-    if(!b.camX) b.camX = local.render.x * c;
-    if(!b.camY) b.camY = local.render.y * c;
-
-    const targetCamX = local.render.x * c;
-    const targetCamY = local.render.y * c;
-
-    b.camX += (targetCamX - b.camX) * CAMERA_DAMPING;
-    b.camY += (targetCamY - b.camY) * CAMERA_DAMPING;
-}
-
-// --- main render interpolation loop ---
-g.save(); // save context before translating
-g.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY); // apply camera
-
-da.forEach(function (a) {
-    if (a.render.draws) {
-        const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
-
-        let d;
-        if (1 === a.render.status.getFade()) {
-            d = h();
-            a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
-            a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
-            a.render.f = d.predictFacing(a.render.lastf, a.facing);
-        } else {
-            d = h(a.render.lastRender, a.interval);
-            a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-            a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-            a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
-        }
-
-        const lerp = (from, to, t) => from + (to - from) * t;
-        const damping = 1 - Math.exp(-smoothFactor * 0.18);
-        a.render.x = lerp(a.render.x, a.x, damping);
-        a.render.y = lerp(a.render.y, a.y, damping);
-
-        // player barrel / facing
-        if(a.id === A.playerid && (a.twiggle & 1) === 0){
-            a.render.f = Math.atan2(U.target.y, U.target.x);
-            if(b.radial) a.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
-            if(a.twiggle & 2) a.render.f += Math.PI;
-        }
-
-        // convert to screen coords
-        d = c * a.render.x;
-        var f = c * a.render.y;
-
-        // --- final draw ---
-        ba(
-            d,
-            f,
-            a,
-            c,
-            a.id === A.playerid || b.showInvisible ? (a.alpha ? 0.6*a.alpha+0.4 : 0.25) : a.alpha,
-            0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-            a.render.f,
-            !1,
-            !0
-        );
-
-        // update player screen position
-        if(a.id === A.playerid){
-            z.x = d;
-            z.y = f;
-        }
-    }
-});
-
-g.restore(); // restore context
 
 
-/*
+
+
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3675,7 +3583,7 @@ da.forEach(function (a) {
             !0
         );
     }
-}); */
+}); 
 
 /////////////////////////////////////////////////////////////////////////////////
 
