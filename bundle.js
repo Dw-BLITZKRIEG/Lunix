@@ -3576,8 +3576,9 @@ case "explofar": {
 
 const INTERP_DELAY = 100; // ms behind server time
 const CAMERA_DAMPING = 0.12; // screen-level camera smoothing
+const MICRO_LAG_DAMPING = 0.05; // tiny lerp for buttery motion
 
-// helper functions
+// --- helper functions ---
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp01 = v => Math.max(0, Math.min(1, v));
 const lerpAngle = (a, b, t) => {
@@ -3606,11 +3607,13 @@ da.forEach(a => {
         a.__lastServerY = a.y;
         a.__lastServerFacing = a.facing;
     }
-    while (a.snapshots.length > 10) a.snapshots.shift();
+    while (a.snapshots.length > 20) a.snapshots.shift(); // keep last 20 snapshots
 });
 
-// --- 2. interpolate entities based on render timestamp ---
+// --- 2. compute render timestamp ---
 const renderTime = now - INTERP_DELAY;
+
+// --- 3. interpolate entity positions for renderTime ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
@@ -3618,7 +3621,8 @@ da.forEach(a => {
     for (let i = 0; i < a.snapshots.length - 1; i++) {
         const s0 = a.snapshots[i], s1 = a.snapshots[i + 1];
         if (s0.time <= renderTime && s1.time >= renderTime) {
-            older = s0; newer = s1;
+            older = s0;
+            newer = s1;
             break;
         }
     }
@@ -3640,11 +3644,10 @@ da.forEach(a => {
         targetF = a.facing;
     }
 
-    // optionally, small visual damping to smooth micro-lags
-    const DAMPING = 0.08;
-    a.render.x = lerp(a.render.x || targetX, targetX, DAMPING);
-    a.render.y = lerp(a.render.y || targetY, targetY, DAMPING);
-    a.render.f = lerpAngle(a.render.f || targetF, targetF, DAMPING);
+    // small micro-lag smoothing for buttery feel
+    a.render.x = lerp(a.render.x || targetX, targetX, MICRO_LAG_DAMPING);
+    a.render.y = lerp(a.render.y || targetY, targetY, MICRO_LAG_DAMPING);
+    a.render.f = lerpAngle(a.render.f || targetF, targetF, MICRO_LAG_DAMPING);
 
     // local player facing override
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
@@ -3654,14 +3657,14 @@ da.forEach(a => {
     }
 });
 
-// --- 3. smooth camera follow (screen offset only) ---
+// --- 4. smooth camera follow (screen offset only) ---
 const local = da.find(a => a.id === A.playerid);
 if (local) {
     b.screenCamX += (local.render.x - b.screenCamX) * CAMERA_DAMPING;
     b.screenCamY += (local.render.y - b.screenCamY) * CAMERA_DAMPING;
 }
 
-// --- 4. render all entities relative to smoothed camera ---
+// --- 5. render all entities relative to camera ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
@@ -3690,7 +3693,6 @@ da.forEach(a => {
         true
     );
 });
-
 
 
 
