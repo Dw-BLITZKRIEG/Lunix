@@ -3489,13 +3489,10 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-
-
-
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
-        times: Array(10).fill(1000 / 60), // store last 10 frame times
+        times: Array(10).fill(1000 / 60),
         i: 0,
         avg: 1000 / 60,
         lastNow: performance.now(),
@@ -3510,26 +3507,14 @@ if (!window.__interp) {
     window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
 }
 
-// --- safe camera interpolation ---
-if (!A.camera) return; // skip frame if camera not ready
-
-if (!window.__cameraRender) {
-    window.__cameraRender = { x: A.camera.x, y: A.camera.y, fov: A.camera.fov };
-}
-
-// exponential smoothing curve to reduce wobble
-const camSmooth = 0.12; // closer to 0 = smoother but slower, tweak as needed
-window.__cameraRender.x += (A.camera.x - window.__cameraRender.x) * camSmooth;
-window.__cameraRender.y += (A.camera.y - window.__cameraRender.y) * camSmooth;
-window.__cameraRender.fov += (A.camera.fov - window.__cameraRender.fov) * camSmooth;
-
 // --- main render interpolation loop ---
 da.forEach(function (a) {
     if (!a.render.draws) return;
 
+    // Calculate smoothFactor based on rolling average
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
-    let d;
 
+    let d;
     if (1 === a.render.status.getFade()) {
         d = h();
         a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
@@ -3542,20 +3527,22 @@ da.forEach(function (a) {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // damped interpolation to reduce wobble
-    const damping = 1 - Math.exp(-smoothFactor * 0.25); // slightly stronger smoothing
-    a.render.x = a.render.x + (a.x - a.render.x) * damping;
-    a.render.y = a.render.y + (a.y - a.render.y) * damping;
+    // --- damped interpolation ---
+    const lerp = (from, to, t) => from + (to - from) * t;
+    const damping = 1 - Math.exp(-smoothFactor * 0.12); // slightly lower to reduce wobble
+    a.render.x = lerp(a.render.x, a.x, damping);
+    a.render.y = lerp(a.render.y, a.y, damping);
 
-    // barrel/facing logic
+    // --- barrel/facing logic intact ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
-        if (b.radial) a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+        if (b.radial) {
+            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+        }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // convert to screen coords using smoothed camera
-    const cam = window.__cameraRender;
+    // --- convert to screen coords ---
     let screenX = c * a.render.x - q;
     let screenY = c * a.render.y - y;
 
@@ -3565,24 +3552,22 @@ da.forEach(function (a) {
             z.y = screenY + b.screenHeight / 2;
         }
     } else {
-        screenX += b.screenWidth / 2 - cam.x * c + b.screenWidth / 2;
-        screenY += b.screenHeight / 2 - cam.y * c + b.screenHeight / 2;
+        screenX += b.screenWidth / 2;
+        screenY += b.screenHeight / 2;
         if (a.id === A.playerid) {
             z.x = screenX;
             z.y = screenY;
         }
     }
 
-    // final draw
+    // --- final draw ---
     ba(
         screenX,
         screenY,
         a,
         c,
         a.id === A.playerid || b.showInvisible
-            ? a.alpha
-                ? 0.6 * a.alpha + 0.4
-                : 0.25
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
             : a.alpha,
         0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
@@ -3590,9 +3575,6 @@ da.forEach(function (a) {
         true
     );
 });
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////
 
