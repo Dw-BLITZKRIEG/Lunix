@@ -3487,7 +3487,8 @@ case "explofar": {
                 d = Math.sin(c);
                 g.rotate(c);
               }
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+// new code: A
 
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
@@ -3508,18 +3509,19 @@ if (!window.__interp) {
 }
 
 // --- smooth camera follow ---
-const cameraFollowStrength = 0.18; // lower = looser follow, higher = tighter
-z.x += (A.cameraTargetX - z.x) * cameraFollowStrength;
-z.y += (A.cameraTargetY - z.y) * cameraFollowStrength;
+const cameraLerp = 0.18; // follow strength
+z.x += (A.cameraTargetX - z.x) * cameraLerp;
+z.y += (A.cameraTargetY - z.y) * cameraLerp;
 
 // --- main render interpolation loop ---
 da.forEach(function (a) {
     if (!a.render.draws) return;
 
-    // Calculate smoothFactor from timing average
+    // Calculate smoothing amount
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
+    const damping = 1 - Math.exp(-smoothFactor * 0.22);
 
-    // Predict positions
+    // Predict/interpolate
     let d;
     if (a.render.status.getFade() === 1) {
         d = h();
@@ -3533,12 +3535,11 @@ da.forEach(function (a) {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- damped smoothing (eliminates micro jitter) ---
-    const damping = 1 - Math.exp(-smoothFactor * 0.22);
+    // Smooth position update
     a.render.x += (a.x - a.render.x) * damping;
     a.render.y += (a.y - a.render.y) * damping;
 
-    // --- barrel / facing logic ---
+    // --- facing / turret logic ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3550,19 +3551,24 @@ da.forEach(function (a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- convert to screen coords ---
-    let screenX = c * (a.render.x - A.cameraTargetX) + z.x;
-    let screenY = c * (a.render.y - A.cameraTargetY) + z.y;
+    // --- convert to screen coords (fixed!) ---
+    let dX = c * a.render.x - q;
+    let dY = c * a.render.y - y;
 
-    if (b.radial && a.id === A.playerid) {
-        z.x = screenX;
-        z.y = screenY;
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            z.x = dX + b.screenWidth / 2;
+            z.y = dY + b.screenHeight / 2;
+        }
+    } else {
+        dX += b.screenWidth / 2 - c * A.cameraTargetX + z.x;
+        dY += b.screenHeight / 2 - c * A.cameraTargetY + z.y;
     }
 
     // --- final draw ---
     ba(
-        screenX,
-        screenY,
+        dX,
+        dY,
         a,
         c,
         a.id === A.playerid || b.showInvisible
