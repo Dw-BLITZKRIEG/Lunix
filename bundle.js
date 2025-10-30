@@ -3574,7 +3574,7 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
-const INTERP_DELAY = 100; // ms behind real-time for smooth interpolation
+const INTERP_DELAY = 100; // ms behind real-time
 
 function lerp(a, b, t) { return a + (b - a) * t; }
 function clamp01(v) { return Math.max(0, Math.min(1, v)); }
@@ -3585,23 +3585,18 @@ function lerpAngle(a, b, t) {
     return a + diff * t;
 }
 
-const now = performance.now();
-const renderTimestamp = now - INTERP_DELAY;
-
-// --- first pass: interpolate all entities to renderTimestamp ---
+// --- 1. interpolate all entities using snapshots ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
     if (!a.snapshots) a.snapshots = [];
 
-    // push new snapshot if server state changed
+    // push snapshot if server state changed
     if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
         a.snapshots.push({
-            time: now,
+            time: performance.now(),
             x: a.x,
             y: a.y,
-            vx: a.vx,
-            vy: a.vy,
             facing: a.facing
         });
         a.__lastServerX = a.x;
@@ -3611,7 +3606,8 @@ da.forEach(a => {
 
     while (a.snapshots.length > 10) a.snapshots.shift();
 
-    // find snapshots for interpolation
+    // find snapshots surrounding render timestamp
+    const renderTimestamp = performance.now() - INTERP_DELAY;
     let older, newer;
     for (let i = 0; i < a.snapshots.length - 1; i++) {
         const s0 = a.snapshots[i], s1 = a.snapshots[i + 1];
@@ -3626,18 +3622,16 @@ da.forEach(a => {
         a.render.x = lerp(older.x, newer.x, t);
         a.render.y = lerp(older.y, newer.y, t);
         a.render.f = lerpAngle(older.facing, newer.facing, t);
-    } else {
+    } else if (a.snapshots.length > 0) {
+        // if outside snapshot range, just use the latest snapshot
         const last = a.snapshots[a.snapshots.length - 1];
-        if (last) {
-            const dt = (renderTimestamp - last.time) / 1000;
-            a.render.x = last.x + last.vx * dt;
-            a.render.y = last.y + last.vy * dt;
-            a.render.f = last.facing;
-        } else {
-            a.render.x = a.x;
-            a.render.y = a.y;
-            a.render.f = a.facing;
-        }
+        a.render.x = last.x;
+        a.render.y = last.y;
+        a.render.f = last.facing;
+    } else {
+        a.render.x = a.x;
+        a.render.y = a.y;
+        a.render.f = a.facing;
     }
 
     // local player facing override
@@ -3653,22 +3647,22 @@ da.forEach(a => {
     }
 });
 
-// --- second pass: compute camera centered on interpolated local player ---
+// --- 2. camera centered on interpolated local player ---
 const local = da.find(a => a.id === A.playerid);
 if (local) {
     b.camX = local.render.x;
     b.camY = local.render.y;
 }
 
-// --- third pass: render all entities relative to camera ---
+// --- 3. render all entities relative to camera ---
 da.forEach(a => {
     if (!a.render.draws) return;
 
     const camOffsetX = c * b.camX;
     const camOffsetY = c * b.camY;
 
-    let d = c * a.render.x - camOffsetX + b.screenWidth / 2;
-    let f = c * a.render.y - camOffsetY + b.screenHeight / 2;
+    const d = c * a.render.x - camOffsetX + b.screenWidth / 2;
+    const f = c * a.render.y - camOffsetY + b.screenHeight / 2;
 
     if (a.id === A.playerid) {
         z.x = d;
@@ -3681,9 +3675,7 @@ da.forEach(a => {
         a,
         c,
         a.id === A.playerid || b.showInvisible
-            ? a.alpha
-                ? 0.6 * a.alpha + 0.4
-                : 0.25
+            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
             : a.alpha,
         0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
         a.render.f,
