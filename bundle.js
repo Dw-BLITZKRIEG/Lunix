@@ -3492,7 +3492,7 @@ case "explofar": {
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
-        times: Array(10).fill(1000 / 60), // store last 10 frame times
+        times: Array(10).fill(1000 / 60),
         i: 0,
         avg: 1000 / 60,
         lastNow: performance.now(),
@@ -3508,15 +3508,15 @@ if (!window.__interp) {
 }
 
 // --- smooth camera follow ---
-const cameraLerp = 0.22; // tweak this: higher = tighter follow
-z.x += (A.cameraTargetX - z.x) * cameraLerp;
-z.y += (A.cameraTargetY - z.y) * cameraLerp;
+const cameraFollowStrength = 0.18; // lower = looser follow, higher = tighter
+z.x += (A.cameraTargetX - z.x) * cameraFollowStrength;
+z.y += (A.cameraTargetY - z.y) * cameraFollowStrength;
 
 // --- main render interpolation loop ---
-da.forEach(function(a) {
+da.forEach(function (a) {
     if (!a.render.draws) return;
 
-    // Calculate smoothFactor based on rolling average
+    // Calculate smoothFactor from timing average
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
 
     // Predict positions
@@ -3533,24 +3533,26 @@ da.forEach(function(a) {
         a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // --- apply damped interpolation smoothing ---
-    const lerp = (from, to, t) => from + (to - from) * t;
-    const damping = 1 - Math.exp(-smoothFactor * 0.18);
-    a.render.x = lerp(a.render.x, a.x, damping);
-    a.render.y = lerp(a.render.y, a.y, damping);
+    // --- damped smoothing (eliminates micro jitter) ---
+    const damping = 1 - Math.exp(-smoothFactor * 0.22);
+    a.render.x += (a.x - a.render.x) * damping;
+    a.render.y += (a.y - a.render.y) * damping;
 
     // --- barrel / facing logic ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
-            a.render.f -= Math.atan2(b.gameWidth / 2 - z.cx, b.gameHeight / 2 - z.cy);
+            a.render.f -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
         }
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- convert to screen coords relative to smoothed camera ---
-    let screenX = c * a.render.x - q + b.screenWidth / 2 - c * A.cameraTargetX + z.x - b.screenWidth / 2;
-    let screenY = c * a.render.y - y + b.screenHeight / 2 - c * A.cameraTargetY + z.y - b.screenHeight / 2;
+    // --- convert to screen coords ---
+    let screenX = c * (a.render.x - A.cameraTargetX) + z.x;
+    let screenY = c * (a.render.y - A.cameraTargetY) + z.y;
 
     if (b.radial && a.id === A.playerid) {
         z.x = screenX;
