@@ -3490,9 +3490,9 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 // --- CONFIG ---
-const INTERP_DELAY = 100;      // ms delay for interpolation
-const ENTITY_DAMPING = 0.05;   // smooth entity movement
-const CAMERA_DAMPING = 0.12;   // smooth camera following player
+const INTERP_DELAY = 100;
+const ENTITY_DAMPING = 0.05;
+const CAMERA_DAMPING = 0.12;
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp01 = t => Math.max(0, Math.min(1, t));
 const lerpAngle = (a, b, t) => {
@@ -3502,13 +3502,11 @@ const lerpAngle = (a, b, t) => {
     return a + diff * t;
 };
 
-// --- UPDATE ENTITY SNAPSHOTS ---
+// --- UPDATE SNAPSHOTS ---
 const now = performance.now();
 da.forEach(a => {
     if(!a.snapshots) a.snapshots = [];
-
     if(a.__respawned){
-        // reset snapshots on respawn
         a.snapshots = [{time: now, x: a.x, y: a.y, facing: a.facing}];
         a.__respawned = false;
     } else {
@@ -3517,7 +3515,6 @@ da.forEach(a => {
             a.snapshots.push({time: now, x: a.x, y: a.y, facing: a.facing});
         }
     }
-
     while(a.snapshots.length > 20) a.snapshots.shift();
 });
 
@@ -3525,7 +3522,6 @@ da.forEach(a => {
 const renderTime = now - INTERP_DELAY;
 da.forEach(a => {
     if(!a.render.draws) return;
-
     let older, newer;
     for(let i=0; i<a.snapshots.length-1; i++){
         const s0 = a.snapshots[i], s1 = a.snapshots[i+1];
@@ -3550,12 +3546,9 @@ da.forEach(a => {
     a.render.y = lerp(a.render.y || targetY, targetY, ENTITY_DAMPING);
     a.render.f = lerpAngle(a.render.f || targetF, targetF, ENTITY_DAMPING);
 
-    // player barrel / facing
     if(a.id === A.playerid && (a.twiggle & 1) === 0){
         a.render.f = Math.atan2(U.target.y, U.target.x);
-        if(b.radial){
-            a.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
-        }
+        if(b.radial) a.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
         if(a.twiggle & 2) a.render.f += Math.PI;
     }
 });
@@ -3573,21 +3566,16 @@ if(local){
     b.camY += (targetCamY - b.camY) * CAMERA_DAMPING;
 }
 
-// --- RENDER ENTITIES ---
+// --- RENDER LOOP ---
 g.save();
 g.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY);
-
 da.forEach(a => {
     if(!a.render.draws) return;
     Qa(a.render.x * c, a.render.y * c, a, c, a.id===A.playerid ? 1 : a.alpha);
-
-    // update local player screen position
-    if(a.id === A.playerid){
-        z.x = a.render.x * c;
-        z.y = a.render.y * c;
-    }
+    if(a.id === A.playerid){ z.x = a.render.x * c; z.y = a.render.y * c; }
 });
 g.restore();
+
 
 // --- GUI / HUD / Minimap ---
 // All GUI elements drawn here WITHOUT camera transform
