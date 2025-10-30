@@ -3574,128 +3574,104 @@ case "explofar": {
 ////////////////////////////////////////////////////////////
 
 
-// --- CONFIGURATION ---
-const INTERP_DELAY = 100; // ms behind server time for snapshot interpolation
-const MICRO_LAG_DAMPING = 0.05; // smoothing for entity motion
-const CAMERA_DAMPING = 0.12;   // smoothing for camera movement
+// --- CONFIG ---
+const INTERP_DELAY = 100;
+const MICRO_LAG_DAMPING = 0.05;
+const CAMERA_DAMPING = 0.12;
 
-// --- HELPER FUNCTIONS ---
-const lerp = (a, b, t) => a + (b - a) * t;
-const clamp01 = v => Math.max(0, Math.min(1, v));
-const lerpAngle = (a, b, t) => {
-    let diff = b - a;
-    while (diff > Math.PI) diff -= 2 * Math.PI;
-    while (diff < -Math.PI) diff += 2 * Math.PI;
-    return a + diff * t;
+// --- HELPERS ---
+const lerp = (a,b,t)=>a+(b-a)*t;
+const clamp01 = v=>Math.max(0,Math.min(1,v));
+const lerpAngle = (a,b,t)=>{
+    let diff=b-a;
+    while(diff>Math.PI) diff-=2*Math.PI;
+    while(diff<-Math.PI) diff+=2*Math.PI;
+    return a+diff*t;
 };
 
-// --- 1. Update entity snapshots ---
+// --- UPDATE SNAPSHOTS ---
 const now = performance.now();
-da.forEach(a => {
-    if (!a.snapshots) a.snapshots = [];
+da.forEach(a=>{
+    if(!a.snapshots)a.snapshots=[];
 
-    // reset snapshots on respawn/death
-    if (a.__respawned) {
-        a.snapshots = [];
-        a.__respawned = false;
-    }
-
-    // record snapshot if entity moved or rotated
-    if (a.__lastServerX !== a.x || a.__lastServerY !== a.y || a.__lastServerFacing !== a.facing) {
-        a.snapshots.push({ time: now, x: a.x, y: a.y, facing: a.facing });
-        a.__lastServerX = a.x;
-        a.__lastServerY = a.y;
-        a.__lastServerFacing = a.facing;
-    }
-
-    while (a.snapshots.length > 20) a.snapshots.shift();
-});
-
-// --- 2. Compute render timestamp ---
-const renderTime = now - INTERP_DELAY;
-
-// --- 3. Interpolate entity positions ---
-da.forEach(a => {
-    if (!a.render.draws) return;
-
-    let older, newer;
-    for (let i = 0; i < a.snapshots.length - 1; i++) {
-        const s0 = a.snapshots[i], s1 = a.snapshots[i + 1];
-        if (s0.time <= renderTime && s1.time >= renderTime) {
-            older = s0;
-            newer = s1;
-            break;
+    // if respawned, reset snapshots to current pos (prevent disappearing)
+    if(a.__respawned){
+        a.snapshots=[{time:now,x:a.x,y:a.y,facing:a.facing}];
+        a.__respawned=false;
+    } else {
+        if(a.__lastServerX!==a.x || a.__lastServerY!==a.y || a.__lastServerFacing!==a.facing){
+            a.snapshots.push({time:now,x:a.x,y:a.y,facing:a.facing});
+            a.__lastServerX=a.x;
+            a.__lastServerY=a.y;
+            a.__lastServerFacing=a.facing;
         }
     }
 
-    let targetX, targetY, targetF;
-    if (older && newer) {
-        const t = clamp01((renderTime - older.time) / (newer.time - older.time));
-        targetX = lerp(older.x, newer.x, t);
-        targetY = lerp(older.y, newer.y, t);
-        targetF = lerpAngle(older.facing, newer.facing, t);
-    } else if (a.snapshots.length > 0) {
-        const last = a.snapshots[a.snapshots.length - 1];
-        targetX = last.x;
-        targetY = last.y;
-        targetF = last.facing;
-    } else {
-        targetX = a.x;
-        targetY = a.y;
-        targetF = a.facing;
+    while(a.snapshots.length>20)a.snapshots.shift();
+});
+
+// --- RENDER TIME ---
+const renderTime = now - INTERP_DELAY;
+
+// --- INTERPOLATE ENTITIES ---
+da.forEach(a=>{
+    if(!a.render.draws)return;
+
+    let older,newer;
+    for(let i=0;i<a.snapshots.length-1;i++){
+        const s0=a.snapshots[i], s1=a.snapshots[i+1];
+        if(s0.time<=renderTime && s1.time>=renderTime){older=s0; newer=s1; break;}
     }
 
-    // apply micro-lag damping for buttery motion
-    a.render.x = lerp(a.render.x || targetX, targetX, MICRO_LAG_DAMPING);
-    a.render.y = lerp(a.render.y || targetY, targetY, MICRO_LAG_DAMPING);
-    a.render.f = lerpAngle(a.render.f || targetF, targetF, MICRO_LAG_DAMPING);
+    let targetX,targetY,targetF;
+    if(older && newer){
+        const t=clamp01((renderTime-older.time)/(newer.time-older.time));
+        targetX=lerp(older.x,newer.x,t);
+        targetY=lerp(older.y,newer.y,t);
+        targetF=lerpAngle(older.facing,newer.facing,t);
+    } else {
+        const last=a.snapshots[a.snapshots.length-1];
+        if(last){targetX=last.x; targetY=last.y; targetF=last.facing;}
+        else {targetX=a.x; targetY=a.y; targetF=a.facing;}
+    }
 
-    // local player facing override
-    if (a.id === A.playerid && (a.twiggle & 1) === 0) {
-        a.render.f = Math.atan2(U.target.y, U.target.x);
-        if (b.radial) a.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
-        if (a.twiggle & 2) a.render.f += Math.PI;
+    a.render.x=lerp(a.render.x||targetX,targetX,MICRO_LAG_DAMPING);
+    a.render.y=lerp(a.render.y||targetY,targetY,MICRO_LAG_DAMPING);
+    a.render.f=lerpAngle(a.render.f||targetF,targetF,MICRO_LAG_DAMPING);
+
+    if(a.id===A.playerid && (a.twiggle&1)===0){
+        a.render.f=Math.atan2(U.target.y,U.target.x);
+        if(b.radial)a.render.f-=Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
+        if(a.twiggle&2)a.render.f+=Math.PI;
     }
 });
 
-// --- 4. Smooth camera follow (screen offset) ---
-const local = da.find(a => a.id === A.playerid);
-let camX = 0, camY = 0;
-if (local) {
-    if (!b.camX) b.camX = local.render.x * c;
-    if (!b.camY) b.camY = local.render.y * c;
-
-    b.camX += (local.render.x * c - b.camX) * CAMERA_DAMPING;
-    b.camY += (local.render.y * c - b.camY) * CAMERA_DAMPING;
-
-    camX = b.camX - b.screenWidth / 2;
-    camY = b.camY - b.screenHeight / 2;
+// --- CAMERA (SMOOTH FOLLOW) ---
+const local=da.find(a=>a.id===A.playerid);
+let camX=0,camY=0;
+if(local){
+    if(!b.camX)b.camX=local.render.x*c;
+    if(!b.camY)b.camY=local.render.y*c;
+    b.camX+=(local.render.x*c - b.camX)*CAMERA_DAMPING;
+    b.camY+=(local.render.y*c - b.camY)*CAMERA_DAMPING;
+    camX=b.camX - b.screenWidth/2;
+    camY=b.camY - b.screenHeight/2;
 }
 
-// --- 5. Render all entities relative to camera ---
-da.forEach(a => {
-    if (!a.render.draws) return;
+// --- RENDER ENTITIES ---
+da.forEach(a=>{
+    if(!a.render.draws)return;
+    const screenX=a.render.x*c - camX;
+    const screenY=a.render.y*c - camY;
 
-    const screenX = a.render.x * c - camX;
-    const screenY = a.render.y * c - camY;
+    if(a.id===A.playerid){z.x=screenX; z.y=screenY;}
 
-    if (a.id === A.playerid) {
-        z.x = screenX;
-        z.y = screenY;
-    }
-
-    ba(
-        screenX,
-        screenY,
-        a,
-        c,
-        a.id === A.playerid || b.showInvisible
-            ? a.alpha ? 0.6 * a.alpha + 0.4 : 0.25
+    ba(screenX,screenY,a,c,
+        a.id===A.playerid || b.showInvisible
+            ? a.alpha ? 0.6*a.alpha+0.4 : 0.25
             : a.alpha,
-        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
-        a.render.f,
-        false,
-        true
+        0===M[a.index].shape ? 1 : B.graphical.compensationScale,
+        a.render.f,false,true
     );
 });
 
