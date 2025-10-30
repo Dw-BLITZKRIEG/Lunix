@@ -3488,7 +3488,7 @@ case "explofar": {
                 g.rotate(c);
               }
 //////////////////////////////////////////////////////////////
-// new code: A
+// new code: B
 
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
@@ -3508,38 +3508,33 @@ if (!window.__interp) {
     window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
 }
 
-// --- smooth camera follow ---
-const cameraLerp = 0.18; // follow strength
-z.x += (A.cameraTargetX - z.x) * cameraLerp;
-z.y += (A.cameraTargetY - z.y) * cameraLerp;
-
 // --- main render interpolation loop ---
 da.forEach(function (a) {
     if (!a.render.draws) return;
 
-    // Calculate smoothing amount
+    // rolling smooth factor based on frame timing
     const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
-    const damping = 1 - Math.exp(-smoothFactor * 0.22);
+    const damping = 1 - Math.exp(-smoothFactor * 0.20);
 
-    // Predict/interpolate
-    let d;
+    // predict/interpolate entity motion
+    let interp;
     if (a.render.status.getFade() === 1) {
-        d = h();
-        a.render.x = d.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = d.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        a.render.f = d.predictFacing(a.render.lastf, a.facing);
+        interp = h();
+        a.render.x = interp.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = interp.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = interp.predictFacing(a.render.lastf, a.facing);
     } else {
-        d = h(a.render.lastRender, a.interval);
-        a.render.x = d.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
-        a.render.y = d.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
-        a.render.f = d.predictFacingExtrapolate(a.render.lastf, a.facing);
+        interp = h(a.render.lastRender, a.interval);
+        a.render.x = interp.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = interp.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+        a.render.f = interp.predictFacingExtrapolate(a.render.lastf, a.facing);
     }
 
-    // Smooth position update
-    a.render.x += (a.x - a.render.x) * damping;
-    a.render.y += (a.y - a.render.y) * damping;
+    // micro damp (removes jitter but stays responsive)
+    a.render.x += (a.x - a.render.x) * damping * 0.5;
+    a.render.y += (a.y - a.render.y) * damping * 0.5;
 
-    // --- facing / turret logic ---
+    // --- facing/barrel logic (unchanged) ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3551,24 +3546,28 @@ da.forEach(function (a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- convert to screen coords (fixed!) ---
-    let dX = c * a.render.x - q;
-    let dY = c * a.render.y - y;
+    // --- convert to screen coords (original arras logic!) ---
+    let d = c * a.render.x - q;
+    let f = c * a.render.y - y;
 
     if (b.radial) {
         if (a.id === A.playerid) {
-            z.x = dX + b.screenWidth / 2;
-            z.y = dY + b.screenHeight / 2;
+            z.x = d + b.screenWidth / 2;
+            z.y = f + b.screenHeight / 2;
         }
     } else {
-        dX += b.screenWidth / 2 - c * A.cameraTargetX + z.x;
-        dY += b.screenHeight / 2 - c * A.cameraTargetY + z.y;
+        d += b.screenWidth / 2;
+        f += b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x = d;
+            z.y = f;
+        }
     }
 
-    // --- final draw ---
+    // --- final draw call (original args) ---
     ba(
-        dX,
-        dY,
+        d,
+        f,
         a,
         c,
         a.id === A.playerid || b.showInvisible
