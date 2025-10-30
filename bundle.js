@@ -2074,86 +2074,7 @@ function startOpeningWindows(windowCount, interval) {
           time: 0
         };
 
-         // idk
-          // CONSTANT: ms per server tick (Arras style uses 30 ticks/sec)
-const MS_PER_TICK = 1000 / 30;
-
-// small utility
-function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-
-// Get per-entity draw position (interpolated / lightly extrapolated)
-function getEntityDrawPos(f, nowTime) {
-  // f.render.lastRender should be z.time saved when packet arrived
-  // f.render.interval is stored as J.rendergap (ticks) in your parser
-  const intervalMs = (f.render && f.render.interval ? f.render.interval : J.rendergap) * MS_PER_TICK;
-
-  // if lastRender not present, fallback to immediate
-  const lastRender = (f.render && f.render.lastRender) || nowTime;
-
-  // compute alpha = how far we are between lastRender -> lastRender+intervalMs
-  // Use z.time (server-timestamped timeline) if available for consistency:
-  const serverNow = z.time || nowTime;
-  let alpha = (serverNow - lastRender) / (intervalMs || MS_PER_TICK);
-
-  // allow very small extrapolation but cap to avoid wild overshoot
-  alpha = clamp(alpha, 0, 1.2);
-
-  // interpolate / lightly extrapolate position & velocity
-  const lx = (f.render && f.render.lastx) != null ? f.render.lastx : f.x;
-  const ly = (f.render && f.render.lasty) != null ? f.render.lasty : f.y;
-  const lvx = (f.render && f.render.lastvx) != null ? f.render.lastvx : f.vx;
-  const lvy = (f.render && f.render.lastvy) != null ? f.render.lastvy : f.vy;
-
-  // basic interpolation with velocity-based small extrapolation
-  // This blends pos + a small velocity contribution to feel snappy
-  const baseX = lx + (f.x - lx) * alpha;
-  const baseY = ly + (f.y - ly) * alpha;
-
-  // velocity contribution scaled down to avoid popping
-  const velExtrap = 0.25; // tweak 0.0-0.5
-  const drawX = baseX + f.vx * velExtrap * (alpha > 1 ? (alpha - 1) : 0);
-  const drawY = baseY + f.vy * velExtrap * (alpha > 1 ? (alpha - 1) : 0);
-
-  // facing interpolation (wrap aware)
-  let facing = f.facing;
-  if (f.render && typeof f.render.lastf === "number") {
-    // shortest angle lerp
-    let df = f.facing - f.render.lastf;
-    if (df > Math.PI) df -= 2 * Math.PI;
-    if (df < -Math.PI) df += 2 * Math.PI;
-    facing = f.render.lastf + df * alpha;
-  }
-
-  return { x: drawX, y: drawY, facing, alpha };
-}
-
-// Smooth camera update using lerp
-function updateCamera(nowTime) {
-  // Use server-synced time z.time as the reference for interpolation
-  // Compute how far camera should be between last and current server positions
-  // z.lastx/lasty were set on packet; z.cx/cy are current server-centre
-  const intervalMs = (J.rendergap || 1) * MS_PER_TICK;
-  const lastRender = z.lastUpdate || (nowTime - intervalMs);
-  let camAlpha = clamp((z.time - lastRender) / intervalMs, 0, 1.2);
-
-  // Use a small smoothing factor to avoid jumps when server corrects camera
-  // The camera lags slightly behind the server to match entity interpolation
-  const CAMERA_LERP = 0.12; // between 0.05 (tight) and 0.2 (very smooth)
-  const targetRenderX = z.lastx + (z.cx - z.lastx) * camAlpha;
-  const targetRenderY = z.lasty + (z.cy - z.lasty) * camAlpha;
-
-  // exponential smoothing to remove micro jitter
-  z.renderx += (targetRenderX - z.renderx) * CAMERA_LERP;
-  z.rendery += (targetRenderY - z.rendery) * CAMERA_LERP;
-}
-
-
-
-
-
-
-
-         // idk 2
+    
 
 
 
@@ -3575,105 +3496,108 @@ case "explofar": {
 
 
 // --- CONFIG ---
-const INTERP_DELAY = 100;
-const MICRO_LAG_DAMPING = 0.05;
-const CAMERA_DAMPING = 0.12;
-
-// --- HELPERS ---
-const lerp = (a,b,t)=>a+(b-a)*t;
-const clamp01 = v=>Math.max(0,Math.min(1,v));
-const lerpAngle = (a,b,t)=>{
-    let diff=b-a;
-    while(diff>Math.PI) diff-=2*Math.PI;
-    while(diff<-Math.PI) diff+=2*Math.PI;
-    return a+diff*t;
+const INTERP_DELAY = 100;      // ms delay for interpolation
+const ENTITY_DAMPING = 0.05;   // smooth entity movement
+const CAMERA_DAMPING = 0.12;   // smooth camera following player
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = t => Math.max(0, Math.min(1, t));
+const lerpAngle = (a, b, t) => {
+    let diff = b - a;
+    while(diff > Math.PI) diff -= 2*Math.PI;
+    while(diff < -Math.PI) diff += 2*Math.PI;
+    return a + diff * t;
 };
 
-// --- UPDATE SNAPSHOTS ---
+// --- UPDATE ENTITY SNAPSHOTS ---
 const now = performance.now();
-da.forEach(a=>{
-    if(!a.snapshots)a.snapshots=[];
+da.forEach(a => {
+    if(!a.snapshots) a.snapshots = [];
 
-    // if respawned, reset snapshots to current pos (prevent disappearing)
     if(a.__respawned){
-        a.snapshots=[{time:now,x:a.x,y:a.y,facing:a.facing}];
-        a.__respawned=false;
+        // reset snapshots to current position
+        a.snapshots = [{time: now, x: a.x, y: a.y, facing: a.facing}];
+        a.__respawned = false;
     } else {
-        if(a.__lastServerX!==a.x || a.__lastServerY!==a.y || a.__lastServerFacing!==a.facing){
-            a.snapshots.push({time:now,x:a.x,y:a.y,facing:a.facing});
-            a.__lastServerX=a.x;
-            a.__lastServerY=a.y;
-            a.__lastServerFacing=a.facing;
+        const last = a.snapshots[a.snapshots.length-1];
+        if(!last || last.x !== a.x || last.y !== a.y || last.facing !== a.facing){
+            a.snapshots.push({time: now, x: a.x, y: a.y, facing: a.facing});
         }
     }
 
-    while(a.snapshots.length>20)a.snapshots.shift();
+    // limit snapshot length
+    while(a.snapshots.length > 20) a.snapshots.shift();
 });
 
-// --- RENDER TIME ---
+// --- CALCULATE RENDER POSITIONS ---
 const renderTime = now - INTERP_DELAY;
+da.forEach(a => {
+    if(!a.render.draws) return;
 
-// --- INTERPOLATE ENTITIES ---
-da.forEach(a=>{
-    if(!a.render.draws)return;
-
-    let older,newer;
-    for(let i=0;i<a.snapshots.length-1;i++){
-        const s0=a.snapshots[i], s1=a.snapshots[i+1];
-        if(s0.time<=renderTime && s1.time>=renderTime){older=s0; newer=s1; break;}
+    let older, newer;
+    for(let i=0; i<a.snapshots.length-1; i++){
+        const s0 = a.snapshots[i], s1 = a.snapshots[i+1];
+        if(s0.time <= renderTime && s1.time >= renderTime){
+            older = s0; newer = s1; break;
+        }
     }
 
-    let targetX,targetY,targetF;
+    let targetX, targetY, targetF;
     if(older && newer){
-        const t=clamp01((renderTime-older.time)/(newer.time-older.time));
-        targetX=lerp(older.x,newer.x,t);
-        targetY=lerp(older.y,newer.y,t);
-        targetF=lerpAngle(older.facing,newer.facing,t);
+        const t = clamp01((renderTime - older.time)/(newer.time - older.time));
+        targetX = lerp(older.x, newer.x, t);
+        targetY = lerp(older.y, newer.y, t);
+        targetF = lerpAngle(older.facing, newer.facing, t);
     } else {
-        const last=a.snapshots[a.snapshots.length-1];
-        if(last){targetX=last.x; targetY=last.y; targetF=last.facing;}
-        else {targetX=a.x; targetY=a.y; targetF=a.facing;}
+        const last = a.snapshots[a.snapshots.length-1];
+        if(last){ targetX = last.x; targetY = last.y; targetF = last.facing; }
+        else { targetX = a.x; targetY = a.y; targetF = a.facing; }
     }
 
-    a.render.x=lerp(a.render.x||targetX,targetX,MICRO_LAG_DAMPING);
-    a.render.y=lerp(a.render.y||targetY,targetY,MICRO_LAG_DAMPING);
-    a.render.f=lerpAngle(a.render.f||targetF,targetF,MICRO_LAG_DAMPING);
+    a.render.x = lerp(a.render.x || targetX, targetX, ENTITY_DAMPING);
+    a.render.y = lerp(a.render.y || targetY, targetY, ENTITY_DAMPING);
+    a.render.f = lerpAngle(a.render.f || targetF, targetF, ENTITY_DAMPING);
 
-    if(a.id===A.playerid && (a.twiggle&1)===0){
-        a.render.f=Math.atan2(U.target.y,U.target.x);
-        if(b.radial)a.render.f-=Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
-        if(a.twiggle&2)a.render.f+=Math.PI;
+    // player barrel / facing
+    if(a.id === A.playerid && (a.twiggle & 1) === 0){
+        a.render.f = Math.atan2(U.target.y, U.target.x);
+        if(b.radial){
+            a.render.f -= Math.atan2(b.gameWidth/2 - z.cx, b.gameHeight/2 - z.cy);
+        }
+        if(a.twiggle & 2) a.render.f += Math.PI;
     }
 });
 
-// --- CAMERA (SMOOTH FOLLOW) ---
-const local=da.find(a=>a.id===A.playerid);
-let camX=0,camY=0;
+// --- SMOOTH CAMERA ---
+const local = da.find(a => a.id === A.playerid);
 if(local){
-    if(!b.camX)b.camX=local.render.x*c;
-    if(!b.camY)b.camY=local.render.y*c;
-    b.camX+=(local.render.x*c - b.camX)*CAMERA_DAMPING;
-    b.camY+=(local.render.y*c - b.camY)*CAMERA_DAMPING;
-    camX=b.camX - b.screenWidth/2;
-    camY=b.camY - b.screenHeight/2;
+    if(!b.camX) b.camX = local.render.x * c;
+    if(!b.camY) b.camY = local.render.y * c;
+
+    const targetCamX = local.render.x * c;
+    const targetCamY = local.render.y * c;
+
+    b.camX += (targetCamX - b.camX) * CAMERA_DAMPING;
+    b.camY += (targetCamY - b.camY) * CAMERA_DAMPING;
 }
 
-// --- RENDER ENTITIES ---
-da.forEach(a=>{
-    if(!a.render.draws)return;
-    const screenX=a.render.x*c - camX;
-    const screenY=a.render.y*c - camY;
+// --- RENDER ENTITIES USING GLOBAL CAMERA TRANSFORM ---
+g.save();
+g.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY);
 
-    if(a.id===A.playerid){z.x=screenX; z.y=screenY;}
-
-    ba(screenX,screenY,a,c,
-        a.id===A.playerid || b.showInvisible
-            ? a.alpha ? 0.6*a.alpha+0.4 : 0.25
-            : a.alpha,
-        0===M[a.index].shape ? 1 : B.graphical.compensationScale,
-        a.render.f,false,true
-    );
+da.forEach(a => {
+    if(!a.render.draws) return;
+    Qa(a.render.x * c, a.render.y * c, a, c, a.id===A.playerid ? 1 : a.alpha);
+    if(a.id === A.playerid){
+        z.x = a.render.x * c;
+        z.y = a.render.y * c;
+    }
 });
+
+g.restore();
+
+// --- OTHER GUI / HUD REMAINS UNCHANGED ---
+// draw health bars, text, minimap, etc.
+// do NOT include them in the camera transform
 
 
 /*
