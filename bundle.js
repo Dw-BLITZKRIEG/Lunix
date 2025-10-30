@@ -3588,7 +3588,6 @@ function clamp01(v) {
     return Math.max(0, Math.min(1, v));
 }
 
-// angle interpolation that wraps around (avoids jump between -π and π)
 function lerpAngle(a, b, t) {
     let diff = b - a;
     while (diff > Math.PI) diff -= 2 * Math.PI;
@@ -3657,7 +3656,7 @@ da.forEach(function (a) {
         }
     }
 
-    // --- player-facing logic (still overrides if it's the local player) ---
+    // --- player-facing logic (unchanged for local player) ---
     if (a.id === A.playerid && (a.twiggle & 1) === 0) {
         a.render.f = Math.atan2(U.target.y, U.target.x);
         if (b.radial) {
@@ -3669,7 +3668,25 @@ da.forEach(function (a) {
         if (a.twiggle & 2) a.render.f += Math.PI;
     }
 
-    // --- convert to screen coordinates ---
+    // --- ensure camera follows rendered (smoothed) position ---
+    if (a.id === A.playerid) {
+        if (!b.camX || !b.camY) {
+            // initialize if not set
+            b.camX = a.render.x;
+            b.camY = a.render.y;
+        }
+
+        // optional: damp camera movement for smooth follow
+        const cameraSmooth = 0.12; // lower = smoother
+        b.camX += (a.render.x - b.camX) * cameraSmooth;
+        b.camY += (a.render.y - b.camY) * cameraSmooth;
+    }
+
+    // --- camera offset based on smoothed cam position ---
+    const q = c * b.camX - b.screenWidth / 2;
+    const y = c * b.camY - b.screenHeight / 2;
+
+    // --- convert entity to screen coordinates ---
     let d = c * a.render.x - q;
     let f = c * a.render.y - y;
 
@@ -3704,6 +3721,7 @@ da.forEach(function (a) {
         !0
     );
 });
+
 
 
 
