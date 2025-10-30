@@ -3494,7 +3494,6 @@ case "explofar": {
               }
 ////////////////////////////////////////////////////////////
 
-
 // --- CONFIG ---
 const INTERP_DELAY = 100;      // ms delay for interpolation
 const ENTITY_DAMPING = 0.05;   // smooth entity movement
@@ -3514,7 +3513,7 @@ da.forEach(a => {
     if(!a.snapshots) a.snapshots = [];
 
     if(a.__respawned){
-        // reset snapshots to current position
+        // reset snapshots on respawn
         a.snapshots = [{time: now, x: a.x, y: a.y, facing: a.facing}];
         a.__respawned = false;
     } else {
@@ -3524,11 +3523,10 @@ da.forEach(a => {
         }
     }
 
-    // limit snapshot length
     while(a.snapshots.length > 20) a.snapshots.shift();
 });
 
-// --- CALCULATE RENDER POSITIONS ---
+// --- CALCULATE ENTITY RENDER POSITIONS ---
 const renderTime = now - INTERP_DELAY;
 da.forEach(a => {
     if(!a.render.draws) return;
@@ -3580,25 +3578,25 @@ if(local){
     b.camY += (targetCamY - b.camY) * CAMERA_DAMPING;
 }
 
-// --- RENDER ENTITIES USING GLOBAL CAMERA TRANSFORM ---
+// --- RENDER ENTITIES ---
 g.save();
 g.translate(b.screenWidth/2 - b.camX, b.screenHeight/2 - b.camY);
 
 da.forEach(a => {
     if(!a.render.draws) return;
     Qa(a.render.x * c, a.render.y * c, a, c, a.id===A.playerid ? 1 : a.alpha);
+
+    // update local player screen position
     if(a.id === A.playerid){
         z.x = a.render.x * c;
         z.y = a.render.y * c;
     }
 });
-
 g.restore();
 
-// --- OTHER GUI / HUD REMAINS UNCHANGED ---
-// draw health bars, text, minimap, etc.
-// do NOT include them in the camera transform
-
+// --- GUI / HUD / Minimap ---
+// All GUI elements drawn here WITHOUT camera transform
+// Health bars, text, minimap, etc. remain unchanged
 
 /*
 // --- ultra-smooth interpolation timing helper ---
