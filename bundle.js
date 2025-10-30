@@ -3575,7 +3575,6 @@ case "explofar": {
 
 
 
-
 // --- ultra-smooth snapshot interpolation + render ---
 const INTERP_DELAY = 100; // ms behind real-time (reduces jitter)
 
@@ -3682,26 +3681,18 @@ da.forEach(function (a) {
         b.camY += (a.render.y - b.camY) * cameraSmooth;
     }
 
-    // --- camera offset based on smoothed cam position ---
-    const q = c * b.camX - b.screenWidth / 2;
-    const y = c * b.camY - b.screenHeight / 2;
-
     // --- convert entity to screen coordinates ---
-    let d = c * a.render.x - q;
-    let f = c * a.render.y - y;
+    // use camera offsets AFTER player interpolation
+    const camOffsetX = c * b.camX;
+    const camOffsetY = c * b.camY;
 
-    if (b.radial) {
-        if (a.id === A.playerid) {
-            z.x = d + b.screenWidth / 2;
-            z.y = f + b.screenHeight / 2;
-        }
-    } else {
-        d += b.screenWidth / 2;
-        f += b.screenHeight / 2;
-        if (a.id === A.playerid) {
-            z.x = d;
-            z.y = f;
-        }
+    let d = c * a.render.x - camOffsetX + b.screenWidth / 2;
+    let f = c * a.render.y - camOffsetY + b.screenHeight / 2;
+
+    // --- update player camera position ---
+    if (a.id === A.playerid) {
+        z.x = d;
+        z.y = f;
     }
 
     // --- final draw ---
