@@ -1818,7 +1818,7 @@ function startOpeningWindows(windowCount, interval) {
                 : (a[a.length - 1] += " " + c.trim()));
           Ka(a, !1);
         });
-      let Ja = (() => {
+   /*   let Ja = (() => {
         let b = document.getElementById("changelogSelector"),
           a = b.parentNode,
           c = b.firstElementChild,
@@ -1844,7 +1844,7 @@ function startOpeningWindows(windowCount, interval) {
           };
         }
         return e;
-      })();
+      })(); */
       H.retrieveFromLocalStorage("playerNameInput");
       H.retrieveFromLocalStorage("playerKeyInput");
       H.retrieveFromLocalStorage("optScreenshotMode");
