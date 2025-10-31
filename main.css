@@ -603,7 +603,7 @@ body.mobile .icon {
   height: 50px;
   box-sizing: border-box;
   color: white;
-  margin-top: -20px;
+  margin-top: -16px;
     animation:pfpDefault 800ms linear both;
   text-align: center;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -617,13 +617,13 @@ body.mobile .icon {
   font: 16px sans-serif;
 }
 #startButton:hover {
-  margin-top: 1px;
+  margin-top: -15px;
   height: 49px;
   border-bottom: 1px solid #8ABC3F;
 }
 
 #startButton:active {
-  margin-top: 2px;
+  margin-top: -16px;
   height: 49px;
   background: #8ABC3F;
   border-bottom: 0px;
