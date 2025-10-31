@@ -363,7 +363,7 @@ a.menuTab:link:hover, a.menuTab:visited:hover {
 
 .sliderHolder {
   width: 350px;
-  height: 350px;
+  height: 400px;
   overflow: hidden;
 }
 body.mobile .sliderHolder {
@@ -488,7 +488,7 @@ body.mobile .slided .slider {
 }
 
 .startMenuSlidingContent {
-  height: 400px;
+  height: 390px;
 }
 body.mobile .startMenuSlidingContent {
   height: 225px;
