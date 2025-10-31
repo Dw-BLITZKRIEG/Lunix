@@ -200,7 +200,7 @@ input.error {
 }
 
 #mainWrapper {
-  padding: 160px 20px 0;
+  padding: 80px 20px 0;
 
 }
 
@@ -208,7 +208,8 @@ input.error {
   position: relative;
   margin: 0 auto;
   max-height: 700px; 
-  padding: 50px;
+  height: 690;
+  padding: 10px;
   border-radius: 20px;
   background-color: #dde6eb;
   box-sizing: border-box;
