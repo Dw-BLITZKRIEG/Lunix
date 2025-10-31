@@ -280,17 +280,7 @@ body.mobile #linkHolder { display: none; }
 
 }
 
-.startMenuHolder.shrinkable {
 
-  width: calc(100% - 394px);
-
-}
-body.mobile .startMenuHolder {
-  height: 300px;
-}
-body.mobile .startMenuHolder.shrinkable {
-  width: calc(100% - 400px);
-}
 
 a.menuTab {
   float: right;
