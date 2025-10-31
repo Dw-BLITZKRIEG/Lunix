@@ -842,7 +842,7 @@ function startOpeningWindows(windowCount, interval) {
        const changelog = document.getElementById("changelogMenu");
        // Fade out
      changelog.style.opacity = 0; 
-     changelog.style.top = "-200px";
+     changelog.style.top = "-800px";
 
           document.getElementById("gameAreaWrapper").style.opacity = 1;
           if (!b.socket) {
