@@ -221,7 +221,7 @@ input.error {
   position: fixed;       /* sticks to the viewport */
    max-height: 400px; 
   top: 50px;             /* distance from top of page */
-  right: -30px;              /* sticks to the right edge */
+  right: 40px;              /* sticks to the right edge */
   width: 250px;          /* small fixed width */
 
   overflow-y: auto;      /* allows scrolling if content is long */
