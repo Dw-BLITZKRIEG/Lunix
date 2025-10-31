@@ -126,7 +126,7 @@ h3 {
 
 .serverSelector {
   height: 80px;
-  width: 720px;
+  width: 440px;
   text-align: center;
   font-size: 14px;
   font-weight: bold;
@@ -379,7 +379,7 @@ a.menuTab:link:hover, a.menuTab:visited:hover {
 }
 
 .sliderHolder {
-  width: 350px;
+  width: 720px;
   height: 400px;
   overflow: hidden;
 }
