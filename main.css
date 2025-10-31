@@ -501,9 +501,9 @@ body.mobile .startMenuSlidingContent {
 
 .icon {
   display: block;
-  width: 96px;
+  width: 130px;
   padding-top: 4px;
-  height: 96px;
+  height: 130px;
   padding-bottom: -3px;
   border-radius: 50%;
    animation:pfpDefault 800ms linear both;
