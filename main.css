@@ -215,6 +215,24 @@ input.error {
   box-sizing: border-box;
   overflow: hidden;
 }
+
+
+#changelogMenu {
+  position: fixed;       /* sticks to the viewport */
+  top: 50px;             /* distance from top of page */
+  right: 0;              /* sticks to the right edge */
+  width: 250px;          /* small fixed width */
+  max-height: 80vh;      /* prevents it from being taller than viewport */
+  overflow-y: auto;      /* allows scrolling if content is long */
+  background: #eef;      /* light background */
+  border-left: 2px solid #70b5ff; /* subtle border */
+  border-radius: 5px 0 0 5px;     /* rounded left side */
+  padding: 10px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2); /* slight shadow */
+  z-index: 1000;         /* above other content */
+}
+
+
 .menuTabs {
   height: 26px;
   margin: 0 8px;
@@ -257,9 +275,7 @@ body.mobile #linkHolder { display: none; }
 }
 
 .startMenuHolder.shrinkable {
-    position: absolute; /* removed from normal flow */
-  top: 50px;          /* distance from top of the page */
-  right: -50px;       /* negative value moves it outside parent */
+
   width: calc(100% - 394px);
 
 }
