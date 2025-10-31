@@ -222,7 +222,7 @@ input.error {
    max-height: 460px; 
   top: 50px;             /* distance from top of page */
   right: 40px;              /* sticks to the right edge */
-  width: 3500px;          /* small fixed width */
+  width: 350px;          /* small fixed width */
 
   overflow-y: auto;      /* allows scrolling if content is long */
   background: #eef;      /* light background */
