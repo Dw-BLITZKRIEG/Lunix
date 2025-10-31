@@ -49,7 +49,7 @@ hr {
 
 html, body, canvas {
   width: 100%;
-  height: 100%;
+  height: 180%;
   margin: 0;
   padding: 0;
 }
@@ -121,7 +121,7 @@ h3 {
 }
 
 .serverSelector {
-  height: 100px;
+  height: 80px;
 
   text-align: center;
   font-size: 14px;
