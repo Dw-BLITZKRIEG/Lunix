@@ -135,7 +135,7 @@ h3 {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.15);
-  color: #777;
+  
 }
 .serverSelector tr {
   color: #828282;
