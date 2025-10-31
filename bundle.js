@@ -839,7 +839,7 @@ function startOpeningWindows(windowCount, interval) {
           b.screenWidth = window.innerWidth;
           b.screenHeight = window.innerHeight;
           document.getElementById("startMenuWrapper").style.top = "-800px"; // make it move up
-            document.getElementById("changelogMenu").style.opacity = "0"; // make it move up
+            document.getElementById("changelogMenu").style.opacity = 0; // make it move up
           document.getElementById("gameAreaWrapper").style.opacity = 1;
           if (!b.socket) {
             d = "https:" === location.protocol ? 1 : -1;
