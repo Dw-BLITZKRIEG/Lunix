@@ -3467,8 +3467,123 @@ case "explofar": {
                 g.rotate(c);
               }
 //////////////////////////////////////////////////////////////
-// new code: B
 
+// --- ultra-smooth interpolation timing helper ---
+if (!window.__interp) {
+    window.__interp = {
+        times: Array(10).fill(1000 / 60),
+        i: 0,
+        avg: 1000 / 60,
+        lastNow: performance.now(),
+    };
+} else {
+    const now = performance.now();
+    const delta = now - window.__interp.lastNow;
+    window.__interp.lastNow = now;
+    window.__interp.times[window.__interp.i] = delta;
+    window.__interp.i = (window.__interp.i + 1) % window.__interp.times.length;
+    const avg = window.__interp.times.reduce((a, b) => a + b, 0) / window.__interp.times.length;
+    window.__interp.avg = window.__interp.avg * 0.9 + avg * 0.1;
+}
+
+// --- main render interpolation loop ---
+da.forEach(function (a) {
+    if (!a.render.draws) return;
+
+    // rolling smooth factor based on frame timing
+    const smoothFactor = Math.min(window.__interp.avg / (1000 / 30), 2);
+    const damping = 1 - Math.exp(-smoothFactor * 0.20);
+
+    // predict/interpolate entity motion
+    let interp;
+    if (a.render.status.getFade() === 1) {
+        interp = h();
+        a.render.x = interp.predict(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = interp.predict(a.render.lasty, a.y, a.render.lastvy, a.vy);
+    } else {
+        interp = h(a.render.lastRender, a.interval);
+        a.render.x = interp.predictExtrapolate(a.render.lastx, a.x, a.render.lastvx, a.vx);
+        a.render.y = interp.predictExtrapolate(a.render.lasty, a.y, a.render.lastvy, a.vy);
+    }
+
+    // --- smooth barrel turning (Diep.io style) ---
+    const targetFacing =
+        a.render.status.getFade() === 1
+            ? interp.predictFacing(a.render.lastf, a.facing)
+            : interp.predictFacingExtrapolate(a.render.lastf, a.facing);
+
+    // track angular velocity for momentum-like effect
+    if (a.render.angVel === undefined) a.render.angVel = 0;
+
+    // shortest rotation path
+    let angleDiff = ((targetFacing - a.render.f + Math.PI) % (2 * Math.PI)) - Math.PI;
+
+    // control parameters
+    const turnDamping = 1 - Math.exp(-smoothFactor * 0.35); // responsiveness
+    const inertia = 0.85; // rotational inertia (0 = snappy, 1 = floaty)
+
+    // apply angular momentum (smooth turn)
+    a.render.angVel = a.render.angVel * inertia + angleDiff * turnDamping * (1 - inertia);
+    a.render.f += a.render.angVel;
+
+    // --- micro damp (removes jitter but stays responsive) ---
+    a.render.x += (a.x - a.render.x) * damping * 0.5;
+    a.render.y += (a.y - a.render.y) * damping * 0.5;
+
+    // --- facing/barrel logic for player ---
+    if (a.id === A.playerid && (a.twiggle & 1) === 0) {
+        a.render.f = Math.atan2(U.target.y, U.target.x);
+        if (b.radial) {
+            a.render.f -= Math.atan2(
+                b.gameWidth / 2 - z.cx,
+                b.gameHeight / 2 - z.cy
+            );
+        }
+        if (a.twiggle & 2) a.render.f += Math.PI;
+    }
+
+    // --- convert to screen coords (original arras logic!) ---
+    let d = c * a.render.x - q;
+    let f = c * a.render.y - y;
+
+    if (b.radial) {
+        if (a.id === A.playerid) {
+            z.x = d + b.screenWidth / 2;
+            z.y = f + b.screenHeight / 2;
+        }
+    } else {
+        d += b.screenWidth / 2;
+        f += b.screenHeight / 2;
+        if (a.id === A.playerid) {
+            z.x = d;
+            z.y = f;
+        }
+    }
+
+    // --- final draw call (original args) ---
+    ba(
+        d,
+        f,
+        a,
+        c,
+        a.id === A.playerid || b.showInvisible
+            ? a.alpha
+                ? 0.6 * a.alpha + 0.4
+                : 0.25
+            : a.alpha,
+        0 === M[a.index].shape ? 1 : B.graphical.compensationScale,
+        a.render.f,
+        false,
+        true
+    );
+});
+
+
+
+
+
+// new code: B
+/*
 // --- ultra-smooth interpolation timing helper ---
 if (!window.__interp) {
     window.__interp = {
@@ -3560,7 +3675,7 @@ da.forEach(function (a) {
         true
     );
 });
-
+*/
 /////////////////////////////////////////////////////////////////////////////////
 
               b.radial && g.restore();
