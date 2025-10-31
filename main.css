@@ -502,6 +502,7 @@ body.mobile .startMenuSlidingContent {
 .icon {
   display: block;
   width: 130px;
+  margin: 0 auto;
   padding-top: 4px;
   height: 130px;
   padding-bottom: -3px;
