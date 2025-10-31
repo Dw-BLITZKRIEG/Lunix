@@ -1818,33 +1818,7 @@ function startOpeningWindows(windowCount, interval) {
                 : (a[a.length - 1] += " " + c.trim()));
           Ka(a, !1);
         });
-   /*   let Ja = (() => {
-        let b = document.getElementById("changelogSelector"),
-          a = b.parentNode,
-          c = b.firstElementChild,
-          h = document.getElementById("patchNotes"),
-          e = {};
-        for (let d = 0; d < b.children.length; d++) {
-          let f = b.children[d],
-            y = f.dataset.type;
-          e[y] = f.onclick = () => {
-            if (f !== c) {
-              var d = c.dataset.type;
-              c.classList.remove("active");
-              f.classList.add("active");
-              h.classList.remove(d);
-              h.classList.add(y);
-              c = f;
-              a.scrollLeft =
-                f.offsetLeft -
-                b.offsetLeft +
-                f.offsetWidth / 2 -
-                a.offsetWidth / 2;
-            }
-          };
-        }
-        return e;
-      })(); */
+ 
       H.retrieveFromLocalStorage("playerNameInput");
       H.retrieveFromLocalStorage("playerKeyInput");
       H.retrieveFromLocalStorage("optScreenshotMode");
