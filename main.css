@@ -310,7 +310,7 @@ a.menuTab:link:hover, a.menuTab:visited:hover {
 }
 
 .changelogSelectorContainer {
-  height: 80px;
+  height: 50px;
   font: bold 20px Ubuntu;
   text-align: center;
   padding: 0 15px 5px 0;
