@@ -257,7 +257,11 @@ body.mobile #linkHolder { display: none; }
 }
 
 .startMenuHolder.shrinkable {
+    position: absolute; /* removed from normal flow */
+  top: 50px;          /* distance from top of the page */
+  right: -50px;       /* negative value moves it outside parent */
   width: calc(100% - 394px);
+
 }
 body.mobile .startMenuHolder {
   height: 300px;
