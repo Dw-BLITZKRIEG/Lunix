@@ -219,7 +219,7 @@ input.error {
 
 #changelogMenu {
   position: fixed;       /* sticks to the viewport */
-   max-height: 460px; 
+   max-height: 480px; 
   top: 50px;             /* distance from top of page */
   right: 0px;              /* sticks to the right edge */
   width: 350px;          /* small fixed width */
