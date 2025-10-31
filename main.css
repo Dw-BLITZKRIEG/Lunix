@@ -247,7 +247,7 @@ body.mobile #linkHolder { display: none; }
 
 .startMenuHolder {
   width: 350px;
-  height: 850px;
+  height: 550px;
   padding: 10px;
   overflow: hidden;
   display: inline-block;
