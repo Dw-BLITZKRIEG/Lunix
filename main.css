@@ -57,21 +57,7 @@ canvas {
 image-rendering: auto;
 }
 
-Ct {
-   
-  margin-top: 0px;
-  margin-bottom: 10px;
-  font-family: sans-serif;
-  font-size: 4rem;
-  text-align: center;
-    background: linear-gradient(to top, #ffffff, #000000 );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-color: #222;
 
-
-
-}
 
 
 
@@ -236,7 +222,7 @@ input.error {
 
 #changelogMenu {
   position: fixed;       /* sticks to the viewport */
-   max-height: 490px; 
+   max-height: 500px; 
   top: 50px;             /* distance from top of page */
   right: 0px;              /* sticks to the right edge */
   width: 350px;          /* small fixed width */
