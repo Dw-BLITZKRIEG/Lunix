@@ -807,53 +807,7 @@ function startOpeningWindows(windowCount, interval) {
 
 
 
-          //**********************code for 1st time visit settings */
-
-            // Default values for first-time visitors
-  const defaults = {
-    optNoPointy: false,   // Classic Traps OFF by default
-    optPrediction: true,  // New Interpolation ON by default
-    optch: true           // Crosshair ON by default
-  };
-
-  // Initialize settings
-  Object.keys(defaults).forEach(id => {
-    const el = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (saved === null) {
-      // First-time → set default
-      el.checked = defaults[id];
-    } else {
-      // Use saved value
-      el.checked = JSON.parse(saved);
-    }
-
-    // Apply immediately to game variables
-    applySetting(id, el.checked);
-
-    // Listen for changes
-    el.addEventListener('change', () => {
-      localStorage.setItem(id, el.checked);
-      applySetting(id, el.checked);
-    });
-  });
-
-  // Function to update your game variables
-  function applySetting(id, value) {
-    switch(id) {
-      case "optNoPointy":
-        B.graphical.pointy = !value;
-        break;
-      case "optPrediction":
-        B.lag.newPrediction = value;
-        break;
-      case "optch":
-        b.crosshair = value; // Assuming your crosshair variable is b.crosshair
-        break;
-    }
-  }
-
-  //************************************************* */
+         
 
 
 
