@@ -223,6 +223,32 @@ function PlaySound() {
   </div>
 
 
+<!-- Recommended Settings Box -->
+<div id="recommendBox">
+    <strong>Recommended Settings:</strong>
+    <ul>
+        <li>Classic Traps: OFF</li>
+        <li>New Interpolation: ON</li>
+        <li>Crosshair: ON</li>
+    </ul>
+    <button id="recommendClose">Got it!</button>
+</div>
+
+<script>
+    // Check if user has visited before
+    if (!localStorage.getItem('firstVisitShown')) {
+        const box = document.getElementById('recommendBox');
+        box.style.display = 'block';
+
+        document.getElementById('recommendClose').addEventListener('click', () => {
+            box.style.display = 'none';
+            localStorage.setItem('firstVisitShown', 'true');
+        });
+    }
+</script>
+
+<!-- Recommended Settings Box END -->
+
 
 
  <div class="popup" onclick="myFunction()"> 	<span> <ion-icon name="settings-outline"></ion-icon> 	</span>
