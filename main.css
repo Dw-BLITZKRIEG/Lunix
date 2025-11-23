@@ -1223,15 +1223,17 @@ body.flicker {
 #recommendBox {
     display: none; /* hidden by default */
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(-200px); /* center and raise by 200px */
     background: rgba(0, 0, 0, 0.85);
     color: white;
     padding: 15px 20px;
     border-radius: 8px;
     font-family: sans-serif;
     z-index: 9999;
-    max-width: 250px;
+    max-width: 300px;
+    text-align: left;
 }
 
 #recommendBox ul {
@@ -1253,3 +1255,4 @@ body.flicker {
 #recommendBox button:hover {
     background: #45a049;
 }
+
