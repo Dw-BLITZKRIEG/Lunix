@@ -4226,7 +4226,7 @@ if (window.showKillCounter) {
                   (m -= 40));
                 if (B.graphical.screenshotMode)
                   W[6].draw(
-                    "Nebulix",
+                    "Nevix",
                     h + 200,
                     m - 2,
                     15,
@@ -4236,7 +4236,7 @@ if (window.showKillCounter) {
                 else {
                   if (b.showDebug) {
                     W[6].draw(
-                      "Nebulix",
+                      "Nevix",
                       h + 200,
                       m - 84 - 2,
                       15,
@@ -4273,7 +4273,7 @@ if (window.showKillCounter) {
                     );
                   } else
                     W[6].draw(
-                      "Nebulix",
+                      "Nevix",
                       h + 200,
                       m - 42 - 2,
                       15,
