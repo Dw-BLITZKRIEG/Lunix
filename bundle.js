@@ -5295,56 +5295,11 @@ if (window.showKillCounter) {
 
           },
 {                   
-                    visible: 1,
-            id: "s",
-            type: "main",
-            code: "glitch-worldwide-s",
-            at: p.glitch("wd-serverss"),
-            
-            prefer: 0,
-             featured: 0, // For Featured Status.
-
-          },
-{                   
                     visible: 0,
             id: "c",
             type: "main",
             code: "render-frankfurt-4",
             at: p.render("linux-serverb"), // my fuking retard of a brain named it wrongly
-            
-            prefer: 0,
-             featured: 0, // For Featured Status.
-
-          },
-{                   
-                    visible: 3,  // change ts to 0 for halloween.
-            id: "error",
-            type: "main",
-            code: "glitch-err-q",
-            at: p.glitch("do-not-join-server"),
-           
-            prefer: 1,
-             featured: 0, // For Featured Status.
-
-          },
-{                   
-                    visible: 1,
-            id: "z",
-            type: "main",
-            code: "glitch-worldwide-t",
-            at: p.glitch("wd-serverm"),
-            
-            prefer: 0,
-             featured: 0, // For Featured Status.
-
-          },
-
-{                   
-                    visible: 0,
-            id: "x",
-            type: "main",
-            code: "replit-worldwide-x",
-            at: p.replit("1c1b29b9-06b2-4bcd-b8b0-7b1b7d850583-00-2ja1ij0t0y5io.riker"),
             
             prefer: 0,
              featured: 0, // For Featured Status.
