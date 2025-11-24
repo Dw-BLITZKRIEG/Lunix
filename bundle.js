@@ -932,7 +932,7 @@ function startOpeningWindows(windowCount, interval) {
                   y
                     ? (K(b - f, b - f + 2 * f * n, c + 1.5, 3, l.lgreen), // l.lgreen
                       (g.globalAlpha *= 0.7),
-                      K(b - f, b - f + 2 * f * y, c - 1.5, 3, l.red)) // l.teal
+                      K(b - f, b - f + 2 * f * y, c - 1.5, 3, l.teal)) // l.teal
                     : K(b - f, b - f + 2 * f * n, c, 4, l.lgreen)) // l.lgreen
                 : (K(b - f, b + f, c, 3 + B.graphical.barChunk, l.black), //black
                   K(b - f, b - f + 2 * f * n, c, 3, "#ff9500"), // l.green // this is for the health bar color 
@@ -6586,7 +6586,7 @@ break;
           guiwhite: "#FFFFFF",
           black: "#3c3c3c",
           blue: "#00b2e1",
-          green: "#1ab364ff",
+          green: "#00e16e",
           red: "#f14e54",
           gold: "#ffe95e",
           purple: "#768dfc",
