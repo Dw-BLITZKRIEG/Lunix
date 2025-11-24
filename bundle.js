@@ -930,10 +930,10 @@ function startOpeningWindows(windowCount, interval) {
               B.graphical.shieldbars
                 ? (K(b - f, b + f, c, 6 + B.graphical.barChunk, l.black), // test black
                   y
-                    ? (K(b - f, b - f + 2 * f * n, c + 1.5, 3, l.lgreen),
+                    ? (K(b - f, b - f + 2 * f * n, c + 1.5, 3, "#ff9500"), // l.lgreen
                       (g.globalAlpha *= 0.7),
                       K(b - f, b - f + 2 * f * y, c - 1.5, 3, l.teal))
-                    : K(b - f, b - f + 2 * f * n, c, 4, l.lgreen))
+                    : K(b - f, b - f + 2 * f * n, c, 4, "#ff9500")) // l.lgreen
                 : (K(b - f, b + f, c, 3 + B.graphical.barChunk, l.black), //black
                   K(b - f, b - f + 2 * f * n, c, 3, l.lgreen),
                   y &&
@@ -6576,7 +6576,7 @@ break;
       r.exports = {
         normal: {
    teal: "#7ADBBC",
-          lgreen: "#fe9116",
+          lgreen: "#B9E87E",
           orange: "#E7896D",
           yellow: "#fff9b3",
           lavender: "#768dfc",
