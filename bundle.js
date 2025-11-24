@@ -6576,7 +6576,7 @@ break;
       r.exports = {
         normal: {
    teal: "#7ADBBC",
-          lgreen: "#B9E87E",
+          lgreen: "#fe9116",
           orange: "#E7896D",
           yellow: "#fff9b3",
           lavender: "#768dfc",
@@ -6586,7 +6586,7 @@ break;
           guiwhite: "#FFFFFF",
           black: "#3c3c3c",
           blue: "#00b2e1",
-          green: "#00e16e",
+          green: "#1ab364ff",
           red: "#f14e54",
           gold: "#ffe95e",
           purple: "#768dfc",
