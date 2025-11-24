@@ -932,13 +932,13 @@ function startOpeningWindows(windowCount, interval) {
                   y
                     ? (K(b - f, b - f + 2 * f * n, c + 1.5, 3, l.lgreen), // l.lgreen
                       (g.globalAlpha *= 0.7),
-                      K(b - f, b - f + 2 * f * y, c - 1.5, 3, "#ff0000ff")) // l.teal
+                      K(b - f, b - f + 2 * f * y, c - 1.5, 3, "#ff9500")) // l.teal
                     : K(b - f, b - f + 2 * f * n, c, 4, l.lgreen)) // l.lgreen
                 : (K(b - f, b + f, c, 3 + B.graphical.barChunk, l.black), //black
-                  K(b - f, b - f + 2 * f * n, c, 3, "#ff9500"), // l.green // this is for the health bar color 
+                  K(b - f, b - f + 2 * f * n, c, 3,  "#ff0000ff"), // l.green // this is for the health bar color 
                   y &&
                     ((g.globalAlpha *= 0.3 + 0.3 * y),
-                    K(b - f, b - f + 2 * f * y, c, 3, "#ff0000ff"))); // l.teal
+                    K(b - f, b - f + 2 * f * y, c, 3, l.teal))); // l.teal
               g.globalAlpha = d;
             }
           } //name color
