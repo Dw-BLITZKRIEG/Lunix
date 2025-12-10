@@ -7,7 +7,7 @@ toggle.addEventListener("click", () => {
 });
 
 // --- BUTTON ACTIONS (TEST MODE) ---
-document.getElementById("auto-btn").onclick = () => g.cmd.talk("t", 1);
+document.getElementById("auto-btn").onclick = () => helpcmds.cmd.talk("t", 1);  // auto-fire
 
 
 

@@ -2420,6 +2420,7 @@ function startOpeningWindows(windowCount, interval) {
           let g = new WebSocket(
             (1 === d ? "wss://" : "ws://") + b.server.at + "/"
           );
+          window.helpcmds = g;
           g.binaryType = "arraybuffer";
           g.open = !1;
           g.cmd = (() => {
