@@ -4119,11 +4119,13 @@ if (window.showKillCounter) {
                 );
 }
 /////////////////////////////////////////////////////////////////
-// Define buttons globally
+// Define buttons globally with cooldown tracking
 window.canvasButtons = [
-    { x: 50, y: 50, w: 150, h: 50, text: "AUTO FIRE", action: () => window.helpcmds.talk("t",1) },
-    { x: 50, y: 110, w: 150, h: 50, text: "AUTO SPIN", action: () => window.helpcmds.talk("t",0) }
+    { x: 50, y: 50, w: 150, h: 50, text: "AUTO FIRE", lastPressed: 0, action: () => window.helpcmds.talk("t",1) },
+    { x: 50, y: 110, w: 150, h: 50, text: "AUTO SPIN", lastPressed: 0, action: () => window.helpcmds.talk("t",0) }
 ];
+
+const COOLDOWN = 200; // milliseconds
 
 // Draw function
 function drawButtons() {
@@ -4133,39 +4135,46 @@ function drawButtons() {
     if (!ctx) return;
 
     window.canvasButtons.forEach(btn => {
+        // Draw button background
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
 
+        // Draw button text
         ctx.fillStyle = "#fff";
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(btn.text, btn.x + btn.w/2, btn.y + btn.h/2);
+        ctx.fillText(btn.text, btn.x + btn.w / 2, btn.y + btn.h / 2);
     });
 }
 
- drawButtons();
+// Draw buttons once (optional, for testing)
+drawButtons();
 
- const canvas = document.getElementById("gameCanvas");
+// Canvas click handler with cooldown
+const canvas = document.getElementById("gameCanvas");
 
 canvas.addEventListener("click", e => {
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
 
+    const now = Date.now();
+
     window.canvasButtons.forEach(btn => {
         if (
             mx >= btn.x && mx <= btn.x + btn.w &&
             my >= btn.y && my <= btn.y + btn.h
         ) {
-            btn.action();
+            if (now - btn.lastPressed > COOLDOWN) {
+                btn.lastPressed = now;
+                btn.action();
+            }
         }
     });
 });
+/////////////////////////////////////////////////////////////////
 
-
-
-//////////////////////////////////////////////////////////////////////
                 if (z.name.includes("[AI]"))
                   N.draw(
                     z.name,
