@@ -1,45 +1,38 @@
-// --- TOGGLE MENU ---
-const toggle = document.getElementById("menu-toggle");
-const menu = document.getElementById("mobile-controls");
 
-toggle.addEventListener("click", () => {
-    menu.classList.toggle("hidden");
+// --- MOBCONTROLS.JS ---
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // --- TOGGLE MENU ---
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-controls");
+
+    if (toggle && menu) {
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+    }
+
+    // --- BUTTONS ---
+    const buttons = [
+        { id: "auto-btn", action: "AUTO_FIRE" },
+        { id: "spin-btn", action: "AUTO_SPIN" }
+    ];
+
+    buttons.forEach(btnData => {
+        const btn = document.getElementById(btnData.id);
+        if (!btn) return; // skip if button doesn't exist
+
+        // prevent button from stealing focus
+        btn.addEventListener("mousedown", e => e.preventDefault());
+
+        // set mobileAction when clicked
+        btn.addEventListener("click", () => {
+            window.mobileAction = btnData.action;
+        });
+    });
+
 });
-
-// prevent buttons from stealing focus
-const buttons = ["auto-btn", "spin-btn"]; // add more buttons as needed
-buttons.forEach(id => {
-    const btn = document.getElementById(id);
-    btn.addEventListener("mousedown", e => e.preventDefault());
-});
-
-// trigger actions via window.mobileAction
-document.getElementById("auto-btn").onclick = () => {
-    window.mobileAction = "AUTO_FIRE";
-};
-
-document.getElementById("spin-btn").onclick = () => {
-    window.mobileAction = "AUTO_SPIN";
-};
-
-
-/*
-
-document.getElementById("auto-btn").onclick = () => {
-    window.mobileAction = "AUTO_FIRE";
-    document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
-  //  document.getElementById("gameCanvas").focus(); // focus back
-};
-
-document.getElementById("spin-btn").onclick = () => {
-    window.mobileAction = "AUTO_SPIN";
-    document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
-   // document.getElementById("gameCanvas").focus();
-};*/
-
-
-
-
 
 
 
