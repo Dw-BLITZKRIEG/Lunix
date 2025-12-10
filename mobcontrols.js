@@ -6,17 +6,24 @@ toggle.addEventListener("click", () => {
     menu.classList.toggle("hidden");
 });
 
-
-
-
-/*const buttons = ["auto-btn", "spin-btn"]; // add other buttons here
+// prevent buttons from stealing focus
+const buttons = ["auto-btn", "spin-btn"]; // add more buttons as needed
 buttons.forEach(id => {
     const btn = document.getElementById(id);
     btn.addEventListener("mousedown", e => e.preventDefault());
-}); */
+});
+
+// trigger actions via window.mobileAction
+document.getElementById("auto-btn").onclick = () => {
+    window.mobileAction = "AUTO_FIRE";
+};
+
+document.getElementById("spin-btn").onclick = () => {
+    window.mobileAction = "AUTO_SPIN";
+};
 
 
-
+/*
 
 document.getElementById("auto-btn").onclick = () => {
     window.mobileAction = "AUTO_FIRE";
@@ -28,7 +35,7 @@ document.getElementById("spin-btn").onclick = () => {
     window.mobileAction = "AUTO_SPIN";
     document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
    // document.getElementById("gameCanvas").focus();
-};
+};*/
 
 
 
