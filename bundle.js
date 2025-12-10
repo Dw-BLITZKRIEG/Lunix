@@ -4119,13 +4119,16 @@ if (window.showKillCounter) {
                 );
 }
 /////////////////////////////////////////////////////////////////
-// Define buttons globally with cooldown tracking
+
+
+
+
 window.canvasButtons = [
     { x: 50, y: 50, w: 150, h: 50, text: "AUTO FIRE", lastPressed: 0, action: () => window.helpcmds.talk("t",1) },
     { x: 50, y: 110, w: 150, h: 50, text: "AUTO SPIN", lastPressed: 0, action: () => window.helpcmds.talk("t",0) }
 ];
 
-const COOLDOWN = 200; // milliseconds
+const COOLDOWN = 100; // milliseconds
 
 // Draw function
 function drawButtons() {
@@ -6083,19 +6086,7 @@ canvas.addEventListener("click", e => {
             }
             if (!e.repeat) {
                  
-               // check if a mobile button has triggered an action
-    if (window.mobileAction) {
-        switch (window.mobileAction) {
-            case "AUTO_SPIN":
-                this.talk("t", 0);
-                break;
-            case "AUTO_FIRE":
-                this.talk("t", 1);
-                break;
-            // ...add other actions here
-        }
-        window.mobileAction = null; // reset after handling
-    }
+     
 
 
               switch (e.keyCode) {
