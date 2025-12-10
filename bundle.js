@@ -6026,6 +6026,19 @@ if (window.showKillCounter) {
             }
             if (!e.repeat) {
                  
+               // check if a mobile button has triggered an action
+    if (window.mobileAction) {
+        switch (window.mobileAction) {
+            case "AUTO_SPIN":
+                this.talk("t", 0);
+                break;
+            case "AUTO_FIRE":
+                this.talk("t", 1);
+                break;
+            // ...add other actions here
+        }
+        window.mobileAction = null; // reset after handling
+    }
 
 
               switch (e.keyCode) {

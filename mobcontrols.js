@@ -6,35 +6,12 @@ toggle.addEventListener("click", () => {
     menu.classList.toggle("hidden");
 });
 
-// --- BUTTON ACTIONS (TEST MODE) ---
-function waitForHelpcmds(callback) {
-    if (typeof helpcmds !== "undefined" && helpcmds.cmd) {
-        callback();
-    } else {
-        setTimeout(() => waitForHelpcmds(callback), 50);
-    }
-}
-
-waitForHelpcmds(() => {
-
 document.getElementById("auto-btn").onclick = () => {
-    const evt = new KeyboardEvent("keydown", { keyCode: 80 }); // 67 = C
-    document.dispatchEvent(evt);
+    window.mobileAction = "AUTO_FIRE";
+    document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 })); // just to trigger the handler
 };
 
-});
-
-/*
-
-
-
-document.getElementById("fire-btn").addEventListener("click", () => {
-    console.log("FIRE BUTTON PRESSED");
-});
-document.getElementById("ability-btn").addEventListener("click", () => {
-    console.log("E BUTTON PRESSED");
-   
-});
-document.getElementById("auto-btn").addEventListener("click", () => {
-    console.log("C BUTTON PRESSED");
-}); */
+document.getElementById("spin-btn").onclick = () => {
+    window.mobileAction = "AUTO_SPIN";
+    document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
+};
