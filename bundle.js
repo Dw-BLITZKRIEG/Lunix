@@ -4118,6 +4118,54 @@ if (window.showKillCounter) {
                   "right"
                 );
 }
+/////////////////////////////////////////////////////////////////
+// Define buttons globally
+window.canvasButtons = [
+    { x: 50, y: 50, w: 150, h: 50, text: "AUTO FIRE", action: () => window.helpcmds.talk("t",1) },
+    { x: 50, y: 110, w: 150, h: 50, text: "AUTO SPIN", action: () => window.helpcmds.talk("t",0) }
+];
+
+// Draw function
+function drawButtons() {
+    const canvas = document.getElementById("gameCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    window.canvasButtons.forEach(btn => {
+        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "20px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(btn.text, btn.x + btn.w/2, btn.y + btn.h/2);
+    });
+}
+
+ drawButtons();
+
+ const canvas = document.getElementById("gameCanvas");
+
+canvas.addEventListener("click", e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    window.canvasButtons.forEach(btn => {
+        if (
+            mx >= btn.x && mx <= btn.x + btn.w &&
+            my >= btn.y && my <= btn.y + btn.h
+        ) {
+            btn.action();
+        }
+    });
+});
+
+
+
+//////////////////////////////////////////////////////////////////////
                 if (z.name.includes("[AI]"))
                   N.draw(
                     z.name,
