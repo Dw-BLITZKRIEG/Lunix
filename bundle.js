@@ -4188,8 +4188,7 @@ canvas.addEventListener("click", e => {
     });
 });
 
-
-setInterval(drawButtons, 1000/30);
+drawButtons();
 /////////////////////////////////////////////////////////////////
 
 
