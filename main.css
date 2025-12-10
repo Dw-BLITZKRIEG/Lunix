@@ -1256,3 +1256,25 @@ body.flicker {
     background: #45a049;
 }
 
+
+#mobile-controls {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 9999;
+}
+
+.mobile-btn {
+    padding: 18px 25px;
+    font-size: 18px;
+    color: white;
+    border: 2px solid white;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    user-select: none;
+    touch-action: none;
+}
+
