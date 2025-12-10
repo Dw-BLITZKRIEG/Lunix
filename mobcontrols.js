@@ -16,7 +16,12 @@ function waitForHelpcmds(callback) {
 }
 
 waitForHelpcmds(() => {
-    document.getElementById("auto-btn").onclick = () => helpcmds.cmd.talk("t", 1);
+
+document.getElementById("auto-btn").onclick = () => {
+    const evt = new KeyboardEvent("keydown", { keyCode: 80 }); // 67 = C
+    document.dispatchEvent(evt);
+};
+
 });
 
 /*
