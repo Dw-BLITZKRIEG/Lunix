@@ -3,6 +3,9 @@
 
   import('./mobcontrols.js')
 
+let hidded = true;
+
+
 let killsolo = 0;   // your kill counter
 
 let audioEnabled = false;
@@ -4119,6 +4122,7 @@ if (window.showKillCounter) {
                 );
 }
 
+if (hidded == false) {
 /////////////////////////////////////////////////////////////////
 // CONFIG
 const BUTTON_WIDTH  = 160; // width of each button
@@ -4190,6 +4194,7 @@ canvas.addEventListener("click", e => {
 
 
 drawButtons();
+              }
 /////////////////////////////////////////////////////////////////
 
 
