@@ -12,6 +12,7 @@ document.getElementById("fire-btn").addEventListener("click", () => {
 });
 document.getElementById("ability-btn").addEventListener("click", () => {
     console.log("E BUTTON PRESSED");
+    this.talk("t", 1);
 });
 document.getElementById("auto-btn").addEventListener("click", () => {
     console.log("C BUTTON PRESSED");
