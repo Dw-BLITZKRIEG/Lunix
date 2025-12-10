@@ -1,4 +1,3 @@
-
 // --- MOBCONTROLS.JS ---
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,16 +18,19 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "spin-btn", action: "AUTO_SPIN" }
     ];
 
+    const canvas = document.getElementById("gameCanvas");
+
     buttons.forEach(btnData => {
         const btn = document.getElementById(btnData.id);
-        if (!btn) return; // skip if button doesn't exist
+        if (!btn) return; // skip if element doesn't exist
 
         // prevent button from stealing focus
         btn.addEventListener("mousedown", e => e.preventDefault());
 
-        // set mobileAction when clicked
+        // set mobileAction and refocus canvas
         btn.addEventListener("click", () => {
             window.mobileAction = btnData.action;
+            if (canvas) canvas.focus(); // keep the game active
         });
     });
 
