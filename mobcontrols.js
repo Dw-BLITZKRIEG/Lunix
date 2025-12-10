@@ -9,11 +9,11 @@ toggle.addEventListener("click", () => {
 
 
 
-const buttons = ["auto-btn", "spin-btn"]; // add other buttons here
+/*const buttons = ["auto-btn", "spin-btn"]; // add other buttons here
 buttons.forEach(id => {
     const btn = document.getElementById(id);
     btn.addEventListener("mousedown", e => e.preventDefault());
-});
+}); */
 
 
 
@@ -21,13 +21,13 @@ buttons.forEach(id => {
 document.getElementById("auto-btn").onclick = () => {
     window.mobileAction = "AUTO_FIRE";
     document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
-    document.getElementById("gameCanvas").focus(); // focus back
+  //  document.getElementById("gameCanvas").focus(); // focus back
 };
 
 document.getElementById("spin-btn").onclick = () => {
     window.mobileAction = "AUTO_SPIN";
     document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 0 }));
-    document.getElementById("gameCanvas").focus();
+   // document.getElementById("gameCanvas").focus();
 };
 
 
