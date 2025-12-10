@@ -1,4 +1,8 @@
 
+
+
+  import('./mobcontrols.js')
+
 let killsolo = 0;   // your kill counter
 
 let audioEnabled = false;
