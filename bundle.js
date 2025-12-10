@@ -4119,18 +4119,13 @@ if (window.showKillCounter) {
                 );
 }
 /////////////////////////////////////////////////////////////////
-
-
-
-
 window.canvasButtons = [
-    { x: 50, y: 50, w: 150, h: 50, text: "AUTO FIRE", lastPressed: 0, action: () => window.helpcmds.talk("t",1) },
-    { x: 50, y: 110, w: 150, h: 50, text: "AUTO SPIN", lastPressed: 0, action: () => window.helpcmds.talk("t",0) }
+    { x: 50, y: 50,  w: 150, h: 50, text: "AUTO FIRE", lastPressed: 0, action: () => window.helpcmds.talk("t",1) },
+    { x: 50, y: 120, w: 150, h: 50, text: "AUTO SPIN", lastPressed: 0, action: () => window.helpcmds.talk("t",0) }
 ];
 
 const COOLDOWN = 100; // milliseconds
 
-// Draw function
 function drawButtons() {
     const canvas = document.getElementById("gameCanvas");
     if (!canvas) return;
@@ -4138,23 +4133,20 @@ function drawButtons() {
     if (!ctx) return;
 
     window.canvasButtons.forEach(btn => {
-        // Draw button background
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
 
-        // Draw button text
         ctx.fillStyle = "#fff";
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(btn.text, btn.x + btn.w / 2, btn.y + btn.h / 2);
+        ctx.fillText(btn.text, btn.x + btn.w/2, btn.y + btn.h/2);
     });
 }
 
-// Draw buttons once (optional, for testing)
+// Draw buttons once (or call in render loop)
 drawButtons();
 
-// Canvas click handler with cooldown
 const canvas = document.getElementById("gameCanvas");
 
 canvas.addEventListener("click", e => {
@@ -4176,6 +4168,7 @@ canvas.addEventListener("click", e => {
         }
     });
 });
+
 /////////////////////////////////////////////////////////////////
 
                 if (z.name.includes("[AI]"))
