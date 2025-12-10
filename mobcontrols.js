@@ -1,38 +1,26 @@
-// --- MOBCONTROLS.JS ---
-
 document.addEventListener("DOMContentLoaded", () => {
-
-    // --- TOGGLE MENU ---
-    const toggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("mobile-controls");
-
-    if (toggle && menu) {
-        toggle.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-        });
-    }
-
-    // --- BUTTONS ---
-    const buttons = [
-        { id: "auto-btn", action: "AUTO_FIRE" },
-        { id: "spin-btn", action: "AUTO_SPIN" }
-    ];
 
     const canvas = document.getElementById("gameCanvas");
 
-    buttons.forEach(btnData => {
-        const btn = document.getElementById(btnData.id);
-        if (!btn) return; // skip if element doesn't exist
-
-        // prevent button from stealing focus
-        btn.addEventListener("mousedown", e => e.preventDefault());
-
-        // set mobileAction and refocus canvas
-        btn.addEventListener("click", () => {
-            window.mobileAction = btnData.action;
-            if (canvas) canvas.focus(); // keep the game active
+    // Auto Fire button
+    const autoBtn = document.getElementById("auto-btn");
+    if (autoBtn) {
+        autoBtn.addEventListener("mousedown", e => e.preventDefault());
+        autoBtn.addEventListener("click", () => {
+            window.mobileAction = "AUTO_FIRE";
+            if (canvas) canvas.focus(); // keep game active
         });
-    });
+    }
+
+    // Auto Spin button
+    const spinBtn = document.getElementById("spin-btn");
+    if (spinBtn) {
+        spinBtn.addEventListener("mousedown", e => e.preventDefault());
+        spinBtn.addEventListener("click", () => {
+            window.mobileAction = "AUTO_SPIN";
+            if (canvas) canvas.focus();
+        });
+    }
 
 });
 

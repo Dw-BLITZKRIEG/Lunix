@@ -1256,8 +1256,6 @@ body.flicker {
     background: #45a049;
 }
 
-.hidden { display: none; }
-
 #mobile-controls {
     position: absolute;
     bottom: 20px;
@@ -1265,12 +1263,12 @@ body.flicker {
     background: rgba(0,0,0,0.5);
     padding: 10px;
     border-radius: 10px;
+    z-index: 1000; /* ensure buttons are above the canvas */
 }
 
 #mobile-controls button {
     margin: 5px;
     padding: 8px 12px;
-    border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
 }
