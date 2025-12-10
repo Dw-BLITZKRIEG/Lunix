@@ -7,6 +7,11 @@ toggle.addEventListener("click", () => {
 });
 
 // --- BUTTON ACTIONS (TEST MODE) ---
+document.getElementById("auto-btn").onclick = () => g.cmd.talk("t", 1);
+
+
+
+
 document.getElementById("fire-btn").addEventListener("click", () => {
     console.log("FIRE BUTTON PRESSED");
 });

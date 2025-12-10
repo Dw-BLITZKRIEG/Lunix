@@ -6024,6 +6024,9 @@ if (window.showKillCounter) {
               while (--k);
             }
             if (!e.repeat) {
+                 
+
+
               switch (e.keyCode) {
                 case a.KEY_AUTO_SPIN:
                   this.talk("t", 0);
