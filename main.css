@@ -1256,42 +1256,24 @@ body.flicker {
     background: #45a049;
 }
 
-#mobile-menu {
-    position: fixed;
+.hidden { display: none; }
+
+#mobile-controls {
+    position: absolute;
     bottom: 20px;
     left: 20px;
-    z-index: 999999;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 10px;
 }
 
-#menu-toggle {
-    width: 45px;
-    height: 45px;
-    font-size: 26px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.4);
-    border: 1px solid white;
+#mobile-controls button {
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-#mobile-controls {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.hidden {
-    display: none;
-}
-
-.mobile-btn {
-    padding: 15px 20px;
-    font-size: 18px;
-    background: rgba(255,255,255,0.4);
-    border: 1px solid white;
-    border-radius: 10px;
-    color: black;
-    width: 100px;
-}
 
 
