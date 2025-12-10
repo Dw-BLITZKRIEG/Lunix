@@ -4118,14 +4118,33 @@ if (window.showKillCounter) {
                   "right"
                 );
 }
+
 /////////////////////////////////////////////////////////////////
+// CONFIG
+const BUTTON_WIDTH  = 160; // width of each button
+const BUTTON_HEIGHT = 70;  // height for easy mobile taps
+const BUTTON_PADDING = 15; // vertical space between buttons
+const BUTTON_X = 50;       // left offset
+const BUTTON_START_Y = 50; // first button top position
+const COOLDOWN = 150;      // ms between button presses
+
+// Define buttons
 window.canvasButtons = [
-    { x: 50, y: 50,  w: 150, h: 50, text: "AUTO FIRE", lastPressed: 0, action: () => window.helpcmds.talk("t",1) },
-    { x: 50, y: 120, w: 150, h: 50, text: "AUTO SPIN", lastPressed: 0, action: () => window.helpcmds.talk("t",0) }
+    { text: "AUTO FIRE",  action: () => window.helpcmds.talk("t",1), lastPressed: 0 },
+    { text: "AUTO SPIN",  action: () => window.helpcmds.talk("t",0), lastPressed: 0 },
+    // add more buttons here if needed
 ];
 
-const COOLDOWN = 100; // milliseconds
+// Auto-calculate button positions
+window.canvasButtons.forEach((btn, i) => {
+    btn.x = BUTTON_X;
+    btn.y = BUTTON_START_Y + i * (BUTTON_HEIGHT + BUTTON_PADDING);
+    btn.w = BUTTON_WIDTH;
+    btn.h = BUTTON_HEIGHT;
+});
 
+/////////////////////////////////////////////////////////////////
+// DRAW BUTTONS
 function drawButtons() {
     const canvas = document.getElementById("gameCanvas");
     if (!canvas) return;
@@ -4133,27 +4152,27 @@ function drawButtons() {
     if (!ctx) return;
 
     window.canvasButtons.forEach(btn => {
+        // Draw background
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
 
+        // Draw text
         ctx.fillStyle = "#fff";
-        ctx.font = "20px Arial";
+        ctx.font = "22px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(btn.text, btn.x + btn.w/2, btn.y + btn.h/2);
     });
 }
 
-// Draw buttons once (or call in render loop)
-drawButtons();
-
+/////////////////////////////////////////////////////////////////
+// HANDLE CLICKS
 const canvas = document.getElementById("gameCanvas");
 
 canvas.addEventListener("click", e => {
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
-
     const now = Date.now();
 
     window.canvasButtons.forEach(btn => {
@@ -4169,7 +4188,10 @@ canvas.addEventListener("click", e => {
     });
 });
 
+
+setInterval(drawButtons, 1000/30);
 /////////////////////////////////////////////////////////////////
+
 
                 if (z.name.includes("[AI]"))
                   N.draw(
