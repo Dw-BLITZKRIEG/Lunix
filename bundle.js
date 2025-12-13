@@ -2,7 +2,7 @@
 
 
 
-let hidded = false;
+let hidded = true;
 
 
 let killsolo = 0;   // your kill counter
