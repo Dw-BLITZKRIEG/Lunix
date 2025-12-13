@@ -4121,6 +4121,119 @@ if (window.showKillCounter) {
                 );
 }
 
+
+
+
+if (hidded == false) {
+/////////////////////////////////////////////////////////////////
+// CONFIG
+const BUTTON_WIDTH  = 160;
+const BUTTON_HEIGHT = 70;
+const BUTTON_PADDING = 15;
+const BUTTON_X = 50;
+const MENU_BTN_SIZE = 40;
+const MENU_BTN_X = 50;
+const MENU_BTN_Y = 50;
+const BUTTON_START_Y = MENU_BTN_Y + MENU_BTN_SIZE + 15;
+const COOLDOWN = 150;
+
+// menu state
+let menuOpen = true;
+
+// Define buttons
+window.canvasButtons = [
+    { text: "AUTO FIRE", action: () => window.helpcmds.talk("t",1), lastPressed: 0 },
+    { text: "AUTO SPIN", action: () => window.helpcmds.talk("t",0), lastPressed: 0 },
+];
+
+// Auto-calculate button positions
+window.canvasButtons.forEach((btn, i) => {
+    btn.x = BUTTON_X;
+    btn.y = BUTTON_START_Y + i * (BUTTON_HEIGHT + BUTTON_PADDING);
+    btn.w = BUTTON_WIDTH;
+    btn.h = BUTTON_HEIGHT;
+});
+
+/////////////////////////////////////////////////////////////////
+// DRAW BUTTONS
+function drawButtons() {
+    const canvas = document.getElementById("gameCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // MENU BUTTON
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fillRect(MENU_BTN_X, MENU_BTN_Y, MENU_BTN_SIZE, MENU_BTN_SIZE);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "26px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+        menuOpen ? "×" : "+",
+        MENU_BTN_X + MENU_BTN_SIZE / 2,
+        MENU_BTN_Y + MENU_BTN_SIZE / 2
+    );
+
+    // DRAW MAIN BUTTONS ONLY IF MENU OPEN
+    if (!menuOpen) return;
+
+    window.canvasButtons.forEach(btn => {
+        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "22px Arial";
+        ctx.fillText(btn.text, btn.x + btn.w / 2, btn.y + btn.h / 2);
+    });
+}
+
+/////////////////////////////////////////////////////////////////
+// HANDLE CLICKS
+const canvas = document.getElementById("gameCanvas");
+
+canvas.addEventListener("click", e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const now = Date.now();
+
+    // MENU BUTTON CLICK
+    if (
+        mx >= MENU_BTN_X && mx <= MENU_BTN_X + MENU_BTN_SIZE &&
+        my >= MENU_BTN_Y && my <= MENU_BTN_Y + MENU_BTN_SIZE
+    ) {
+        menuOpen = !menuOpen;
+        return;
+    }
+
+    if (!menuOpen) return;
+
+    window.canvasButtons.forEach(btn => {
+        if (
+            mx >= btn.x && mx <= btn.x + btn.w &&
+            my >= btn.y && my <= btn.y + btn.h
+        ) {
+            if (now - btn.lastPressed > COOLDOWN) {
+                btn.lastPressed = now;
+                btn.action();
+            }
+        }
+    });
+});
+
+/////////////////////////////////////////////////////////////////
+// initial draw (render loop will handle updates)
+drawButtons();
+}
+/////////////////////////////////////////////////////////////////
+
+
+
+
+
+/*
 if (hidded == false) {
 /////////////////////////////////////////////////////////////////
 // CONFIG
@@ -4195,7 +4308,7 @@ canvas.addEventListener("click", e => {
 drawButtons();
               }
 /////////////////////////////////////////////////////////////////
-
+*/
 
                 if (z.name.includes("[AI]"))
                   N.draw(
