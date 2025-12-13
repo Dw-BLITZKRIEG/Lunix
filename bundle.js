@@ -4123,7 +4123,6 @@ if (window.showKillCounter) {
 
 
 
-
 if (hidded == false) {
 /////////////////////////////////////////////////////////////////
 // CONFIG
@@ -4131,9 +4130,11 @@ const BUTTON_WIDTH  = 160;
 const BUTTON_HEIGHT = 70;
 const BUTTON_PADDING = 15;
 const BUTTON_X = 50;
+
 const MENU_BTN_SIZE = 40;
 const MENU_BTN_X = 50;
 const MENU_BTN_Y = 50;
+
 const BUTTON_START_Y = MENU_BTN_Y + MENU_BTN_SIZE + 15;
 const COOLDOWN = 150;
 
@@ -4142,8 +4143,8 @@ let menuOpen = true;
 
 // Define buttons
 window.canvasButtons = [
-    { text: "AUTO FIRE", action: () => window.helpcmds.talk("t",1), lastPressed: 0 },
-    { text: "AUTO SPIN", action: () => window.helpcmds.talk("t",0), lastPressed: 0 },
+    { text: "AUTO FIRE", action: () => window.helpcmds.talk("t", 1), lastPressed: 0 },
+    { text: "AUTO SPIN", action: () => window.helpcmds.talk("t", 0), lastPressed: 0 },
 ];
 
 // Auto-calculate button positions
@@ -4176,9 +4177,9 @@ function drawButtons() {
         MENU_BTN_Y + MENU_BTN_SIZE / 2
     );
 
-    // DRAW MAIN BUTTONS ONLY IF MENU OPEN
     if (!menuOpen) return;
 
+    // MAIN BUTTONS
     window.canvasButtons.forEach(btn => {
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
@@ -4190,43 +4191,46 @@ function drawButtons() {
 }
 
 /////////////////////////////////////////////////////////////////
-// HANDLE CLICKS
+// HANDLE CLICKS (GUARDED)
 const canvas = document.getElementById("gameCanvas");
 
-canvas.addEventListener("click", e => {
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-    const now = Date.now();
-   console.log(menuOpen);
-    // MENU BUTTON CLICK
-    if (
-        mx >= MENU_BTN_X && mx <= MENU_BTN_X + MENU_BTN_SIZE &&
-        my >= MENU_BTN_Y && my <= MENU_BTN_Y + MENU_BTN_SIZE
-    ) {
-        menuOpen = !menuOpen;
-        return;
+if (!canvas._mobileMenuListener) {
+    canvas._mobileMenuListener = true;
 
-    }
+    canvas.addEventListener("click", e => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const now = Date.now();
 
-    if (!menuOpen) return;
-
-    window.canvasButtons.forEach(btn => {
+        // MENU BUTTON CLICK
         if (
-            mx >= btn.x && mx <= btn.x + btn.w &&
-            my >= btn.y && my <= btn.y + btn.h
+            mx >= MENU_BTN_X && mx <= MENU_BTN_X + MENU_BTN_SIZE &&
+            my >= MENU_BTN_Y && my <= MENU_BTN_Y + MENU_BTN_SIZE
         ) {
-            if (now - btn.lastPressed > COOLDOWN) {
-                btn.lastPressed = now;
-                btn.action();
-            }
+            menuOpen = !menuOpen;
+            return;
         }
+
+        if (!menuOpen) return;
+
+        // BUTTON CLICKS
+        window.canvasButtons.forEach(btn => {
+            if (
+                mx >= btn.x && mx <= btn.x + btn.w &&
+                my >= btn.y && my <= btn.y + btn.h
+            ) {
+                if (now - btn.lastPressed > COOLDOWN) {
+                    btn.lastPressed = now;
+                    btn.action();
+                }
+            }
+        });
     });
-});
+}
 
 /////////////////////////////////////////////////////////////////
-// initial draw (render loop will handle updates)
-drawButtons();
+// render loop should call drawButtons()
 }
 /////////////////////////////////////////////////////////////////
 
