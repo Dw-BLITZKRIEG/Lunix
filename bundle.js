@@ -4198,7 +4198,7 @@ canvas.addEventListener("click", e => {
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
     const now = Date.now();
-   
+   console.log(menuOpen);
     // MENU BUTTON CLICK
     if (
         mx >= MENU_BTN_X && mx <= MENU_BTN_X + MENU_BTN_SIZE &&
@@ -4206,7 +4206,7 @@ canvas.addEventListener("click", e => {
     ) {
         menuOpen = !menuOpen;
         return;
-        
+
     }
 
     if (!menuOpen) return;
