@@ -4222,7 +4222,7 @@ canvas.addEventListener("click", e => {
     });
 });
 
-
+drawButtons();
 
 
 
