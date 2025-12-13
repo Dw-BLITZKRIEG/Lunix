@@ -4123,28 +4123,24 @@ if (window.showKillCounter) {
 
 
 
-if (hidded == false) {
 /////////////////////////////////////////////////////////////////
 // CONFIG
 const BUTTON_WIDTH  = 160;
 const BUTTON_HEIGHT = 70;
 const BUTTON_PADDING = 15;
 const BUTTON_X = 50;
-
-const MENU_BTN_SIZE = 40;
-const MENU_BTN_X = 50;
-const MENU_BTN_Y = 50;
-
-const BUTTON_START_Y = MENU_BTN_Y + MENU_BTN_SIZE + 15;
+const BUTTON_START_Y = 50;
 const COOLDOWN = 150;
 
-// menu state
-let menuOpen = true;
+// hide-toggle button
+const HIDE_BTN_SIZE = 40;
+const HIDE_BTN_X = 10;
+const HIDE_BTN_Y = 10;
 
 // Define buttons
 window.canvasButtons = [
-    { text: "AUTO FIRE", action: () => window.helpcmds.talk("t", 1), lastPressed: 0 },
-    { text: "AUTO SPIN", action: () => window.helpcmds.talk("t", 0), lastPressed: 0 },
+    { text: "AUTO FIRE", action: () => window.helpcmds.talk("t",1), lastPressed: 0 },
+    { text: "AUTO SPIN", action: () => window.helpcmds.talk("t",0), lastPressed: 0 },
 ];
 
 // Auto-calculate button positions
@@ -4156,30 +4152,31 @@ window.canvasButtons.forEach((btn, i) => {
 });
 
 /////////////////////////////////////////////////////////////////
-// DRAW BUTTONS
+// DRAW
 function drawButtons() {
     const canvas = document.getElementById("gameCanvas");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // MENU BUTTON
+    // HIDE / SHOW BUTTON (ALWAYS DRAWN)
     ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(MENU_BTN_X, MENU_BTN_Y, MENU_BTN_SIZE, MENU_BTN_SIZE);
+    ctx.fillRect(HIDE_BTN_X, HIDE_BTN_Y, HIDE_BTN_SIZE, HIDE_BTN_SIZE);
 
     ctx.fillStyle = "#fff";
-    ctx.font = "26px Arial";
+    ctx.font = "22px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(
-        menuOpen ? "×" : "+",
-        MENU_BTN_X + MENU_BTN_SIZE / 2,
-        MENU_BTN_Y + MENU_BTN_SIZE / 2
+        hidded ? "+" : "×",
+        HIDE_BTN_X + HIDE_BTN_SIZE / 2,
+        HIDE_BTN_Y + HIDE_BTN_SIZE / 2
     );
 
-    if (!menuOpen) return;
+    // IF HIDDEN, STOP HERE
+    if (hidded) return;
 
-    // MAIN BUTTONS
+    // DRAW NORMAL BUTTONS
     window.canvasButtons.forEach(btn => {
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
@@ -4191,48 +4188,39 @@ function drawButtons() {
 }
 
 /////////////////////////////////////////////////////////////////
-// HANDLE CLICKS (GUARDED)
+// INPUT
 const canvas = document.getElementById("gameCanvas");
 
-if (!canvas._mobileMenuListener) {
-    canvas._mobileMenuListener = true;
+canvas.addEventListener("click", e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const now = Date.now();
 
-    canvas.addEventListener("click", e => {
-        const rect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-        const now = Date.now();
+    // TOGGLE HIDDEN
+    if (
+        mx >= HIDE_BTN_X && mx <= HIDE_BTN_X + HIDE_BTN_SIZE &&
+        my >= HIDE_BTN_Y && my <= HIDE_BTN_Y + HIDE_BTN_SIZE
+    ) {
+        hidded = !hidded;
+        return;
+    }
 
-        // MENU BUTTON CLICK
+    if (hidded) return;
+
+    // NORMAL BUTTON CLICKS
+    window.canvasButtons.forEach(btn => {
         if (
-            mx >= MENU_BTN_X && mx <= MENU_BTN_X + MENU_BTN_SIZE &&
-            my >= MENU_BTN_Y && my <= MENU_BTN_Y + MENU_BTN_SIZE
+            mx >= btn.x && mx <= btn.x + btn.w &&
+            my >= btn.y && my <= btn.y + btn.h
         ) {
-            menuOpen = !menuOpen;
-            return;
-        }
-
-        if (!menuOpen) return;
-
-        // BUTTON CLICKS
-        window.canvasButtons.forEach(btn => {
-            if (
-                mx >= btn.x && mx <= btn.x + btn.w &&
-                my >= btn.y && my <= btn.y + btn.h
-            ) {
-                if (now - btn.lastPressed > COOLDOWN) {
-                    btn.lastPressed = now;
-                    btn.action();
-                }
+            if (now - btn.lastPressed > COOLDOWN) {
+                btn.lastPressed = now;
+                btn.action();
             }
-        });
+        }
     });
-}
-
-/////////////////////////////////////////////////////////////////
-// render loop should call drawButtons()
-}
-/////////////////////////////////////////////////////////////////
+});
 
 
 
