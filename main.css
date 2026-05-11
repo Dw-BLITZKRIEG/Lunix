@@ -235,12 +235,12 @@ input.error {
   padding: 10px;
   box-shadow: -2px 0 5px rgba(0,0,0,0.2); /* slight shadow */
   z-index: 1000;         /* above other content */
-     transition: transform 0.5s ease, opacity 0.5s ease;
+     transition: transform 0.5s ease, opacity 0.5s ease 2s;
   opacity: 0; /* fully visible */
 }
 
 #changelogMenu:hover {
- transition: transform 0.5s ease, opacity 0.5s ease;
+ transition: transform 0.5s ease, opacity 0.5s ease 2s;
   opacity: 1;
 }
 
