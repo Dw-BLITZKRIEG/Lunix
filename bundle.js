@@ -1,8 +1,13 @@
 
 
+const isMobile =
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0);
 
-
-let hidded = false;
+let hidded = true;
+if (isMobile == true) {
+  hidded = false
+}
 
 
 let killsolo = 0;   // your kill counter
