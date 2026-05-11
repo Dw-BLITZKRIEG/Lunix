@@ -240,7 +240,7 @@ input.error {
 }
 
 #changelogMenu:hover {
- transition: transform 0.5s ease, opacity 0.5s ease 1s;
+ transition: transform 0.5s ease, opacity 0.5s ease;
   opacity: 1;
 }
 
