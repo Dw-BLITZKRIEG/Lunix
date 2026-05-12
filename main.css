@@ -25,7 +25,8 @@ html, body {
 
 
 body {
-  font-family: Ubuntu;
+ /* font-family: Ubuntu; */
+ 	font-family: 'Balsamiq Sans', cursive;
 
  
   font-size: 14px;
