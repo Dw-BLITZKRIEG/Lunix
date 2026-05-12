@@ -2806,7 +2806,8 @@ case "explofar": {
             if (b.measureText("test").emHeightAscent)
               return (a, c, d = !1) => {
                 c += B.graphical.fontSizeBoost;
-                b.font = "bold " + c + "px Ubuntu";
+                //b.font = "bold " + c + "px Ubuntu";
+                b.font = "bold " + c + "px 'Balsamiq Sans'";
                 a = b.measureText(a);
                 return d
                   ? {
@@ -2825,14 +2826,17 @@ case "explofar": {
               d += B.graphical.fontSizeBoost;
               if (e)
                 return (
-                  (a.style.font = "bold " + d + "px Ubuntu"),
+                //  (a.style.font = "bold " + d + "px Ubuntu"),
+                      (a.style.font = "bold " + d + "px 'Balsamiq Sans'"),
+                 
                   (a.innerText = c),
                   {
                     width: a.clientWidth,
                     height: a.clientHeight
                   }
                 );
-              b.font = "bold " + d + "px Ubuntu";
+            //  b.font = "bold " + d + "px Ubuntu";
+            b.font = "bold " + d + "px 'Balsamiq Sans'";
               return b.measureText(c).width;
             };
           }
@@ -2845,7 +2849,8 @@ case "explofar": {
           document.body.appendChild(a);
           return (b, d, e = !1) => {
             d += B.graphical.fontSizeBoost;
-            a.style.font = "bold " + d + "px Ubuntu";
+        //    a.style.font = "bold " + d + "px Ubuntu";
+             a.style.font = "bold " + d + "px 'Balsamiq Sans'";
             return e
               ? {
                   width: a.clientWidth,
@@ -2918,7 +2923,8 @@ case "explofar": {
                   }
                   e = a.canvas.height / 2;
                   a.lineWidth = c;
-                  a.font = "bold " + k + "px Ubuntu";
+                 // a.font = "bold " + k + "px Ubuntu";
+                 a.font = "bold " + k + "px 'Balsamiq Sans'";
                   a.textAlign = u;
                   a.textBaseline = "middle";
                   a.strokeStyle = l.black; // l.black (basically all the text itself)
