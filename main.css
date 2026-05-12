@@ -182,7 +182,7 @@ input {
   margin-top: 5px;
   margin-bottom: 5px;
   outline: none;
-  font-family: Ubuntu;
+font-family: 'Balsamiq Sans', cursive;
   transition: border 0.3s, background 0.3s, color 0.3s;
 }
 
@@ -334,7 +334,7 @@ a.menuTab:link:hover, a.menuTab:visited:hover {
 
 .changelogSelectorContainer {
   height: 25px;
-  font: bold 20px Ubuntu;
+  font: bold 20px; /* ubuntu*/
   text-align: center;
   padding: 0 15px 5px 0;
   overflow: auto hidden;
@@ -709,7 +709,7 @@ body.mobile #startMenuWrapper { max-width: 750px; }
 .count {
   display: inline-block;
   width: 20px;
-  font: bold 12px Ubuntu;
+  font: bold 12px; /*ubuntu*/
 }
 .count span {
   font-size: 10px;
@@ -836,7 +836,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  font: 13px/1 Ubuntu;
+  font: 13px/1; /*Ubuntu*/
   padding: 2px 28px 2px 8px;
   height: 21px;
   margin-left: 3px;
@@ -878,7 +878,7 @@ select:active {
   border-radius: 50%;
   text-align: center;
   background: rgb(0, 0, 0, 0.6);
-  font: bold 10px/15px Ubuntu;
+  font: bold 10px/15px; /*ubuntu*/
   color: #fff;
   margin: 0 4px;
 }
@@ -892,7 +892,7 @@ select:active {
   width: 160px;
   background-color: #444444;
   color: #fff;
-  font: bold 11px Ubuntu;
+  font: bold 11px; /*ubuntu*/
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
