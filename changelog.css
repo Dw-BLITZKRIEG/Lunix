@@ -37,7 +37,7 @@ color: green;
 
 
 li2 {
-    font-family: sans-serif;
+    font-family: 'Balsamiq Sans', cursive;
   margin-top: 0px;
   margin-bottom: 10px;
   background: linear-gradient(to left, 	#8592d6, #000000, #8592d6, #000000  );
@@ -49,7 +49,7 @@ color: black;
 li {
   margin-top: 0px;
   margin-bottom: 10px;
-  font-family: serif;
+  font-family: 'Balsamiq Sans', cursive;
  /* font-size: 4rem; 
   text-align: center; */
   background: linear-gradient(to top, 	#8592d6, #000000, #8592d6, #000000  );
