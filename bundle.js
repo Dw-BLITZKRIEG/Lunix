@@ -4169,7 +4169,8 @@ function drawButtons() {
     ctx.fillRect(HIDE_BTN_X, HIDE_BTN_Y, HIDE_BTN_SIZE, HIDE_BTN_SIZE);
 
     ctx.fillStyle = "#fff";
-    ctx.font = "22px Arial";
+    //ctx.font = "22px Arial";
+    ctx.font = 'bold 40px "Balsamiq Sans"';
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(
@@ -4187,7 +4188,8 @@ function drawButtons() {
         ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
 
         ctx.fillStyle = "#fff";
-        ctx.font = "22px Arial";
+       // ctx.font = "22px Arial";
+       ctx.font = 'bold 40px "Balsamiq Sans"';
         ctx.fillText(btn.text, btn.x + btn.w / 2, btn.y + btn.h / 2);
     });
 }
